@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - run: pip install -e ".[mcp,dev]"
+      - run: pytest -q
+      - name: Build and check the distribution
+        run: |
+          python -m build
+          pip install --force-reinstall --no-deps dist/*.whl
+          vice --version
+          python -c "from vice_ai import paths; assert paths.DEFAULT_CALIBRATION.exists()"

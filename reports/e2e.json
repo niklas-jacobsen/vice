@@ -1,0 +1,229 @@
+{
+  "model": "jev-1.14.0",
+  "thresholds": {
+    "gate_yes": 0.6982499246324763,
+    "gate_no": 0.5350298431966719,
+    "relevance_min": 0.375,
+    "surface_min": 0.7142857142857143,
+    "conflict_min": 0.175,
+    "conflict_variant": "different_values",
+    "relevance_primitive": "choice",
+    "fanout_shape": "single"
+  },
+  "live": {
+    "events": 150,
+    "intrusion_rate": 0.0,
+    "intrusions_by_kind": {},
+    "surface_intrusion_rate": 0.0,
+    "miss_rate": 0.022222222222222223,
+    "context_precision": 0.8958333333333333,
+    "context_recall": 0.9055555555555556,
+    "exact_context_rate": 0.7777777777777778,
+    "stale_fact_rate": 0.06818181818181818,
+    "prefilter_recall_required@k": 0.9887640449438202,
+    "actions": {
+      "surface": 77,
+      "attach": 11,
+      "suppress": 62
+    },
+    "reasons": {
+      "strong_match": 77,
+      "relevant_context": 11,
+      "no_relevant_context": 1,
+      "gate_no": 60,
+      "pregate_too_short": 1
+    },
+    "mean_context_tokens": 17.511363636363637
+  },
+  "latency": {
+    "conflict_followup": {
+      "p50_ms": 163.2,
+      "p95_ms": 206.5,
+      "n": 30
+    },
+    "fanout": {
+      "p50_ms": 210.0,
+      "p95_ms": 252.9,
+      "n": 90
+    },
+    "gate": {
+      "p50_ms": 162.3,
+      "p95_ms": 195.2,
+      "n": 149
+    },
+    "prefilter": {
+      "p50_ms": 9.6,
+      "p95_ms": 16.5,
+      "n": 149
+    },
+    "pregate": {
+      "p50_ms": 0.1,
+      "p95_ms": 0.1,
+      "n": 150
+    },
+    "resolve_pack_decide": {
+      "p50_ms": 0.1,
+      "p95_ms": 0.5,
+      "n": 89
+    },
+    "total": {
+      "p50_ms": 209.8,
+      "p95_ms": 404.3,
+      "n": 150
+    }
+  },
+  "input_tokens_per_event": 4504,
+  "ablations": {
+    "no_gate_timeout": {
+      "events": 150,
+      "intrusion_rate": 0.0,
+      "intrusions_by_kind": {},
+      "surface_intrusion_rate": 0.0,
+      "miss_rate": 0.022222222222222223,
+      "context_precision": 0.8958333333333333,
+      "context_recall": 0.9055555555555556,
+      "exact_context_rate": 0.7777777777777778,
+      "stale_fact_rate": 0.06818181818181818,
+      "prefilter_recall_required@k": 0.9887640449438202,
+      "actions": {
+        "surface": 77,
+        "attach": 11,
+        "suppress": 62
+      },
+      "reasons": {
+        "strong_match": 77,
+        "relevant_context": 11,
+        "no_relevant_context": 1,
+        "gate_no": 60,
+        "pregate_too_short": 1
+      },
+      "mean_context_tokens": 17.511363636363637
+    },
+    "no_conflict_resolution": {
+      "events": 150,
+      "intrusion_rate": 0.0,
+      "intrusions_by_kind": {},
+      "surface_intrusion_rate": 0.0,
+      "miss_rate": 0.011111111111111112,
+      "context_precision": 0.6770733012306046,
+      "context_recall": 0.9388888888888889,
+      "exact_context_rate": 0.4111111111111111,
+      "stale_fact_rate": 0.48314606741573035,
+      "prefilter_recall_required@k": 0.9887640449438202,
+      "actions": {
+        "surface": 78,
+        "attach": 11,
+        "suppress": 61
+      },
+      "reasons": {
+        "strong_match": 78,
+        "relevant_context": 11,
+        "gate_no": 60,
+        "pregate_too_short": 1
+      },
+      "mean_context_tokens": 27.10112359550562
+    },
+    "uncalibrated_default_thresholds": {
+      "events": 150,
+      "intrusion_rate": 0.0,
+      "intrusions_by_kind": {},
+      "surface_intrusion_rate": 0.0,
+      "miss_rate": 0.044444444444444446,
+      "context_precision": 0.8689922480620155,
+      "context_recall": 0.9055555555555556,
+      "exact_context_rate": 0.7,
+      "stale_fact_rate": 0.12790697674418605,
+      "prefilter_recall_required@k": 0.9886363636363636,
+      "actions": {
+        "surface": 67,
+        "suppress": 64,
+        "attach": 19
+      },
+      "reasons": {
+        "strong_match": 67,
+        "unsettled_gate_weak_match": 1,
+        "relevant_context": 18,
+        "no_relevant_context": 1,
+        "unsettled_gate_strong_match": 1,
+        "gate_no": 61,
+        "pregate_too_short": 1
+      },
+      "mean_context_tokens": 19.848837209302324
+    },
+    "token_budget_30": {
+      "events": 150,
+      "intrusion_rate": 0.0,
+      "intrusions_by_kind": {},
+      "surface_intrusion_rate": 0.0,
+      "miss_rate": 0.022222222222222223,
+      "context_precision": 0.9090909090909091,
+      "context_recall": 0.8944444444444445,
+      "exact_context_rate": 0.7666666666666667,
+      "stale_fact_rate": 0.056818181818181816,
+      "prefilter_recall_required@k": 0.9887640449438202,
+      "actions": {
+        "surface": 77,
+        "attach": 11,
+        "suppress": 62
+      },
+      "reasons": {
+        "strong_match": 77,
+        "relevant_context": 11,
+        "no_relevant_context": 1,
+        "gate_no": 60,
+        "pregate_too_short": 1
+      },
+      "mean_context_tokens": 16.011363636363637
+    },
+    "token_budget_60": {
+      "events": 150,
+      "intrusion_rate": 0.0,
+      "intrusions_by_kind": {},
+      "surface_intrusion_rate": 0.0,
+      "miss_rate": 0.022222222222222223,
+      "context_precision": 0.8977272727272727,
+      "context_recall": 0.9055555555555556,
+      "exact_context_rate": 0.7777777777777778,
+      "stale_fact_rate": 0.06818181818181818,
+      "prefilter_recall_required@k": 0.9887640449438202,
+      "actions": {
+        "surface": 77,
+        "attach": 11,
+        "suppress": 62
+      },
+      "reasons": {
+        "strong_match": 77,
+        "relevant_context": 11,
+        "no_relevant_context": 1,
+        "gate_no": 60,
+        "pregate_too_short": 1
+      },
+      "mean_context_tokens": 17.318181818181817
+    },
+    "token_budget_120": {
+      "events": 150,
+      "intrusion_rate": 0.0,
+      "intrusions_by_kind": {},
+      "surface_intrusion_rate": 0.0,
+      "miss_rate": 0.022222222222222223,
+      "context_precision": 0.8958333333333333,
+      "context_recall": 0.9055555555555556,
+      "exact_context_rate": 0.7777777777777778,
+      "stale_fact_rate": 0.06818181818181818,
+      "prefilter_recall_required@k": 0.9887640449438202,
+      "actions": {
+        "surface": 77,
+        "attach": 11,
+        "suppress": 62
+      },
+      "reasons": {
+        "strong_match": 77,
+        "relevant_context": 11,
+        "no_relevant_context": 1,
+        "gate_no": 60,
+        "pregate_too_short": 1
+      },
+      "mean_context_tokens": 17.511363636363637
+    }
+  }
+}

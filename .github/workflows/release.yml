@@ -1,0 +1,55 @@
+# Tag a commit `vX.Y.Z` (matching the version in pyproject.toml) to publish.
+# PyPI publishing uses trusted publishing: configure this repository and the
+# `pypi` environment once at https://pypi.org/manage/account/publishing/ — no token is stored.
+name: Release
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -e ".[mcp,dev]"
+      - run: pytest -q
+      - name: Check the tag matches the package version
+        run: |
+          v=$(python -c "import vice_ai; print(vice_ai.__version__)")
+          test "v$v" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME does not match version $v"; exit 1; }
+      - run: python -m build
+      - run: shasum -a 256 dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  pypi:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  github-release:
+    needs: pypi
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - run: gh release create "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --generate-notes
+        env:
+          GH_TOKEN: ${{ github.token }}

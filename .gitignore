@@ -7,3 +7,5 @@ traces/
 data/jev_cache/
 data/index/
 drop/
+dist/
+build/
