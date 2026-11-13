@@ -3,14 +3,14 @@ import random
 
 import pytest
 
-from ambient.calibrate import Calibration
-from ambient.config import Config
-from ambient.conflict import DAY, resolve
-from ambient.decide import decide
-from ambient.eval import metrics as M
-from ambient.pack import knapsack, pack
-from ambient.pregate import PreGate, redact
-from ambient.types import Action, AmbientEvent, Candidate, Chunk
+from vice_ai.calibrate import Calibration
+from vice_ai.config import Config
+from vice_ai.conflict import DAY, resolve
+from vice_ai.decide import decide
+from vice_ai.eval import metrics as M
+from vice_ai.pack import knapsack, pack
+from vice_ai.pregate import PreGate, redact
+from vice_ai.types import Action, AmbientEvent, Candidate, Chunk
 
 CFG = Config()
 NOW = 1_800_000_000.0

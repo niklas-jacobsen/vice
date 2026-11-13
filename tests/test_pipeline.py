@@ -6,15 +6,15 @@ from pathlib import Path
 import numpy as np
 import pytest
 
-from ambient import questions as Q
-from ambient.config import Config
-from ambient.conflict import DAY
-from ambient.jev import FakeJudge
-from ambient.listeners import palette_listener, palette_send, read_dropped_file
-from ambient.pipeline import Pipeline
-from ambient.retrieve import Retriever
-from ambient.store import NumpyStore
-from ambient.types import Action, AmbientEvent, Chunk
+from vice_ai import questions as Q
+from vice_ai.config import Config
+from vice_ai.conflict import DAY
+from vice_ai.jev import FakeJudge
+from vice_ai.listeners import palette_listener, palette_send, read_dropped_file
+from vice_ai.pipeline import Pipeline
+from vice_ai.retrieve import Retriever
+from vice_ai.store import NumpyStore
+from vice_ai.types import Action, AmbientEvent, Chunk
 
 NOW = 1_800_000_000.0
 CHUNKS = [
