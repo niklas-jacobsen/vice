@@ -1,0 +1,32 @@
+[project]
+name = "ambient"
+version = "0.1.0"
+description = "Zero-UI ambient memory retrieval: Jev makes judgments, code makes decisions."
+requires-python = ">=3.12"
+dependencies = [
+    "typesafe-sdk[http2]>=0.7.5",
+    "numpy",
+    "fastembed",
+    "bm25s",
+    "tiktoken",
+    "opentelemetry-sdk",
+    "watchdog",
+    "pyobjc-framework-Cocoa; sys_platform == 'darwin'",
+]
+
+[project.optional-dependencies]
+eval = ["scikit-learn", "model2vec", "sqlite-vec", "lancedb", "hnswlib", "pytest", "pytest-asyncio"]
+
+[project.scripts]
+ambient = "ambient.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

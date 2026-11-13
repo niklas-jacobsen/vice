@@ -1,0 +1,255 @@
+{
+  "n_chunks": 1500,
+  "n_events": 90,
+  "embedders": [
+    {
+      "embedder": "bge-small",
+      "hybrid": false,
+      "dim": 384,
+      "load_s": 0.43,
+      "index_docs_per_s": 351,
+      "embed_query_p50_ms": 3.85,
+      "embed_query_p95_ms": 6.67,
+      "recall_required@5": 0.55,
+      "recall_required@8": 0.6444,
+      "recall_required@12": 0.7222,
+      "recall_required@20": 0.8,
+      "recall_relevant@12": 0.7481,
+      "mrr": 0.4437,
+      "search_total_ms_mean": 4.22
+    },
+    {
+      "embedder": "bge-small",
+      "hybrid": true,
+      "dim": 384,
+      "load_s": 0.43,
+      "index_docs_per_s": 351,
+      "embed_query_p50_ms": 3.85,
+      "embed_query_p95_ms": 6.67,
+      "recall_required@5": 0.5889,
+      "recall_required@8": 0.7889,
+      "recall_required@12": 0.8667,
+      "recall_required@20": 0.9167,
+      "recall_relevant@12": 0.8824,
+      "mrr": 0.4733,
+      "search_total_ms_mean": 4.61
+    },
+    {
+      "embedder": "minilm",
+      "hybrid": false,
+      "dim": 384,
+      "load_s": 0.08,
+      "index_docs_per_s": 747,
+      "embed_query_p50_ms": 2.16,
+      "embed_query_p95_ms": 3.9,
+      "recall_required@5": 0.75,
+      "recall_required@8": 0.8778,
+      "recall_required@12": 0.9278,
+      "recall_required@20": 0.9722,
+      "recall_relevant@12": 0.9222,
+      "mrr": 0.5971,
+      "search_total_ms_mean": 2.12
+    },
+    {
+      "embedder": "minilm",
+      "hybrid": true,
+      "dim": 384,
+      "load_s": 0.08,
+      "index_docs_per_s": 747,
+      "embed_query_p50_ms": 2.16,
+      "embed_query_p95_ms": 3.9,
+      "recall_required@5": 0.6667,
+      "recall_required@8": 0.8444,
+      "recall_required@12": 0.9389,
+      "recall_required@20": 0.9889,
+      "recall_relevant@12": 0.9343,
+      "mrr": 0.4771,
+      "search_total_ms_mean": 2.76
+    },
+    {
+      "embedder": "nomic",
+      "hybrid": false,
+      "dim": 768,
+      "load_s": 0.52,
+      "index_docs_per_s": 84,
+      "embed_query_p50_ms": 14.23,
+      "embed_query_p95_ms": 23.11,
+      "recall_required@5": 0.7111,
+      "recall_required@8": 0.8444,
+      "recall_required@12": 0.9,
+      "recall_required@20": 0.9667,
+      "recall_relevant@12": 0.913,
+      "mrr": 0.5709,
+      "search_total_ms_mean": 15.22
+    },
+    {
+      "embedder": "nomic",
+      "hybrid": true,
+      "dim": 768,
+      "load_s": 0.52,
+      "index_docs_per_s": 84,
+      "embed_query_p50_ms": 14.23,
+      "embed_query_p95_ms": 23.11,
+      "recall_required@5": 0.6944,
+      "recall_required@8": 0.8167,
+      "recall_required@12": 0.9222,
+      "recall_required@20": 0.9833,
+      "recall_relevant@12": 0.938,
+      "mrr": 0.4972,
+      "search_total_ms_mean": 15.94
+    },
+    {
+      "embedder": "potion-8m",
+      "hybrid": false,
+      "dim": 256,
+      "load_s": 0.36,
+      "index_docs_per_s": 122374,
+      "embed_query_p50_ms": 0.06,
+      "embed_query_p95_ms": 0.08,
+      "recall_required@5": 0.5833,
+      "recall_required@8": 0.7333,
+      "recall_required@12": 0.85,
+      "recall_required@20": 0.9556,
+      "recall_relevant@12": 0.8546,
+      "mrr": 0.4455,
+      "search_total_ms_mean": 0.1
+    },
+    {
+      "embedder": "potion-8m",
+      "hybrid": true,
+      "dim": 256,
+      "load_s": 0.36,
+      "index_docs_per_s": 122374,
+      "embed_query_p50_ms": 0.06,
+      "embed_query_p95_ms": 0.08,
+      "recall_required@5": 0.5722,
+      "recall_required@8": 0.7056,
+      "recall_required@12": 0.8278,
+      "recall_required@20": 0.9889,
+      "recall_relevant@12": 0.8426,
+      "mrr": 0.411,
+      "search_total_ms_mean": 0.21
+    },
+    {
+      "embedder": "potion-32m",
+      "hybrid": false,
+      "dim": 512,
+      "load_s": 0.46,
+      "index_docs_per_s": 84992,
+      "embed_query_p50_ms": 0.06,
+      "embed_query_p95_ms": 0.09,
+      "recall_required@5": 0.5722,
+      "recall_required@8": 0.7,
+      "recall_required@12": 0.8444,
+      "recall_required@20": 0.9611,
+      "recall_relevant@12": 0.8731,
+      "mrr": 0.4543,
+      "search_total_ms_mean": 0.1
+    },
+    {
+      "embedder": "potion-32m",
+      "hybrid": true,
+      "dim": 512,
+      "load_s": 0.46,
+      "index_docs_per_s": 84992,
+      "embed_query_p50_ms": 0.06,
+      "embed_query_p95_ms": 0.09,
+      "recall_required@5": 0.5333,
+      "recall_required@8": 0.6944,
+      "recall_required@12": 0.8444,
+      "recall_required@20": 0.9889,
+      "recall_relevant@12": 0.8685,
+      "mrr": 0.4103,
+      "search_total_ms_mean": 0.2
+    }
+  ],
+  "stores": [
+    {
+      "store": "numpy",
+      "n": 1500,
+      "build_s": 0.0,
+      "query_p50_ms": 0.032,
+      "query_p95_ms": 0.038,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "sqlite-vec",
+      "n": 1500,
+      "error": "AttributeError: 'sqlite3.Connection' object has no attribute 'enable_load_extension'"
+    },
+    {
+      "store": "lancedb",
+      "n": 1500,
+      "build_s": 7.762,
+      "query_p50_ms": 2.714,
+      "query_p95_ms": 3.448,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "hnswlib",
+      "n": 1500,
+      "build_s": 0.49,
+      "query_p50_ms": 0.179,
+      "query_p95_ms": 0.249,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "numpy",
+      "n": 20000,
+      "build_s": 0.0,
+      "query_p50_ms": 0.559,
+      "query_p95_ms": 0.942,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "sqlite-vec",
+      "n": 20000,
+      "error": "AttributeError: 'sqlite3.Connection' object has no attribute 'enable_load_extension'"
+    },
+    {
+      "store": "lancedb",
+      "n": 20000,
+      "build_s": 0.039,
+      "query_p50_ms": 9.42,
+      "query_p95_ms": 10.15,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "hnswlib",
+      "n": 20000,
+      "build_s": 1.335,
+      "query_p50_ms": 0.403,
+      "query_p95_ms": 0.564,
+      "recall_vs_exact@12": 0.9996
+    },
+    {
+      "store": "numpy",
+      "n": 100000,
+      "build_s": 0.0,
+      "query_p50_ms": 2.817,
+      "query_p95_ms": 3.45,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "sqlite-vec",
+      "n": 100000,
+      "error": "AttributeError: 'sqlite3.Connection' object has no attribute 'enable_load_extension'"
+    },
+    {
+      "store": "lancedb",
+      "n": 100000,
+      "build_s": 0.237,
+      "query_p50_ms": 46.81,
+      "query_p95_ms": 56.366,
+      "recall_vs_exact@12": 1.0
+    },
+    {
+      "store": "hnswlib",
+      "n": 100000,
+      "build_s": 13.062,
+      "query_p50_ms": 0.609,
+      "query_p95_ms": 1.173,
+      "recall_vs_exact@12": 0.8192
+    }
+  ]
+}

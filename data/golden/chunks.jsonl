@@ -1,0 +1,1500 @@
+{"id": "c0000", "text": "Priya confirmed with marketing that Atlas will be released July 4.", "ts": 1788674820.985013, "tokens": 14}
+{"id": "c0001", "text": "Reorg note: Atlas now reports up through Marta Kowalczyk.", "ts": 1790197270.895963, "tokens": 17}
+{"id": "c0002", "text": "Architecture review: Atlas persistence layer is DynamoDB.", "ts": 1792959104.092896, "tokens": 10}
+{"id": "c0003", "text": "Atlas is deployed to us-west-2.", "ts": 1752509874.992775, "tokens": 9}
+{"id": "c0004", "text": "Finance approved $220,000 for Atlas this fiscal year.", "ts": 1788526179.075359, "tokens": 12}
+{"id": "c0005", "text": "Atlas standup happens at 10:30 on Wednesdays and Thursdays.", "ts": 1780812020.585923, "tokens": 17}
+{"id": "c0006", "text": "Rotation update: Luis Ortega takes incidents for Atlas.", "ts": 1770998302.655682, "tokens": 11}
+{"id": "c0007", "text": "If Atlas breaks out of hours, Emeka Nwosu gets the alert.", "ts": 1790062632.387322, "tokens": 17}
+{"id": "c0008", "text": "Code freeze for Atlas starts March 6.", "ts": 1752499747.121981, "tokens": 9}
+{"id": "c0009", "text": "No merges to Atlas main after December 4.", "ts": 1791032362.305349, "tokens": 10}
+{"id": "c0010", "text": "Customer call about Atlas went well; they liked the dashboards.", "ts": 1787722263.485397, "tokens": 13}
+{"id": "c0011", "text": "Yuki thinks Atlas needs better error messages.", "ts": 1775748805.881, "tokens": 9}
+{"id": "c0012", "text": "Atlas docs are a mess, someone should tidy the README.", "ts": 1757860218.106083, "tokens": 12}
+{"id": "c0013", "text": "Long thread about the Atlas logo; nobody could agree and it was parked.", "ts": 1758207966.893116, "tokens": 15}
+{"id": "c0014", "text": "Brainstormed names for the Atlas mascot over lunch.", "ts": 1757819183.727124, "tokens": 11}
+{"id": "c0015", "text": "The Atlas offsite was fun, great food.", "ts": 1785668929.744326, "tokens": 10}
+{"id": "c0016", "text": "Planning call: we agreed Borealis goes live on December 16.", "ts": 1766651824.921453, "tokens": 15}
+{"id": "c0017", "text": "Borealis decisions go through Hanna Virtanen.", "ts": 1778941074.950612, "tokens": 11}
+{"id": "c0018", "text": "Borealis stores its data in DynamoDB.", "ts": 1760994053.03334, "tokens": 10}
+{"id": "c0019", "text": "Architecture review: Borealis persistence layer is PostgreSQL 16.", "ts": 1776430002.515095, "tokens": 13}
+{"id": "c0020", "text": "Borealis is deployed to eu-west-1.", "ts": 1780281162.277344, "tokens": 11}
+{"id": "c0021", "text": "Borealis is deployed to us-east-1.", "ts": 1785191915.851178, "tokens": 11}
+{"id": "c0022", "text": "Finance approved $290,000 for Borealis this fiscal year.", "ts": 1755338848.355771, "tokens": 14}
+{"id": "c0023", "text": "Yuki moved the Borealis check-in to 10:00 on Wednesdays and Thursdays.", "ts": 1781358539.210489, "tokens": 22}
+{"id": "c0024", "text": "If Borealis breaks out of hours, Hanna Virtanen gets the alert.", "ts": 1762417763.904316, "tokens": 17}
+{"id": "c0025", "text": "Tomas Lindqvist is carrying the pager for Borealis this quarter.", "ts": 1780713886.622859, "tokens": 16}
+{"id": "c0026", "text": "Code freeze for Borealis starts February 13.", "ts": 1779258439.47337, "tokens": 11}
+{"id": "c0027", "text": "Noor announced the Borealis change freeze begins March 11.", "ts": 1781254751.602656, "tokens": 14}
+{"id": "c0028", "text": "Long thread about the Borealis logo; nobody could agree and it was parked.", "ts": 1786397804.746526, "tokens": 17}
+{"id": "c0029", "text": "Read through the Borealis design doc again; the caching section is thin.", "ts": 1775798596.121047, "tokens": 16}
+{"id": "c0030", "text": "Marta gave a nice demo of the new Borealis onboarding flow.", "ts": 1780174501.116251, "tokens": 16}
+{"id": "c0031", "text": "Brainstormed names for the Borealis mascot over lunch.", "ts": 1790649747.626827, "tokens": 13}
+{"id": "c0032", "text": "Slides for the Borealis all-hands are half done.", "ts": 1765802959.55732, "tokens": 13}
+{"id": "c0033", "text": "Borealis retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1772291506.067559, "tokens": 16}
+{"id": "c0034", "text": "Planning call: we agreed Cobalt goes live on June 12.", "ts": 1768946135.151789, "tokens": 14}
+{"id": "c0035", "text": "Wei Zhang is the lead on Cobalt from here on.", "ts": 1770514303.224875, "tokens": 12}
+{"id": "c0036", "text": "Architecture review: Cobalt persistence layer is CockroachDB.", "ts": 1769316093.848331, "tokens": 12}
+{"id": "c0037", "text": "Cobalt is deployed to ca-central-1.", "ts": 1794024692.379555, "tokens": 11}
+{"id": "c0038", "text": "Finance approved $295,000 for Cobalt this fiscal year.", "ts": 1758823809.88615, "tokens": 13}
+{"id": "c0039", "text": "The Cobalt team meets 14:00 on Wednesdays and Fridays.", "ts": 1776996791.716238, "tokens": 16}
+{"id": "c0040", "text": "Priya moved the Cobalt check-in to 9:15 on Wednesdays and Thursdays.", "ts": 1788611799.212589, "tokens": 21}
+{"id": "c0041", "text": "Gideon Adler is carrying the pager for Cobalt this quarter.", "ts": 1780205002.834786, "tokens": 13}
+{"id": "c0042", "text": "Code freeze for Cobalt starts December 14.", "ts": 1766863272.724137, "tokens": 10}
+{"id": "c0043", "text": "No merges to Cobalt main after February 14.", "ts": 1770144101.046132, "tokens": 11}
+{"id": "c0044", "text": "Rosa gave a nice demo of the new Cobalt onboarding flow.", "ts": 1761047900.969458, "tokens": 15}
+{"id": "c0045", "text": "Cobalt docs are a mess, someone should tidy the README.", "ts": 1788176671.36012, "tokens": 14}
+{"id": "c0046", "text": "Long thread about the Cobalt logo; nobody could agree and it was parked.", "ts": 1789722638.196488, "tokens": 16}
+{"id": "c0047", "text": "The Cobalt offsite was fun, great food.", "ts": 1776063350.522985, "tokens": 11}
+{"id": "c0048", "text": "Gideon thinks Cobalt needs better error messages.", "ts": 1762947000.771174, "tokens": 10}
+{"id": "c0049", "text": "Read through the Cobalt design doc again; the caching section is thin.", "ts": 1767339398.083309, "tokens": 15}
+{"id": "c0050", "text": "Jonah confirmed with marketing that Driftwood will be released April 20.", "ts": 1756300876.236739, "tokens": 16}
+{"id": "c0051", "text": "Planning call: we agreed Driftwood goes live on May 3.", "ts": 1760680702.464598, "tokens": 15}
+{"id": "c0052", "text": "Driftwood launch is now set for February 17.", "ts": 1783941252.453381, "tokens": 12}
+{"id": "c0053", "text": "Driftwood decisions go through Callum Fraser.", "ts": 1761776595.224667, "tokens": 10}
+{"id": "c0054", "text": "Driftwood stores its data in SQLite.", "ts": 1756473568.908226, "tokens": 9}
+{"id": "c0055", "text": "Emeka finished moving Driftwood onto MongoDB 7.", "ts": 1769659871.385603, "tokens": 12}
+{"id": "c0056", "text": "Architecture review: Driftwood persistence layer is PostgreSQL 16.", "ts": 1793715082.272011, "tokens": 13}
+{"id": "c0057", "text": "Driftwood workloads were placed in ap-southeast-2 for latency reasons.", "ts": 1755459210.596284, "tokens": 18}
+{"id": "c0058", "text": "Driftwood is deployed to eu-west-1.", "ts": 1785892859.697849, "tokens": 11}
+{"id": "c0059", "text": "Rosa got the Driftwood allocation signed: $130,000.", "ts": 1752102829.918625, "tokens": 15}
+{"id": "c0060", "text": "Yuki moved the Driftwood check-in to 14:00 on Tuesdays and Thursdays.", "ts": 1769145558.40478, "tokens": 21}
+{"id": "c0061", "text": "Driftwood standup happens at 10:00 on Mondays and Fridays.", "ts": 1778154491.755261, "tokens": 16}
+{"id": "c0062", "text": "If Driftwood breaks out of hours, Ines Duarte gets the alert.", "ts": 1775070376.223544, "tokens": 17}
+{"id": "c0063", "text": "Farah Siddiqui is carrying the pager for Driftwood this quarter.", "ts": 1779487665.835716, "tokens": 16}
+{"id": "c0064", "text": "No merges to Driftwood main after December 20.", "ts": 1775164651.708171, "tokens": 12}
+{"id": "c0065", "text": "The Driftwood offsite was fun, great food.", "ts": 1764704848.910053, "tokens": 12}
+{"id": "c0066", "text": "Driftwood retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1787710294.459802, "tokens": 16}
+{"id": "c0067", "text": "Leilani gave a nice demo of the new Driftwood onboarding flow.", "ts": 1754602151.632738, "tokens": 17}
+{"id": "c0068", "text": "Driftwood docs are a mess, someone should tidy the README.", "ts": 1766781118.883865, "tokens": 14}
+{"id": "c0069", "text": "Slides for the Driftwood all-hands are half done.", "ts": 1781140479.820987, "tokens": 13}
+{"id": "c0070", "text": "Brainstormed names for the Driftwood mascot over lunch.", "ts": 1776383279.4578, "tokens": 13}
+{"id": "c0071", "text": "Planning call: we agreed Ember goes live on June 23.", "ts": 1763485324.174546, "tokens": 13}
+{"id": "c0072", "text": "Planning call: we agreed Ember goes live on January 26.", "ts": 1783779094.651946, "tokens": 13}
+{"id": "c0073", "text": "Sana Mirza is the lead on Ember from here on.", "ts": 1754233843.301635, "tokens": 13}
+{"id": "c0074", "text": "Leilani finished moving Ember onto MySQL 8.", "ts": 1762843037.95572, "tokens": 11}
+{"id": "c0075", "text": "Infra note: production for Ember runs out of ca-central-1.", "ts": 1760237170.684982, "tokens": 15}
+{"id": "c0076", "text": "Infra note: production for Ember runs out of us-east-1.", "ts": 1770246334.846036, "tokens": 15}
+{"id": "c0077", "text": "Tomas got the Ember allocation signed: $230,000.", "ts": 1790012188.697623, "tokens": 13}
+{"id": "c0078", "text": "Ember standup happens at 10:30 on Tuesdays and Fridays.", "ts": 1764162077.924426, "tokens": 16}
+{"id": "c0079", "text": "Ember standup happens at 9:15 on Wednesdays and Fridays.", "ts": 1772480195.396085, "tokens": 17}
+{"id": "c0080", "text": "If Ember breaks out of hours, Luis Ortega gets the alert.", "ts": 1777893207.396693, "tokens": 14}
+{"id": "c0081", "text": "Rotation update: Leilani Kahale takes incidents for Ember.", "ts": 1785483747.3707, "tokens": 13}
+{"id": "c0082", "text": "Code freeze for Ember starts November 24.", "ts": 1776978915.841368, "tokens": 9}
+{"id": "c0083", "text": "Read through the Ember design doc again; the caching section is thin.", "ts": 1765143066.617852, "tokens": 14}
+{"id": "c0084", "text": "The Ember offsite was fun, great food.", "ts": 1767939396.339714, "tokens": 10}
+{"id": "c0085", "text": "Ember docs are a mess, someone should tidy the README.", "ts": 1785911054.657806, "tokens": 13}
+{"id": "c0086", "text": "Customer call about Ember went well; they liked the dashboards.", "ts": 1777900360.318096, "tokens": 13}
+{"id": "c0087", "text": "Slides for the Ember all-hands are half done.", "ts": 1756855038.089372, "tokens": 11}
+{"id": "c0088", "text": "Priya gave a nice demo of the new Ember onboarding flow.", "ts": 1761967687.119033, "tokens": 14}
+{"id": "c0089", "text": "Planning call: we agreed Fathom goes live on March 20.", "ts": 1761120955.176928, "tokens": 14}
+{"id": "c0090", "text": "Reorg note: Fathom now reports up through Luis Ortega.", "ts": 1766253038.892679, "tokens": 14}
+{"id": "c0091", "text": "Callum finished moving Fathom onto SQLite.", "ts": 1761966174.703431, "tokens": 9}
+{"id": "c0092", "text": "Tomas finished moving Fathom onto DynamoDB.", "ts": 1784961627.025194, "tokens": 10}
+{"id": "c0093", "text": "Infra note: production for Fathom runs out of eu-west-1.", "ts": 1761405105.984999, "tokens": 16}
+{"id": "c0094", "text": "Fathom is deployed to ca-central-1.", "ts": 1768528217.235766, "tokens": 10}
+{"id": "c0095", "text": "Finance approved $330,000 for Fathom this fiscal year.", "ts": 1775458348.070942, "tokens": 13}
+{"id": "c0096", "text": "Finance approved $100,000 for Fathom this fiscal year.", "ts": 1783390631.762074, "tokens": 13}
+{"id": "c0097", "text": "Hanna moved the Fathom check-in to 14:00 on Tuesdays and Thursdays.", "ts": 1760599859.916631, "tokens": 20}
+{"id": "c0098", "text": "Callum Fraser is carrying the pager for Fathom this quarter.", "ts": 1785036113.893871, "tokens": 13}
+{"id": "c0099", "text": "No merges to Fathom main after February 14.", "ts": 1773960695.540934, "tokens": 11}
+{"id": "c0100", "text": "Code freeze for Fathom starts November 22.", "ts": 1791427460.157076, "tokens": 10}
+{"id": "c0101", "text": "The Fathom offsite was fun, great food.", "ts": 1786618522.280837, "tokens": 11}
+{"id": "c0102", "text": "Long thread about the Fathom logo; nobody could agree and it was parked.", "ts": 1772656165.011374, "tokens": 16}
+{"id": "c0103", "text": "Yuki gave a nice demo of the new Fathom onboarding flow.", "ts": 1765734825.129539, "tokens": 15}
+{"id": "c0104", "text": "Fathom docs are a mess, someone should tidy the README.", "ts": 1759323197.654621, "tokens": 13}
+{"id": "c0105", "text": "Customer call about Fathom went well; they liked the dashboards.", "ts": 1756964643.335299, "tokens": 14}
+{"id": "c0106", "text": "Slides for the Fathom all-hands are half done.", "ts": 1764951497.64567, "tokens": 12}
+{"id": "c0107", "text": "Jonah confirmed with marketing that Granite will be released May 11.", "ts": 1752242609.026042, "tokens": 14}
+{"id": "c0108", "text": "Granite launch is now set for February 22.", "ts": 1792689921.04918, "tokens": 11}
+{"id": "c0109", "text": "Granite decisions go through Marta Kowalczyk.", "ts": 1789709170.210372, "tokens": 13}
+{"id": "c0110", "text": "Leilani finished moving Granite onto SQLite.", "ts": 1790449128.32602, "tokens": 9}
+{"id": "c0111", "text": "Granite is deployed to us-east-1.", "ts": 1753402648.852754, "tokens": 10}
+{"id": "c0112", "text": "Infra note: production for Granite runs out of us-west-2.", "ts": 1759127638.715617, "tokens": 15}
+{"id": "c0113", "text": "Granite is deployed to eu-central-1.", "ts": 1759299214.602608, "tokens": 10}
+{"id": "c0114", "text": "Tomas got the Granite allocation signed: $325,000.", "ts": 1767927793.031426, "tokens": 13}
+{"id": "c0115", "text": "Luis moved the Granite check-in to 10:00 on Wednesdays and Fridays.", "ts": 1760311144.29602, "tokens": 19}
+{"id": "c0116", "text": "If Granite breaks out of hours, Noor Haddad gets the alert.", "ts": 1751681417.535915, "tokens": 16}
+{"id": "c0117", "text": "No merges to Granite main after January 23.", "ts": 1754436828.397083, "tokens": 10}
+{"id": "c0118", "text": "Brainstormed names for the Granite mascot over lunch.", "ts": 1787259337.143071, "tokens": 11}
+{"id": "c0119", "text": "Customer call about Granite went well; they liked the dashboards.", "ts": 1771073825.819513, "tokens": 13}
+{"id": "c0120", "text": "Slides for the Granite all-hands are half done.", "ts": 1788625058.032262, "tokens": 11}
+{"id": "c0121", "text": "Granite docs are a mess, someone should tidy the README.", "ts": 1753500675.096579, "tokens": 13}
+{"id": "c0122", "text": "The Granite offsite was fun, great food.", "ts": 1791446744.358516, "tokens": 10}
+{"id": "c0123", "text": "Read through the Granite design doc again; the caching section is thin.", "ts": 1782628455.592705, "tokens": 14}
+{"id": "c0124", "text": "Ines confirmed with marketing that Halcyon will be released June 22.", "ts": 1761657998.382986, "tokens": 16}
+{"id": "c0125", "text": "Halcyon launch is now set for January 11.", "ts": 1786826131.614313, "tokens": 12}
+{"id": "c0126", "text": "Reorg note: Halcyon now reports up through Rosa Benedetti.", "ts": 1776954135.526037, "tokens": 15}
+{"id": "c0127", "text": "Reorg note: Halcyon now reports up through Priya Raman.", "ts": 1778032558.329609, "tokens": 16}
+{"id": "c0128", "text": "Architecture review: Halcyon persistence layer is SQLite.", "ts": 1763486681.077438, "tokens": 11}
+{"id": "c0129", "text": "Halcyon stores its data in CockroachDB.", "ts": 1785359801.967119, "tokens": 11}
+{"id": "c0130", "text": "Architecture review: Halcyon persistence layer is PostgreSQL 16.", "ts": 1793898742.614601, "tokens": 13}
+{"id": "c0131", "text": "Halcyon workloads were placed in ca-central-1 for latency reasons.", "ts": 1779854469.82481, "tokens": 16}
+{"id": "c0132", "text": "Finance approved $255,000 for Halcyon this fiscal year.", "ts": 1759653796.936546, "tokens": 14}
+{"id": "c0133", "text": "Finance approved $310,000 for Halcyon this fiscal year.", "ts": 1787547723.132897, "tokens": 14}
+{"id": "c0134", "text": "Finance approved $65,000 for Halcyon this fiscal year.", "ts": 1794118152.457327, "tokens": 14}
+{"id": "c0135", "text": "The Halcyon team meets 9:30 on Tuesdays and Fridays.", "ts": 1752099071.922208, "tokens": 16}
+{"id": "c0136", "text": "If Halcyon breaks out of hours, Luis Ortega gets the alert.", "ts": 1789785938.003466, "tokens": 16}
+{"id": "c0137", "text": "Code freeze for Halcyon starts February 1.", "ts": 1781701181.245875, "tokens": 11}
+{"id": "c0138", "text": "Gideon thinks Halcyon needs better error messages.", "ts": 1785209902.091193, "tokens": 11}
+{"id": "c0139", "text": "The Halcyon offsite was fun, great food.", "ts": 1789449898.976072, "tokens": 12}
+{"id": "c0140", "text": "Halcyon retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1786971368.255593, "tokens": 16}
+{"id": "c0141", "text": "Noor gave a nice demo of the new Halcyon onboarding flow.", "ts": 1788843869.37063, "tokens": 16}
+{"id": "c0142", "text": "Slides for the Halcyon all-hands are half done.", "ts": 1752672950.477348, "tokens": 13}
+{"id": "c0143", "text": "Halcyon docs are a mess, someone should tidy the README.", "ts": 1766680907.676607, "tokens": 14}
+{"id": "c0144", "text": "Planning call: we agreed Juniper goes live on January 1.", "ts": 1765388211.276678, "tokens": 14}
+{"id": "c0145", "text": "Yuki Morita is the lead on Juniper from here on.", "ts": 1775459052.437266, "tokens": 14}
+{"id": "c0146", "text": "Reorg note: Juniper now reports up through Ines Duarte.", "ts": 1792179599.83145, "tokens": 15}
+{"id": "c0147", "text": "Wei finished moving Juniper onto PostgreSQL 16.", "ts": 1763762074.820336, "tokens": 10}
+{"id": "c0148", "text": "Infra note: production for Juniper runs out of eu-central-1.", "ts": 1784174127.528051, "tokens": 16}
+{"id": "c0149", "text": "Ines got the Juniper allocation signed: $240,000.", "ts": 1762832508.017997, "tokens": 14}
+{"id": "c0150", "text": "Aiko got the Juniper allocation signed: $195,000.", "ts": 1764199714.926268, "tokens": 14}
+{"id": "c0151", "text": "Marta moved the Juniper check-in to 14:00 on Tuesdays and Fridays.", "ts": 1770462244.073441, "tokens": 19}
+{"id": "c0152", "text": "Oskar moved the Juniper check-in to 10:00 on Mondays and Fridays.", "ts": 1772301289.605965, "tokens": 19}
+{"id": "c0153", "text": "Rotation update: Marta Kowalczyk takes incidents for Juniper.", "ts": 1775530753.715067, "tokens": 16}
+{"id": "c0154", "text": "Code freeze for Juniper starts February 9.", "ts": 1766740379.16386, "tokens": 10}
+{"id": "c0155", "text": "Long thread about the Juniper logo; nobody could agree and it was parked.", "ts": 1759126717.979226, "tokens": 16}
+{"id": "c0156", "text": "Hanna gave a nice demo of the new Juniper onboarding flow.", "ts": 1780325138.984428, "tokens": 15}
+{"id": "c0157", "text": "Customer call about Juniper went well; they liked the dashboards.", "ts": 1783209745.81822, "tokens": 14}
+{"id": "c0158", "text": "Brainstormed names for the Juniper mascot over lunch.", "ts": 1766621512.943429, "tokens": 12}
+{"id": "c0159", "text": "Juniper docs are a mess, someone should tidy the README.", "ts": 1794428136.653603, "tokens": 13}
+{"id": "c0160", "text": "Juniper retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1784236178.125521, "tokens": 15}
+{"id": "c0161", "text": "Planning call: we agreed Kestrel goes live on May 12.", "ts": 1751639576.645606, "tokens": 15}
+{"id": "c0162", "text": "Kestrel decisions go through Emeka Nwosu.", "ts": 1766620825.319423, "tokens": 13}
+{"id": "c0163", "text": "Architecture review: Kestrel persistence layer is MySQL 8.", "ts": 1776574283.630784, "tokens": 13}
+{"id": "c0164", "text": "Infra note: production for Kestrel runs out of us-west-2.", "ts": 1781500709.732387, "tokens": 17}
+{"id": "c0165", "text": "Kestrel is deployed to eu-central-1.", "ts": 1789605573.280383, "tokens": 11}
+{"id": "c0166", "text": "Kestrel has $135,000 to spend, per the allocation memo.", "ts": 1759640031.29059, "tokens": 16}
+{"id": "c0167", "text": "Kestrel has $375,000 to spend, per the allocation memo.", "ts": 1764565683.080111, "tokens": 16}
+{"id": "c0168", "text": "The Kestrel team meets 10:00 on Wednesdays and Thursdays.", "ts": 1763177513.624834, "tokens": 18}
+{"id": "c0169", "text": "Rotation update: Hanna Virtanen takes incidents for Kestrel.", "ts": 1757552624.093949, "tokens": 14}
+{"id": "c0170", "text": "Rotation update: Sana Mirza takes incidents for Kestrel.", "ts": 1778550364.136775, "tokens": 14}
+{"id": "c0171", "text": "Aiko Tanaka is carrying the pager for Kestrel this quarter.", "ts": 1793769573.458397, "tokens": 15}
+{"id": "c0172", "text": "No merges to Kestrel main after January 31.", "ts": 1765882244.65726, "tokens": 12}
+{"id": "c0173", "text": "Read through the Kestrel design doc again; the caching section is thin.", "ts": 1794231140.556671, "tokens": 16}
+{"id": "c0174", "text": "Long thread about the Kestrel logo; nobody could agree and it was parked.", "ts": 1778431467.302442, "tokens": 17}
+{"id": "c0175", "text": "Kestrel retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1767412149.907718, "tokens": 16}
+{"id": "c0176", "text": "Slides for the Kestrel all-hands are half done.", "ts": 1763074705.375573, "tokens": 13}
+{"id": "c0177", "text": "Kestrel docs are a mess, someone should tidy the README.", "ts": 1786835189.874591, "tokens": 14}
+{"id": "c0178", "text": "The Kestrel offsite was fun, great food.", "ts": 1763129874.181958, "tokens": 12}
+{"id": "c0179", "text": "Tomas confirmed with marketing that Lumen will be released January 18.", "ts": 1791002003.180795, "tokens": 15}
+{"id": "c0180", "text": "Reorg note: Lumen now reports up through Marta Kowalczyk.", "ts": 1778528650.881214, "tokens": 18}
+{"id": "c0181", "text": "Reorg note: Lumen now reports up through Sana Mirza.", "ts": 1789384271.977848, "tokens": 15}
+{"id": "c0182", "text": "Jonah finished moving Lumen onto PostgreSQL 16.", "ts": 1786490996.461647, "tokens": 11}
+{"id": "c0183", "text": "Lumen workloads were placed in eu-central-1 for latency reasons.", "ts": 1758720894.150731, "tokens": 15}
+{"id": "c0184", "text": "Dele got the Lumen allocation signed: $60,000.", "ts": 1779947525.225239, "tokens": 14}
+{"id": "c0185", "text": "Lumen standup happens at 10:30 on Wednesdays and Thursdays.", "ts": 1753534753.28472, "tokens": 18}
+{"id": "c0186", "text": "If Lumen breaks out of hours, Ines Duarte gets the alert.", "ts": 1765760127.262097, "tokens": 16}
+{"id": "c0187", "text": "Oskar Brandt is carrying the pager for Lumen this quarter.", "ts": 1780506323.499092, "tokens": 15}
+{"id": "c0188", "text": "No merges to Lumen main after December 2.", "ts": 1760200171.793769, "tokens": 11}
+{"id": "c0189", "text": "Long thread about the Lumen logo; nobody could agree and it was parked.", "ts": 1781037352.787058, "tokens": 16}
+{"id": "c0190", "text": "Customer call about Lumen went well; they liked the dashboards.", "ts": 1787990348.202639, "tokens": 14}
+{"id": "c0191", "text": "Lumen retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1766585766.884973, "tokens": 15}
+{"id": "c0192", "text": "Slides for the Lumen all-hands are half done.", "ts": 1785263723.95626, "tokens": 12}
+{"id": "c0193", "text": "Emeka thinks Lumen needs better error messages.", "ts": 1768003260.457266, "tokens": 10}
+{"id": "c0194", "text": "Read through the Lumen design doc again; the caching section is thin.", "ts": 1778884674.618512, "tokens": 15}
+{"id": "c0195", "text": "Meridian launch is now set for June 5.", "ts": 1787120900.606631, "tokens": 11}
+{"id": "c0196", "text": "Reorg note: Meridian now reports up through Wei Zhang.", "ts": 1752091779.178654, "tokens": 13}
+{"id": "c0197", "text": "Architecture review: Meridian persistence layer is SQLite.", "ts": 1773659269.270965, "tokens": 10}
+{"id": "c0198", "text": "Infra note: production for Meridian runs out of us-east-1.", "ts": 1755590412.836388, "tokens": 16}
+{"id": "c0199", "text": "Meridian has $285,000 to spend, per the allocation memo.", "ts": 1755984357.115833, "tokens": 15}
+{"id": "c0200", "text": "The Meridian team meets 9:30 on Tuesdays and Thursdays.", "ts": 1764604919.902014, "tokens": 16}
+{"id": "c0201", "text": "If Meridian breaks out of hours, Oskar Brandt gets the alert.", "ts": 1776230632.42379, "tokens": 17}
+{"id": "c0202", "text": "Rotation update: Yuki Morita takes incidents for Meridian.", "ts": 1789122694.386092, "tokens": 13}
+{"id": "c0203", "text": "Code freeze for Meridian starts November 27.", "ts": 1775535177.991386, "tokens": 10}
+{"id": "c0204", "text": "Long thread about the Meridian logo; nobody could agree and it was parked.", "ts": 1769017363.598803, "tokens": 16}
+{"id": "c0205", "text": "Slides for the Meridian all-hands are half done.", "ts": 1777685299.306534, "tokens": 12}
+{"id": "c0206", "text": "Meridian retro: the team felt the sprint was overloaded and morale dipped.", "ts": 1779359439.405849, "tokens": 15}
+{"id": "c0207", "text": "Hanna thinks Meridian needs better error messages.", "ts": 1793050533.861566, "tokens": 10}
+{"id": "c0208", "text": "Read through the Meridian design doc again; the caching section is thin.", "ts": 1778064645.754851, "tokens": 15}
+{"id": "c0209", "text": "Dele gave a nice demo of the new Meridian onboarding flow.", "ts": 1768006332.98673, "tokens": 15}
+{"id": "c0210", "text": "Priya Raman was promoted and is now a technical writer.", "ts": 1758885751.802463, "tokens": 13}
+{"id": "c0211", "text": "Priya Raman works as a solutions architect.", "ts": 1760115183.583525, "tokens": 10}
+{"id": "c0212", "text": "Heads-up: Priya Raman keeps Singapore hours.", "ts": 1783090739.702259, "tokens": 12}
+{"id": "c0213", "text": "Priya Raman is based in Seoul.", "ts": 1787917273.06107, "tokens": 9}
+{"id": "c0214", "text": "Catering form says Priya Raman is lactose intolerant.", "ts": 1780607453.036835, "tokens": 15}
+{"id": "c0215", "text": "Best way to get Priya Raman: a phone call.", "ts": 1763045761.441292, "tokens": 13}
+{"id": "c0216", "text": "Aiko Tanaka took over as Priya Raman's line manager.", "ts": 1772813799.312395, "tokens": 15}
+{"id": "c0217", "text": "Priya Raman booked leave starting January 27 for ten days.", "ts": 1751910856.181541, "tokens": 14}
+{"id": "c0218", "text": "Priya Raman booked leave starting December 5 for a month.", "ts": 1769653182.262116, "tokens": 14}
+{"id": "c0219", "text": "Priya Raman told a great story about their first job.", "ts": 1781414638.52914, "tokens": 13}
+{"id": "c0220", "text": "Priya Raman ran the workshop today and it went smoothly.", "ts": 1760172168.908742, "tokens": 13}
+{"id": "c0221", "text": "Priya Raman gave sharp feedback on my draft, very helpful.", "ts": 1758295139.646908, "tokens": 14}
+{"id": "c0222", "text": "Priya Raman and I disagreed about tabs versus spaces again.", "ts": 1785426962.506878, "tokens": 13}
+{"id": "c0223", "text": "Ran into Priya Raman at the climbing gym.", "ts": 1786684875.194851, "tokens": 12}
+{"id": "c0224", "text": "Priya Raman recommended a book on distributed systems.", "ts": 1752057835.188917, "tokens": 11}
+{"id": "c0225", "text": "Tomas Lindqvist works as a design lead.", "ts": 1755298963.522259, "tokens": 11}
+{"id": "c0226", "text": "Tomas Lindqvist was promoted and is now a finance partner.", "ts": 1791950270.511372, "tokens": 14}
+{"id": "c0227", "text": "Tomas Lindqvist relocated and now works from Lisbon.", "ts": 1777078040.235756, "tokens": 12}
+{"id": "c0228", "text": "Tomas Lindqvist is pescatarian.", "ts": 1773096747.454713, "tokens": 11}
+{"id": "c0229", "text": "Best way to get Tomas Lindqvist: calendar invites, no ad-hoc pings.", "ts": 1778620330.710065, "tokens": 19}
+{"id": "c0230", "text": "Best way to get Tomas Lindqvist: Slack DMs.", "ts": 1792034257.115379, "tokens": 13}
+{"id": "c0231", "text": "Rosa Benedetti took over as Tomas Lindqvist's line manager.", "ts": 1770154719.031501, "tokens": 15}
+{"id": "c0232", "text": "Calendar: Tomas Lindqvist away beginning January 1 for ten days.", "ts": 1753126763.976188, "tokens": 15}
+{"id": "c0233", "text": "Calendar: Tomas Lindqvist away beginning December 16 for two weeks.", "ts": 1768258473.976506, "tokens": 15}
+{"id": "c0234", "text": "Ran into Tomas Lindqvist at the climbing gym.", "ts": 1791051880.307925, "tokens": 12}
+{"id": "c0235", "text": "Tomas Lindqvist is training for a half marathon.", "ts": 1785132598.068053, "tokens": 12}
+{"id": "c0236", "text": "Tomas Lindqvist recommended a book on distributed systems.", "ts": 1787105940.193226, "tokens": 12}
+{"id": "c0237", "text": "Tomas Lindqvist told a great story about their first job.", "ts": 1751997428.983721, "tokens": 14}
+{"id": "c0238", "text": "Tomas Lindqvist gave sharp feedback on my draft, very helpful.", "ts": 1752899430.442397, "tokens": 15}
+{"id": "c0239", "text": "Tomas Lindqvist ran the workshop today and it went smoothly.", "ts": 1751450934.972244, "tokens": 14}
+{"id": "c0240", "text": "Intro call: Aiko Tanaka joined us as data scientist.", "ts": 1763805696.873052, "tokens": 13}
+{"id": "c0241", "text": "Aiko Tanaka is based in Berlin.", "ts": 1787591800.758637, "tokens": 9}
+{"id": "c0242", "text": "For team dinners: Aiko Tanaka mentioned being pescatarian.", "ts": 1786439839.013518, "tokens": 15}
+{"id": "c0243", "text": "Aiko Tanaka prefers to be reached by email only.", "ts": 1754743211.812449, "tokens": 12}
+{"id": "c0244", "text": "Aiko Tanaka asked that we use a phone call for anything urgent.", "ts": 1762370481.351077, "tokens": 15}
+{"id": "c0245", "text": "Aiko Tanaka reports to Ines Duarte.", "ts": 1760431582.140725, "tokens": 11}
+{"id": "c0246", "text": "Calendar: Aiko Tanaka away beginning February 7 for a month.", "ts": 1783048409.317821, "tokens": 15}
+{"id": "c0247", "text": "Aiko Tanaka is out from March 12 for one week.", "ts": 1783484263.762989, "tokens": 14}
+{"id": "c0248", "text": "Aiko Tanaka booked leave starting December 10 for one week.", "ts": 1789899734.776834, "tokens": 14}
+{"id": "c0249", "text": "Aiko Tanaka recommended a book on distributed systems.", "ts": 1765399310.793523, "tokens": 11}
+{"id": "c0250", "text": "Aiko Tanaka told a great story about their first job.", "ts": 1775885768.679, "tokens": 13}
+{"id": "c0251", "text": "Aiko Tanaka gave sharp feedback on my draft, very helpful.", "ts": 1781594360.943908, "tokens": 14}
+{"id": "c0252", "text": "Aiko Tanaka and I disagreed about tabs versus spaces again.", "ts": 1754505223.53763, "tokens": 13}
+{"id": "c0253", "text": "Aiko Tanaka ran the workshop today and it went smoothly.", "ts": 1775402448.294517, "tokens": 13}
+{"id": "c0254", "text": "Aiko Tanaka is training for a half marathon.", "ts": 1781228063.223411, "tokens": 11}
+{"id": "c0255", "text": "Intro call: Dele Okafor joined us as QA lead.", "ts": 1789103026.221593, "tokens": 14}
+{"id": "c0256", "text": "Dele Okafor is based in Berlin.", "ts": 1763099283.795637, "tokens": 10}
+{"id": "c0257", "text": "Dele Okafor relocated and now works from Toronto.", "ts": 1781698532.532561, "tokens": 12}
+{"id": "c0258", "text": "Dele Okafor relocated and now works from Singapore.", "ts": 1789639166.730783, "tokens": 12}
+{"id": "c0259", "text": "For team dinners: Dele Okafor mentioned being vegan.", "ts": 1764932795.055385, "tokens": 13}
+{"id": "c0260", "text": "Dele Okafor prefers to be reached by text message.", "ts": 1786602389.623143, "tokens": 13}
+{"id": "c0261", "text": "Priya Raman took over as Dele Okafor's line manager.", "ts": 1779394690.438915, "tokens": 16}
+{"id": "c0262", "text": "Dele Okafor is out from January 22 for a month.", "ts": 1794069511.072476, "tokens": 15}
+{"id": "c0263", "text": "Dele Okafor gave sharp feedback on my draft, very helpful.", "ts": 1789840082.889632, "tokens": 15}
+{"id": "c0264", "text": "Dele Okafor is training for a half marathon.", "ts": 1783415616.306917, "tokens": 12}
+{"id": "c0265", "text": "Dele Okafor told a great story about their first job.", "ts": 1763554941.325059, "tokens": 14}
+{"id": "c0266", "text": "Dele Okafor recommended a book on distributed systems.", "ts": 1757894892.868012, "tokens": 12}
+{"id": "c0267", "text": "Ran into Dele Okafor at the climbing gym.", "ts": 1755393052.764431, "tokens": 13}
+{"id": "c0268", "text": "Dele Okafor and I disagreed about tabs versus spaces again.", "ts": 1784465850.985618, "tokens": 14}
+{"id": "c0269", "text": "Marta Kowalczyk was promoted and is now a technical writer.", "ts": 1773093876.734905, "tokens": 16}
+{"id": "c0270", "text": "Marta Kowalczyk relocated and now works from Nairobi.", "ts": 1765079548.930299, "tokens": 14}
+{"id": "c0271", "text": "Heads-up: Marta Kowalczyk keeps Lisbon hours.", "ts": 1789732623.662044, "tokens": 15}
+{"id": "c0272", "text": "Catering form says Marta Kowalczyk is lactose intolerant.", "ts": 1783155437.972336, "tokens": 18}
+{"id": "c0273", "text": "Best way to get Marta Kowalczyk: a phone call.", "ts": 1758501602.046735, "tokens": 16}
+{"id": "c0274", "text": "Marta Kowalczyk reports to Tomas Lindqvist.", "ts": 1778716315.956445, "tokens": 14}
+{"id": "c0275", "text": "Marta Kowalczyk is out from March 20 for ten days.", "ts": 1789543495.641518, "tokens": 17}
+{"id": "c0276", "text": "Marta Kowalczyk and I disagreed about tabs versus spaces again.", "ts": 1785286711.782404, "tokens": 16}
+{"id": "c0277", "text": "Marta Kowalczyk told a great story about their first job.", "ts": 1785209648.643582, "tokens": 16}
+{"id": "c0278", "text": "Marta Kowalczyk recommended a book on distributed systems.", "ts": 1757076843.145788, "tokens": 14}
+{"id": "c0279", "text": "Marta Kowalczyk is training for a half marathon.", "ts": 1774648772.235859, "tokens": 14}
+{"id": "c0280", "text": "Marta Kowalczyk ran the workshop today and it went smoothly.", "ts": 1766364299.538149, "tokens": 16}
+{"id": "c0281", "text": "Ran into Marta Kowalczyk at the climbing gym.", "ts": 1784606819.782921, "tokens": 15}
+{"id": "c0282", "text": "Intro call: Jonah Reyes joined us as staff engineer.", "ts": 1761094961.554052, "tokens": 11}
+{"id": "c0283", "text": "Jonah Reyes relocated and now works from Denver.", "ts": 1772962413.636591, "tokens": 10}
+{"id": "c0284", "text": "Catering form says Jonah Reyes is gluten-free.", "ts": 1761789326.994069, "tokens": 11}
+{"id": "c0285", "text": "For team dinners: Jonah Reyes mentioned being vegetarian.", "ts": 1772721862.793467, "tokens": 10}
+{"id": "c0286", "text": "Jonah Reyes asked that we use email only for anything urgent.", "ts": 1776559203.732433, "tokens": 13}
+{"id": "c0287", "text": "Jonah Reyes's manager is Wei Zhang as of the reorg.", "ts": 1756156911.224334, "tokens": 14}
+{"id": "c0288", "text": "Calendar: Jonah Reyes away beginning December 28 for two weeks.", "ts": 1766196054.815946, "tokens": 13}
+{"id": "c0289", "text": "Jonah Reyes told a great story about their first job.", "ts": 1751543454.919813, "tokens": 12}
+{"id": "c0290", "text": "Jonah Reyes and I disagreed about tabs versus spaces again.", "ts": 1783256819.391534, "tokens": 12}
+{"id": "c0291", "text": "Jonah Reyes gave sharp feedback on my draft, very helpful.", "ts": 1790117984.709351, "tokens": 13}
+{"id": "c0292", "text": "Jonah Reyes ran the workshop today and it went smoothly.", "ts": 1752141810.617192, "tokens": 12}
+{"id": "c0293", "text": "Coffee with Jonah Reyes; talked about hiking in the Dolomites.", "ts": 1788215866.171032, "tokens": 14}
+{"id": "c0294", "text": "Jonah Reyes recommended a book on distributed systems.", "ts": 1754790581.007404, "tokens": 10}
+{"id": "c0295", "text": "Sana Mirza was promoted and is now a technical writer.", "ts": 1782711678.787304, "tokens": 13}
+{"id": "c0296", "text": "Heads-up: Sana Mirza keeps Seoul hours.", "ts": 1767240377.880255, "tokens": 12}
+{"id": "c0297", "text": "For team dinners: Sana Mirza mentioned being allergic to tree nuts.", "ts": 1764219603.552208, "tokens": 15}
+{"id": "c0298", "text": "Best way to get Sana Mirza: a phone call.", "ts": 1766305086.484208, "tokens": 13}
+{"id": "c0299", "text": "Sana Mirza reports to Yuki Morita.", "ts": 1763732707.828392, "tokens": 11}
+{"id": "c0300", "text": "Sana Mirza reports to Luis Ortega.", "ts": 1782604098.884516, "tokens": 10}
+{"id": "c0301", "text": "Sana Mirza is out from December 21 for a month.", "ts": 1775708255.129503, "tokens": 14}
+{"id": "c0302", "text": "Coffee with Sana Mirza; talked about hiking in the Dolomites.", "ts": 1765019273.252662, "tokens": 16}
+{"id": "c0303", "text": "Sana Mirza gave sharp feedback on my draft, very helpful.", "ts": 1760344932.059815, "tokens": 14}
+{"id": "c0304", "text": "Ran into Sana Mirza at the climbing gym.", "ts": 1772444282.777449, "tokens": 12}
+{"id": "c0305", "text": "Sana Mirza recommended a book on distributed systems.", "ts": 1778588131.831295, "tokens": 11}
+{"id": "c0306", "text": "Sana Mirza ran the workshop today and it went smoothly.", "ts": 1788853443.113285, "tokens": 13}
+{"id": "c0307", "text": "Sana Mirza and I disagreed about tabs versus spaces again.", "ts": 1783436352.798933, "tokens": 13}
+{"id": "c0308", "text": "Intro call: Callum Fraser joined us as engineering manager.", "ts": 1781481791.068379, "tokens": 12}
+{"id": "c0309", "text": "Callum Fraser is based in Denver.", "ts": 1761725870.588467, "tokens": 8}
+{"id": "c0310", "text": "Callum Fraser is gluten-free.", "ts": 1760403696.067489, "tokens": 7}
+{"id": "c0311", "text": "Callum Fraser asked that we use Signal for anything urgent.", "ts": 1764785723.076696, "tokens": 12}
+{"id": "c0312", "text": "Gideon Adler took over as Callum Fraser's line manager.", "ts": 1784175765.732506, "tokens": 13}
+{"id": "c0313", "text": "Callum Fraser booked leave starting February 2 for two weeks.", "ts": 1786673106.013365, "tokens": 13}
+{"id": "c0314", "text": "Callum Fraser is training for a half marathon.", "ts": 1771249193.301438, "tokens": 10}
+{"id": "c0315", "text": "Coffee with Callum Fraser; talked about hiking in the Dolomites.", "ts": 1769197219.532925, "tokens": 15}
+{"id": "c0316", "text": "Ran into Callum Fraser at the climbing gym.", "ts": 1765920567.774832, "tokens": 11}
+{"id": "c0317", "text": "Callum Fraser and I disagreed about tabs versus spaces again.", "ts": 1765859045.295024, "tokens": 12}
+{"id": "c0318", "text": "Callum Fraser ran the workshop today and it went smoothly.", "ts": 1771729590.901101, "tokens": 12}
+{"id": "c0319", "text": "Callum Fraser recommended a book on distributed systems.", "ts": 1775087593.146843, "tokens": 10}
+{"id": "c0320", "text": "Ines Duarte works as a finance partner.", "ts": 1776450175.915456, "tokens": 10}
+{"id": "c0321", "text": "Heads-up: Ines Duarte keeps Berlin hours.", "ts": 1756498326.779534, "tokens": 12}
+{"id": "c0322", "text": "Ines Duarte is vegetarian.", "ts": 1754498655.580921, "tokens": 7}
+{"id": "c0323", "text": "Ines Duarte prefers to be reached by Slack DMs.", "ts": 1772537796.655066, "tokens": 13}
+{"id": "c0324", "text": "Ines Duarte asked that we use calendar invites, no ad-hoc pings for anything urgent.", "ts": 1776659465.638017, "tokens": 21}
+{"id": "c0325", "text": "Ines Duarte's manager is Noor Haddad as of the reorg.", "ts": 1774199413.955987, "tokens": 18}
+{"id": "c0326", "text": "Ines Duarte booked leave starting January 2 for ten days.", "ts": 1768301266.462574, "tokens": 14}
+{"id": "c0327", "text": "Ines Duarte booked leave starting January 14 for ten days.", "ts": 1768433400.858297, "tokens": 14}
+{"id": "c0328", "text": "Ines Duarte is training for a half marathon.", "ts": 1759482104.345822, "tokens": 11}
+{"id": "c0329", "text": "Ines Duarte gave sharp feedback on my draft, very helpful.", "ts": 1788701328.175121, "tokens": 14}
+{"id": "c0330", "text": "Ines Duarte told a great story about their first job.", "ts": 1773665748.498386, "tokens": 13}
+{"id": "c0331", "text": "Ines Duarte and I disagreed about tabs versus spaces again.", "ts": 1755016344.95628, "tokens": 13}
+{"id": "c0332", "text": "Ines Duarte ran the workshop today and it went smoothly.", "ts": 1788762727.239746, "tokens": 13}
+{"id": "c0333", "text": "Ines Duarte recommended a book on distributed systems.", "ts": 1783776665.355022, "tokens": 11}
+{"id": "c0334", "text": "Wei Zhang was promoted and is now a technical writer.", "ts": 1752751861.955019, "tokens": 11}
+{"id": "c0335", "text": "Intro call: Wei Zhang joined us as QA lead.", "ts": 1785632669.586205, "tokens": 11}
+{"id": "c0336", "text": "Heads-up: Wei Zhang keeps Denver hours.", "ts": 1782883562.134672, "tokens": 10}
+{"id": "c0337", "text": "Wei Zhang relocated and now works from Toronto.", "ts": 1791082104.440023, "tokens": 9}
+{"id": "c0338", "text": "For team dinners: Wei Zhang mentioned being vegan.", "ts": 1760897831.896986, "tokens": 10}
+{"id": "c0339", "text": "Wei Zhang prefers to be reached by Slack DMs.", "ts": 1765208452.072749, "tokens": 11}
+{"id": "c0340", "text": "Wei Zhang's manager is Noor Haddad as of the reorg.", "ts": 1776836067.271808, "tokens": 16}
+{"id": "c0341", "text": "Calendar: Wei Zhang away beginning January 27 for one week.", "ts": 1753482277.92969, "tokens": 13}
+{"id": "c0342", "text": "Calendar: Wei Zhang away beginning December 29 for one week.", "ts": 1792464490.069753, "tokens": 13}
+{"id": "c0343", "text": "Ran into Wei Zhang at the climbing gym.", "ts": 1766080629.143174, "tokens": 10}
+{"id": "c0344", "text": "Wei Zhang is training for a half marathon.", "ts": 1794427365.553589, "tokens": 9}
+{"id": "c0345", "text": "Wei Zhang told a great story about their first job.", "ts": 1758301169.433283, "tokens": 11}
+{"id": "c0346", "text": "Wei Zhang ran the workshop today and it went smoothly.", "ts": 1784510241.762721, "tokens": 11}
+{"id": "c0347", "text": "Wei Zhang recommended a book on distributed systems.", "ts": 1769699157.333278, "tokens": 9}
+{"id": "c0348", "text": "Wei Zhang and I disagreed about tabs versus spaces again.", "ts": 1760947943.276274, "tokens": 11}
+{"id": "c0349", "text": "Rosa Benedetti works as a design lead.", "ts": 1759895659.826218, "tokens": 10}
+{"id": "c0350", "text": "Rosa Benedetti is based in Seoul.", "ts": 1787841838.765961, "tokens": 9}
+{"id": "c0351", "text": "Catering form says Rosa Benedetti is pescatarian.", "ts": 1775214409.682061, "tokens": 14}
+{"id": "c0352", "text": "Best way to get Rosa Benedetti: text message.", "ts": 1778509514.414446, "tokens": 11}
+{"id": "c0353", "text": "Dele Okafor took over as Rosa Benedetti's line manager.", "ts": 1755671673.578704, "tokens": 15}
+{"id": "c0354", "text": "Wei Zhang took over as Rosa Benedetti's line manager.", "ts": 1774208512.123726, "tokens": 12}
+{"id": "c0355", "text": "Rosa Benedetti is out from February 22 for ten days.", "ts": 1765883488.178967, "tokens": 14}
+{"id": "c0356", "text": "Rosa Benedetti told a great story about their first job.", "ts": 1774987268.992624, "tokens": 13}
+{"id": "c0357", "text": "Rosa Benedetti gave sharp feedback on my draft, very helpful.", "ts": 1791019220.153504, "tokens": 14}
+{"id": "c0358", "text": "Rosa Benedetti and I disagreed about tabs versus spaces again.", "ts": 1785935167.443325, "tokens": 13}
+{"id": "c0359", "text": "Coffee with Rosa Benedetti; talked about hiking in the Dolomites.", "ts": 1782433400.111509, "tokens": 15}
+{"id": "c0360", "text": "Rosa Benedetti is training for a half marathon.", "ts": 1762471221.991889, "tokens": 11}
+{"id": "c0361", "text": "Rosa Benedetti recommended a book on distributed systems.", "ts": 1759666880.709187, "tokens": 11}
+{"id": "c0362", "text": "Emeka Nwosu works as a engineering manager.", "ts": 1752471461.683656, "tokens": 12}
+{"id": "c0363", "text": "Emeka Nwosu works as a security analyst.", "ts": 1769014350.961612, "tokens": 12}
+{"id": "c0364", "text": "Emeka Nwosu was promoted and is now a data scientist.", "ts": 1781985515.010189, "tokens": 15}
+{"id": "c0365", "text": "Emeka Nwosu relocated and now works from Lisbon.", "ts": 1757700722.60646, "tokens": 13}
+{"id": "c0366", "text": "Catering form says Emeka Nwosu is pescatarian.", "ts": 1784809383.181672, "tokens": 17}
+{"id": "c0367", "text": "Emeka Nwosu prefers to be reached by a phone call.", "ts": 1789339015.145425, "tokens": 15}
+{"id": "c0368", "text": "Emeka Nwosu's manager is Callum Fraser as of the reorg.", "ts": 1760538450.633012, "tokens": 18}
+{"id": "c0369", "text": "Luis Ortega took over as Emeka Nwosu's line manager.", "ts": 1789008873.623239, "tokens": 17}
+{"id": "c0370", "text": "Emeka Nwosu is out from April 11 for two weeks.", "ts": 1756763107.989285, "tokens": 16}
+{"id": "c0371", "text": "Calendar: Emeka Nwosu away beginning March 9 for one week.", "ts": 1778437015.002771, "tokens": 17}
+{"id": "c0372", "text": "Emeka Nwosu told a great story about their first job.", "ts": 1767412499.782801, "tokens": 15}
+{"id": "c0373", "text": "Emeka Nwosu gave sharp feedback on my draft, very helpful.", "ts": 1764489417.825221, "tokens": 16}
+{"id": "c0374", "text": "Emeka Nwosu ran the workshop today and it went smoothly.", "ts": 1775804435.585456, "tokens": 15}
+{"id": "c0375", "text": "Emeka Nwosu and I disagreed about tabs versus spaces again.", "ts": 1782315960.309605, "tokens": 15}
+{"id": "c0376", "text": "Coffee with Emeka Nwosu; talked about hiking in the Dolomites.", "ts": 1754887815.29079, "tokens": 18}
+{"id": "c0377", "text": "Emeka Nwosu recommended a book on distributed systems.", "ts": 1765868026.891341, "tokens": 13}
+{"id": "c0378", "text": "Hanna Virtanen was promoted and is now a product manager.", "ts": 1781195079.832757, "tokens": 14}
+{"id": "c0379", "text": "Heads-up: Hanna Virtanen keeps Singapore hours.", "ts": 1763421637.68095, "tokens": 12}
+{"id": "c0380", "text": "For team dinners: Hanna Virtanen mentioned being vegetarian.", "ts": 1785991910.543537, "tokens": 12}
+{"id": "c0381", "text": "Hanna Virtanen asked that we use Signal for anything urgent.", "ts": 1769463589.092807, "tokens": 14}
+{"id": "c0382", "text": "Hanna Virtanen prefers to be reached by Slack DMs.", "ts": 1785108037.253399, "tokens": 14}
+{"id": "c0383", "text": "Hanna Virtanen reports to Yuki Morita.", "ts": 1759966112.003616, "tokens": 12}
+{"id": "c0384", "text": "Hanna Virtanen reports to Marta Kowalczyk.", "ts": 1762050960.549486, "tokens": 15}
+{"id": "c0385", "text": "Hanna Virtanen is out from December 22 for one week.", "ts": 1770583784.597626, "tokens": 15}
+{"id": "c0386", "text": "Calendar: Hanna Virtanen away beginning March 13 for a month.", "ts": 1774419337.743237, "tokens": 15}
+{"id": "c0387", "text": "Hanna Virtanen recommended a book on distributed systems.", "ts": 1759877019.98914, "tokens": 12}
+{"id": "c0388", "text": "Coffee with Hanna Virtanen; talked about hiking in the Dolomites.", "ts": 1766562500.53319, "tokens": 16}
+{"id": "c0389", "text": "Hanna Virtanen ran the workshop today and it went smoothly.", "ts": 1777812022.109015, "tokens": 14}
+{"id": "c0390", "text": "Hanna Virtanen is training for a half marathon.", "ts": 1764628259.833005, "tokens": 12}
+{"id": "c0391", "text": "Ran into Hanna Virtanen at the climbing gym.", "ts": 1783412637.967277, "tokens": 12}
+{"id": "c0392", "text": "Hanna Virtanen and I disagreed about tabs versus spaces again.", "ts": 1777080468.484131, "tokens": 14}
+{"id": "c0393", "text": "Luis Ortega was promoted and is now a staff engineer.", "ts": 1771793646.709294, "tokens": 13}
+{"id": "c0394", "text": "Heads-up: Luis Ortega keeps Denver hours.", "ts": 1761219943.118186, "tokens": 11}
+{"id": "c0395", "text": "Catering form says Luis Ortega is vegetarian.", "ts": 1769026040.303712, "tokens": 11}
+{"id": "c0396", "text": "For team dinners: Luis Ortega mentioned being allergic to shellfish.", "ts": 1777841631.623808, "tokens": 14}
+{"id": "c0397", "text": "Luis Ortega is pescatarian.", "ts": 1789943453.262219, "tokens": 10}
+{"id": "c0398", "text": "Best way to get Luis Ortega: calendar invites, no ad-hoc pings.", "ts": 1756386795.110474, "tokens": 18}
+{"id": "c0399", "text": "Luis Ortega's manager is Leilani Kahale as of the reorg.", "ts": 1782490404.521849, "tokens": 18}
+{"id": "c0400", "text": "Luis Ortega booked leave starting February 13 for a month.", "ts": 1782257510.933081, "tokens": 14}
+{"id": "c0401", "text": "Luis Ortega gave sharp feedback on my draft, very helpful.", "ts": 1783865700.447321, "tokens": 14}
+{"id": "c0402", "text": "Luis Ortega is training for a half marathon.", "ts": 1766270011.893772, "tokens": 11}
+{"id": "c0403", "text": "Luis Ortega recommended a book on distributed systems.", "ts": 1789222035.480729, "tokens": 11}
+{"id": "c0404", "text": "Luis Ortega and I disagreed about tabs versus spaces again.", "ts": 1764335848.214283, "tokens": 13}
+{"id": "c0405", "text": "Coffee with Luis Ortega; talked about hiking in the Dolomites.", "ts": 1777418689.166618, "tokens": 15}
+{"id": "c0406", "text": "Luis Ortega told a great story about their first job.", "ts": 1754802637.338489, "tokens": 13}
+{"id": "c0407", "text": "Noor Haddad works as a product manager.", "ts": 1756498302.06207, "tokens": 11}
+{"id": "c0408", "text": "Noor Haddad was promoted and is now a security analyst.", "ts": 1777674841.303143, "tokens": 14}
+{"id": "c0409", "text": "Intro call: Noor Haddad joined us as finance partner.", "ts": 1790915640.230305, "tokens": 14}
+{"id": "c0410", "text": "Noor Haddad relocated and now works from Lisbon.", "ts": 1793404696.369601, "tokens": 12}
+{"id": "c0411", "text": "Catering form says Noor Haddad is gluten-free.", "ts": 1774748193.133493, "tokens": 14}
+{"id": "c0412", "text": "Catering form says Noor Haddad is vegan.", "ts": 1785716185.67952, "tokens": 13}
+{"id": "c0413", "text": "Best way to get Noor Haddad: a phone call.", "ts": 1790902836.612155, "tokens": 14}
+{"id": "c0414", "text": "Noor Haddad's manager is Priya Raman as of the reorg.", "ts": 1760640035.226126, "tokens": 18}
+{"id": "c0415", "text": "Noor Haddad reports to Farah Siddiqui.", "ts": 1793809972.292666, "tokens": 13}
+{"id": "c0416", "text": "Noor Haddad is out from December 3 for ten days.", "ts": 1773224172.845544, "tokens": 15}
+{"id": "c0417", "text": "Noor Haddad gave sharp feedback on my draft, very helpful.", "ts": 1753460523.937925, "tokens": 15}
+{"id": "c0418", "text": "Ran into Noor Haddad at the climbing gym.", "ts": 1761174186.498223, "tokens": 13}
+{"id": "c0419", "text": "Noor Haddad ran the workshop today and it went smoothly.", "ts": 1754945705.255896, "tokens": 14}
+{"id": "c0420", "text": "Noor Haddad told a great story about their first job.", "ts": 1794237523.784531, "tokens": 14}
+{"id": "c0421", "text": "Coffee with Noor Haddad; talked about hiking in the Dolomites.", "ts": 1791215647.207167, "tokens": 17}
+{"id": "c0422", "text": "Noor Haddad is training for a half marathon.", "ts": 1788939938.336914, "tokens": 12}
+{"id": "c0423", "text": "Oskar Brandt was promoted and is now a QA lead.", "ts": 1777050556.054999, "tokens": 14}
+{"id": "c0424", "text": "Oskar Brandt relocated and now works from Toronto.", "ts": 1768164038.027975, "tokens": 12}
+{"id": "c0425", "text": "For team dinners: Oskar Brandt mentioned being allergic to shellfish.", "ts": 1771834237.058234, "tokens": 16}
+{"id": "c0426", "text": "Catering form says Oskar Brandt is vegan.", "ts": 1792469770.060836, "tokens": 13}
+{"id": "c0427", "text": "Oskar Brandt prefers to be reached by Signal.", "ts": 1774197534.935778, "tokens": 12}
+{"id": "c0428", "text": "Best way to get Oskar Brandt: email only.", "ts": 1781427644.544212, "tokens": 13}
+{"id": "c0429", "text": "Oskar Brandt's manager is Aiko Tanaka as of the reorg.", "ts": 1780846042.079286, "tokens": 18}
+{"id": "c0430", "text": "Oskar Brandt's manager is Marta Kowalczyk as of the reorg.", "ts": 1791119379.286538, "tokens": 21}
+{"id": "c0431", "text": "Calendar: Oskar Brandt away beginning February 10 for one week.", "ts": 1773670853.038256, "tokens": 16}
+{"id": "c0432", "text": "Oskar Brandt told a great story about their first job.", "ts": 1789730076.491166, "tokens": 14}
+{"id": "c0433", "text": "Oskar Brandt and I disagreed about tabs versus spaces again.", "ts": 1772472560.561488, "tokens": 14}
+{"id": "c0434", "text": "Coffee with Oskar Brandt; talked about hiking in the Dolomites.", "ts": 1757379758.320219, "tokens": 17}
+{"id": "c0435", "text": "Oskar Brandt is training for a half marathon.", "ts": 1751596662.768513, "tokens": 12}
+{"id": "c0436", "text": "Oskar Brandt gave sharp feedback on my draft, very helpful.", "ts": 1763130578.363443, "tokens": 15}
+{"id": "c0437", "text": "Ran into Oskar Brandt at the climbing gym.", "ts": 1760599042.276438, "tokens": 13}
+{"id": "c0438", "text": "Yuki Morita works as a design lead.", "ts": 1771374534.802781, "tokens": 10}
+{"id": "c0439", "text": "Yuki Morita relocated and now works from Seoul.", "ts": 1777674857.657408, "tokens": 11}
+{"id": "c0440", "text": "Catering form says Yuki Morita is allergic to shellfish.", "ts": 1754441348.085983, "tokens": 15}
+{"id": "c0441", "text": "For team dinners: Yuki Morita mentioned being gluten-free.", "ts": 1776070625.512338, "tokens": 13}
+{"id": "c0442", "text": "Yuki Morita is lactose intolerant.", "ts": 1780164888.55119, "tokens": 10}
+{"id": "c0443", "text": "Best way to get Yuki Morita: email only.", "ts": 1777053354.440063, "tokens": 12}
+{"id": "c0444", "text": "Priya Raman took over as Yuki Morita's line manager.", "ts": 1789451591.251957, "tokens": 15}
+{"id": "c0445", "text": "Aiko Tanaka took over as Yuki Morita's line manager.", "ts": 1789581172.857007, "tokens": 15}
+{"id": "c0446", "text": "Calendar: Yuki Morita away beginning February 3 for a month.", "ts": 1777589079.095994, "tokens": 15}
+{"id": "c0447", "text": "Yuki Morita recommended a book on distributed systems.", "ts": 1754231628.511522, "tokens": 11}
+{"id": "c0448", "text": "Yuki Morita ran the workshop today and it went smoothly.", "ts": 1757619088.164627, "tokens": 13}
+{"id": "c0449", "text": "Yuki Morita gave sharp feedback on my draft, very helpful.", "ts": 1791470167.402162, "tokens": 14}
+{"id": "c0450", "text": "Yuki Morita is training for a half marathon.", "ts": 1765343147.522781, "tokens": 11}
+{"id": "c0451", "text": "Ran into Yuki Morita at the climbing gym.", "ts": 1777607497.268951, "tokens": 12}
+{"id": "c0452", "text": "Yuki Morita told a great story about their first job.", "ts": 1792200205.137884, "tokens": 13}
+{"id": "c0453", "text": "Intro call: Farah Siddiqui joined us as QA lead.", "ts": 1765239302.055442, "tokens": 14}
+{"id": "c0454", "text": "Farah Siddiqui was promoted and is now a solutions architect.", "ts": 1769803416.625418, "tokens": 14}
+{"id": "c0455", "text": "Intro call: Farah Siddiqui joined us as staff engineer.", "ts": 1778453389.815688, "tokens": 14}
+{"id": "c0456", "text": "Heads-up: Farah Siddiqui keeps Auckland hours.", "ts": 1768477866.33235, "tokens": 13}
+{"id": "c0457", "text": "Catering form says Farah Siddiqui is vegetarian.", "ts": 1768911116.442941, "tokens": 13}
+{"id": "c0458", "text": "Farah Siddiqui prefers to be reached by email only.", "ts": 1773608553.330926, "tokens": 13}
+{"id": "c0459", "text": "Farah Siddiqui reports to Wei Zhang.", "ts": 1786561362.095622, "tokens": 10}
+{"id": "c0460", "text": "Farah Siddiqui booked leave starting February 15 for ten days.", "ts": 1759730833.666118, "tokens": 15}
+{"id": "c0461", "text": "Farah Siddiqui is out from February 25 for two weeks.", "ts": 1774464485.37305, "tokens": 15}
+{"id": "c0462", "text": "Farah Siddiqui and I disagreed about tabs versus spaces again.", "ts": 1794164437.065464, "tokens": 14}
+{"id": "c0463", "text": "Farah Siddiqui recommended a book on distributed systems.", "ts": 1772817113.055207, "tokens": 12}
+{"id": "c0464", "text": "Coffee with Farah Siddiqui; talked about hiking in the Dolomites.", "ts": 1772166360.613181, "tokens": 17}
+{"id": "c0465", "text": "Farah Siddiqui is training for a half marathon.", "ts": 1762581246.433525, "tokens": 12}
+{"id": "c0466", "text": "Ran into Farah Siddiqui at the climbing gym.", "ts": 1775692880.05653, "tokens": 13}
+{"id": "c0467", "text": "Farah Siddiqui told a great story about their first job.", "ts": 1757772419.356509, "tokens": 14}
+{"id": "c0468", "text": "Gideon Adler was promoted and is now a staff engineer.", "ts": 1756346120.425558, "tokens": 12}
+{"id": "c0469", "text": "Gideon Adler works as a data scientist.", "ts": 1757776013.748109, "tokens": 9}
+{"id": "c0470", "text": "Gideon Adler works as a QA lead.", "ts": 1768849134.613957, "tokens": 9}
+{"id": "c0471", "text": "Gideon Adler relocated and now works from Lisbon.", "ts": 1751619143.076223, "tokens": 10}
+{"id": "c0472", "text": "Gideon Adler is allergic to tree nuts.", "ts": 1759042393.768639, "tokens": 9}
+{"id": "c0473", "text": "Best way to get Gideon Adler: email only.", "ts": 1778551722.523099, "tokens": 11}
+{"id": "c0474", "text": "Gideon Adler reports to Dele Okafor.", "ts": 1792856614.785876, "tokens": 11}
+{"id": "c0475", "text": "Gideon Adler's manager is Leilani Kahale as of the reorg.", "ts": 1793278353.604859, "tokens": 17}
+{"id": "c0476", "text": "Calendar: Gideon Adler away beginning January 19 for ten days.", "ts": 1786266181.085189, "tokens": 14}
+{"id": "c0477", "text": "Ran into Gideon Adler at the climbing gym.", "ts": 1754265402.019114, "tokens": 11}
+{"id": "c0478", "text": "Gideon Adler told a great story about their first job.", "ts": 1769587020.88635, "tokens": 12}
+{"id": "c0479", "text": "Gideon Adler gave sharp feedback on my draft, very helpful.", "ts": 1754705730.334443, "tokens": 13}
+{"id": "c0480", "text": "Gideon Adler recommended a book on distributed systems.", "ts": 1789947935.798987, "tokens": 10}
+{"id": "c0481", "text": "Coffee with Gideon Adler; talked about hiking in the Dolomites.", "ts": 1790542809.85907, "tokens": 15}
+{"id": "c0482", "text": "Gideon Adler and I disagreed about tabs versus spaces again.", "ts": 1793095443.233415, "tokens": 12}
+{"id": "c0483", "text": "Intro call: Leilani Kahale joined us as security analyst.", "ts": 1761631863.253862, "tokens": 14}
+{"id": "c0484", "text": "Leilani Kahale was promoted and is now a solutions architect.", "ts": 1779318625.168516, "tokens": 14}
+{"id": "c0485", "text": "Heads-up: Leilani Kahale keeps Toronto hours.", "ts": 1771410058.457725, "tokens": 13}
+{"id": "c0486", "text": "Catering form says Leilani Kahale is pescatarian.", "ts": 1767737153.773269, "tokens": 16}
+{"id": "c0487", "text": "Leilani Kahale is vegetarian.", "ts": 1773118707.336254, "tokens": 8}
+{"id": "c0488", "text": "Leilani Kahale asked that we use email only for anything urgent.", "ts": 1766916076.906527, "tokens": 15}
+{"id": "c0489", "text": "Leilani Kahale prefers to be reached by a phone call.", "ts": 1776880868.425471, "tokens": 14}
+{"id": "c0490", "text": "Marta Kowalczyk took over as Leilani Kahale's line manager.", "ts": 1790084601.159017, "tokens": 19}
+{"id": "c0491", "text": "Leilani Kahale is out from February 17 for one week.", "ts": 1776212738.598975, "tokens": 15}
+{"id": "c0492", "text": "Leilani Kahale told a great story about their first job.", "ts": 1760580052.519173, "tokens": 14}
+{"id": "c0493", "text": "Leilani Kahale and I disagreed about tabs versus spaces again.", "ts": 1758933891.769762, "tokens": 14}
+{"id": "c0494", "text": "Ran into Leilani Kahale at the climbing gym.", "ts": 1767829215.796939, "tokens": 13}
+{"id": "c0495", "text": "Leilani Kahale ran the workshop today and it went smoothly.", "ts": 1777099162.375788, "tokens": 14}
+{"id": "c0496", "text": "Coffee with Leilani Kahale; talked about hiking in the Dolomites.", "ts": 1756538871.987117, "tokens": 17}
+{"id": "c0497", "text": "Leilani Kahale recommended a book on distributed systems.", "ts": 1788793311.485819, "tokens": 12}
+{"id": "c0498", "text": "We are on the Business plan with Northwind Hosting.", "ts": 1761094538.827725, "tokens": 11}
+{"id": "c0499", "text": "Northwind Hosting contract renews on July 26.", "ts": 1775292849.300807, "tokens": 11}
+{"id": "c0500", "text": "Invoice check: Northwind Hosting bills $7,950 per month.", "ts": 1774876017.082022, "tokens": 14}
+{"id": "c0501", "text": "Northwind Hosting costs us $5,000 per month.", "ts": 1785984413.60998, "tokens": 12}
+{"id": "c0502", "text": "Northwind Hosting assigned Bianca Russo as our rep.", "ts": 1752070483.738346, "tokens": 11}
+{"id": "c0503", "text": "Our account manager at Northwind Hosting is Maya Goldberg.", "ts": 1776873232.297719, "tokens": 11}
+{"id": "c0504", "text": "For Northwind Hosting escalations, talk to Marcus Oyelaran.", "ts": 1780449502.026233, "tokens": 15}
+{"id": "c0505", "text": "Northwind Hosting licence count is 125 seats.", "ts": 1767336907.093852, "tokens": 10}
+{"id": "c0506", "text": "We hold 20 seats on Northwind Hosting.", "ts": 1782331197.560927, "tokens": 10}
+{"id": "c0507", "text": "Gideon trimmed our Northwind Hosting licence to 165 seats.", "ts": 1787455853.148511, "tokens": 13}
+{"id": "c0508", "text": "Northwind Hosting status page showed a brief blip this morning.", "ts": 1769053494.816313, "tokens": 13}
+{"id": "c0509", "text": "Farah complained that the Northwind Hosting dashboard is slow.", "ts": 1784819644.891769, "tokens": 12}
+{"id": "c0510", "text": "Northwind Hosting released a redesign of their settings screen.", "ts": 1756775350.486688, "tokens": 11}
+{"id": "c0511", "text": "Northwind Hosting sent another marketing newsletter.", "ts": 1792067900.088873, "tokens": 8}
+{"id": "c0512", "text": "Swag box from Northwind Hosting arrived: stickers and a mug.", "ts": 1788112728.855008, "tokens": 14}
+{"id": "c0513", "text": "Sat through a Northwind Hosting webinar; mostly a sales pitch.", "ts": 1752375891.272851, "tokens": 13}
+{"id": "c0514", "text": "Noor switched our Brightline Analytics subscription to Starter.", "ts": 1780426587.986083, "tokens": 11}
+{"id": "c0515", "text": "Brightline Analytics contract renews on July 8.", "ts": 1774620705.385191, "tokens": 11}
+{"id": "c0516", "text": "Brightline Analytics contract renews on October 2.", "ts": 1777595362.672066, "tokens": 11}
+{"id": "c0517", "text": "Invoice check: Brightline Analytics bills $4,850 per month.", "ts": 1780660893.907071, "tokens": 14}
+{"id": "c0518", "text": "Invoice check: Brightline Analytics bills $8,050 per month.", "ts": 1782164344.871159, "tokens": 14}
+{"id": "c0519", "text": "For Brightline Analytics escalations, talk to Marcus Oyelaran.", "ts": 1753966048.102147, "tokens": 15}
+{"id": "c0520", "text": "For Brightline Analytics escalations, talk to Sofia Lindgren.", "ts": 1786125789.333231, "tokens": 13}
+{"id": "c0521", "text": "Noor trimmed our Brightline Analytics licence to 190 seats.", "ts": 1793165752.023284, "tokens": 13}
+{"id": "c0522", "text": "Sat through a Brightline Analytics webinar; mostly a sales pitch.", "ts": 1778325877.399738, "tokens": 13}
+{"id": "c0523", "text": "Brightline Analytics sent another marketing newsletter.", "ts": 1782398681.76652, "tokens": 8}
+{"id": "c0524", "text": "Noor complained that the Brightline Analytics dashboard is slow.", "ts": 1765967931.190884, "tokens": 12}
+{"id": "c0525", "text": "Swag box from Brightline Analytics arrived: stickers and a mug.", "ts": 1789068875.764806, "tokens": 14}
+{"id": "c0526", "text": "Brightline Analytics released a redesign of their settings screen.", "ts": 1771288185.714688, "tokens": 11}
+{"id": "c0527", "text": "Brightline Analytics status page showed a brief blip this morning.", "ts": 1791876845.67479, "tokens": 13}
+{"id": "c0528", "text": "Ines switched our Pagewell subscription to Scale.", "ts": 1764167304.037887, "tokens": 11}
+{"id": "c0529", "text": "Pagewell account was moved to the Business tier.", "ts": 1780777188.392642, "tokens": 11}
+{"id": "c0530", "text": "Ines extended Pagewell; next renewal falls on August 13.", "ts": 1777063100.94407, "tokens": 15}
+{"id": "c0531", "text": "Aiko extended Pagewell; next renewal falls on January 10.", "ts": 1782328648.556293, "tokens": 15}
+{"id": "c0532", "text": "After the price change Pagewell runs $3,700 per month.", "ts": 1768192962.450228, "tokens": 15}
+{"id": "c0533", "text": "After the price change Pagewell runs $7,650 per month.", "ts": 1774952297.672964, "tokens": 15}
+{"id": "c0534", "text": "For Pagewell escalations, talk to Maya Goldberg.", "ts": 1761643407.224417, "tokens": 12}
+{"id": "c0535", "text": "Pagewell licence count is 125 seats.", "ts": 1777663208.271514, "tokens": 10}
+{"id": "c0536", "text": "Pagewell released a redesign of their settings screen.", "ts": 1785444903.07532, "tokens": 11}
+{"id": "c0537", "text": "Sat through a Pagewell webinar; mostly a sales pitch.", "ts": 1755603849.487591, "tokens": 13}
+{"id": "c0538", "text": "Aiko complained that the Pagewell dashboard is slow.", "ts": 1775485984.030888, "tokens": 12}
+{"id": "c0539", "text": "Pagewell status page showed a brief blip this morning.", "ts": 1784418464.956503, "tokens": 13}
+{"id": "c0540", "text": "Swag box from Pagewell arrived: stickers and a mug.", "ts": 1792371968.003586, "tokens": 14}
+{"id": "c0541", "text": "Pagewell sent another marketing newsletter.", "ts": 1778714389.249998, "tokens": 8}
+{"id": "c0542", "text": "Corvid Security account was moved to the Team tier.", "ts": 1786843939.609825, "tokens": 11}
+{"id": "c0543", "text": "Priya extended Corvid Security; next renewal falls on March 27.", "ts": 1762072972.579545, "tokens": 15}
+{"id": "c0544", "text": "Corvid Security costs us $1,950 per month.", "ts": 1772177892.762439, "tokens": 12}
+{"id": "c0545", "text": "Corvid Security assigned Sofia Lindgren as our rep.", "ts": 1766965955.667731, "tokens": 11}
+{"id": "c0546", "text": "We hold 110 seats on Corvid Security.", "ts": 1753572099.57818, "tokens": 10}
+{"id": "c0547", "text": "Oskar trimmed our Corvid Security licence to 135 seats.", "ts": 1768602242.666431, "tokens": 14}
+{"id": "c0548", "text": "Corvid Security sent another marketing newsletter.", "ts": 1780626455.666543, "tokens": 8}
+{"id": "c0549", "text": "Corvid Security status page showed a brief blip this morning.", "ts": 1787481823.647957, "tokens": 13}
+{"id": "c0550", "text": "Farah complained that the Corvid Security dashboard is slow.", "ts": 1771228566.096357, "tokens": 12}
+{"id": "c0551", "text": "Swag box from Corvid Security arrived: stickers and a mug.", "ts": 1767864325.069098, "tokens": 14}
+{"id": "c0552", "text": "Sat through a Corvid Security webinar; mostly a sales pitch.", "ts": 1773440738.514437, "tokens": 13}
+{"id": "c0553", "text": "Corvid Security released a redesign of their settings screen.", "ts": 1794103706.056126, "tokens": 11}
+{"id": "c0554", "text": "Oskar switched our Tessera Payments subscription to Business.", "ts": 1784275913.61318, "tokens": 12}
+{"id": "c0555", "text": "Renewal date for Tessera Payments: March 15.", "ts": 1786457387.553318, "tokens": 13}
+{"id": "c0556", "text": "Tessera Payments costs us $4,150 per month.", "ts": 1752727262.698385, "tokens": 13}
+{"id": "c0557", "text": "Tessera Payments costs us $3,100 per month.", "ts": 1779877799.700658, "tokens": 13}
+{"id": "c0558", "text": "Tessera Payments costs us $8,300 per month.", "ts": 1788837806.373762, "tokens": 13}
+{"id": "c0559", "text": "For Tessera Payments escalations, talk to Theo Nakamura.", "ts": 1775670266.415943, "tokens": 13}
+{"id": "c0560", "text": "We hold 120 seats on Tessera Payments.", "ts": 1776389957.497724, "tokens": 10}
+{"id": "c0561", "text": "Rosa complained that the Tessera Payments dashboard is slow.", "ts": 1755790395.120865, "tokens": 12}
+{"id": "c0562", "text": "Tessera Payments sent another marketing newsletter.", "ts": 1780715219.012138, "tokens": 9}
+{"id": "c0563", "text": "Tessera Payments released a redesign of their settings screen.", "ts": 1770758475.179564, "tokens": 12}
+{"id": "c0564", "text": "Swag box from Tessera Payments arrived: stickers and a mug.", "ts": 1785976496.78405, "tokens": 14}
+{"id": "c0565", "text": "Tessera Payments status page showed a brief blip this morning.", "ts": 1778062376.560733, "tokens": 14}
+{"id": "c0566", "text": "Sat through a Tessera Payments webinar; mostly a sales pitch.", "ts": 1763246508.638934, "tokens": 13}
+{"id": "c0567", "text": "Lanternmail account was moved to the Business tier.", "ts": 1781907562.688149, "tokens": 12}
+{"id": "c0568", "text": "Ines extended Lanternmail; next renewal falls on July 28.", "ts": 1775799655.750072, "tokens": 14}
+{"id": "c0569", "text": "Renewal date for Lanternmail: December 2.", "ts": 1776321430.61293, "tokens": 12}
+{"id": "c0570", "text": "Invoice check: Lanternmail bills $2,700 per month.", "ts": 1770551383.819089, "tokens": 13}
+{"id": "c0571", "text": "Our account manager at Lanternmail is Bianca Russo.", "ts": 1761220490.454242, "tokens": 11}
+{"id": "c0572", "text": "Lanternmail assigned Henrik Aalto as our rep.", "ts": 1782774853.170026, "tokens": 12}
+{"id": "c0573", "text": "We hold 30 seats on Lanternmail.", "ts": 1784996860.163014, "tokens": 9}
+{"id": "c0574", "text": "Farah complained that the Lanternmail dashboard is slow.", "ts": 1784728849.495181, "tokens": 11}
+{"id": "c0575", "text": "Lanternmail status page showed a brief blip this morning.", "ts": 1758026870.924657, "tokens": 14}
+{"id": "c0576", "text": "Lanternmail sent another marketing newsletter.", "ts": 1794360775.436008, "tokens": 9}
+{"id": "c0577", "text": "Sat through a Lanternmail webinar; mostly a sales pitch.", "ts": 1776715263.774505, "tokens": 12}
+{"id": "c0578", "text": "Lanternmail released a redesign of their settings screen.", "ts": 1762702907.688684, "tokens": 12}
+{"id": "c0579", "text": "Swag box from Lanternmail arrived: stickers and a mug.", "ts": 1773569830.360509, "tokens": 13}
+{"id": "c0580", "text": "Emeka switched our Quillbase subscription to Business.", "ts": 1755398670.364712, "tokens": 11}
+{"id": "c0581", "text": "Aiko extended Quillbase; next renewal falls on June 6.", "ts": 1762631085.922043, "tokens": 15}
+{"id": "c0582", "text": "Invoice check: Quillbase bills $8,700 per month.", "ts": 1766216944.504711, "tokens": 14}
+{"id": "c0583", "text": "Invoice check: Quillbase bills $7,100 per month.", "ts": 1778143408.381774, "tokens": 14}
+{"id": "c0584", "text": "Our account manager at Quillbase is Henrik Aalto.", "ts": 1779705903.688805, "tokens": 12}
+{"id": "c0585", "text": "Dele trimmed our Quillbase licence to 110 seats.", "ts": 1761694764.674921, "tokens": 13}
+{"id": "c0586", "text": "Quillbase status page showed a brief blip this morning.", "ts": 1771731795.034666, "tokens": 13}
+{"id": "c0587", "text": "Priya complained that the Quillbase dashboard is slow.", "ts": 1752816528.341984, "tokens": 12}
+{"id": "c0588", "text": "Quillbase released a redesign of their settings screen.", "ts": 1772975322.027092, "tokens": 11}
+{"id": "c0589", "text": "Sat through a Quillbase webinar; mostly a sales pitch.", "ts": 1783210391.905198, "tokens": 13}
+{"id": "c0590", "text": "Swag box from Quillbase arrived: stickers and a mug.", "ts": 1789939205.263723, "tokens": 14}
+{"id": "c0591", "text": "Quillbase sent another marketing newsletter.", "ts": 1771399146.711441, "tokens": 8}
+{"id": "c0592", "text": "Leilani switched our Stackharbor subscription to Starter.", "ts": 1781683491.303953, "tokens": 12}
+{"id": "c0593", "text": "Stackharbor account was moved to the Team tier.", "ts": 1785099091.797199, "tokens": 11}
+{"id": "c0594", "text": "Renewal date for Stackharbor: December 13.", "ts": 1770907477.362623, "tokens": 13}
+{"id": "c0595", "text": "Wei extended Stackharbor; next renewal falls on April 8.", "ts": 1772473985.359008, "tokens": 14}
+{"id": "c0596", "text": "Invoice check: Stackharbor bills $950 per month.", "ts": 1776022926.306348, "tokens": 12}
+{"id": "c0597", "text": "For Stackharbor escalations, talk to Dana Whitfield.", "ts": 1751909227.720775, "tokens": 13}
+{"id": "c0598", "text": "Our account manager at Stackharbor is Henrik Aalto.", "ts": 1791529769.890969, "tokens": 12}
+{"id": "c0599", "text": "Callum trimmed our Stackharbor licence to 25 seats.", "ts": 1761266042.719356, "tokens": 13}
+{"id": "c0600", "text": "We hold 80 seats on Stackharbor.", "ts": 1771111720.886305, "tokens": 10}
+{"id": "c0601", "text": "Swag box from Stackharbor arrived: stickers and a mug.", "ts": 1784696562.606033, "tokens": 14}
+{"id": "c0602", "text": "Stackharbor status page showed a brief blip this morning.", "ts": 1774779505.571453, "tokens": 13}
+{"id": "c0603", "text": "Stackharbor sent another marketing newsletter.", "ts": 1753654011.670396, "tokens": 8}
+{"id": "c0604", "text": "Stackharbor released a redesign of their settings screen.", "ts": 1777078844.463943, "tokens": 11}
+{"id": "c0605", "text": "Sat through a Stackharbor webinar; mostly a sales pitch.", "ts": 1778092924.566303, "tokens": 13}
+{"id": "c0606", "text": "Sana complained that the Stackharbor dashboard is slow.", "ts": 1768926101.254016, "tokens": 12}
+{"id": "c0607", "text": "Opaline Design account was moved to the Starter tier.", "ts": 1755057413.393608, "tokens": 12}
+{"id": "c0608", "text": "We are on the Scale plan with Opaline Design.", "ts": 1763360541.815833, "tokens": 12}
+{"id": "c0609", "text": "Opaline Design contract renews on March 13.", "ts": 1785726818.914466, "tokens": 12}
+{"id": "c0610", "text": "Opaline Design costs us $5,750 per month.", "ts": 1756267005.89308, "tokens": 13}
+{"id": "c0611", "text": "Opaline Design costs us $400 per month.", "ts": 1764937573.660441, "tokens": 11}
+{"id": "c0612", "text": "Opaline Design assigned Marcus Oyelaran as our rep.", "ts": 1756766487.581606, "tokens": 14}
+{"id": "c0613", "text": "We hold 120 seats on Opaline Design.", "ts": 1783704971.039792, "tokens": 11}
+{"id": "c0614", "text": "Opaline Design status page showed a brief blip this morning.", "ts": 1780648235.430111, "tokens": 14}
+{"id": "c0615", "text": "Opaline Design released a redesign of their settings screen.", "ts": 1767847603.038711, "tokens": 12}
+{"id": "c0616", "text": "Jonah complained that the Opaline Design dashboard is slow.", "ts": 1776118105.928287, "tokens": 13}
+{"id": "c0617", "text": "Opaline Design sent another marketing newsletter.", "ts": 1754638923.128135, "tokens": 9}
+{"id": "c0618", "text": "Sat through a Opaline Design webinar; mostly a sales pitch.", "ts": 1754427524.329746, "tokens": 14}
+{"id": "c0619", "text": "Swag box from Opaline Design arrived: stickers and a mug.", "ts": 1787339879.209698, "tokens": 15}
+{"id": "c0620", "text": "Ines switched our Ferrous CI subscription to Team.", "ts": 1760126162.852811, "tokens": 11}
+{"id": "c0621", "text": "Leilani switched our Ferrous CI subscription to Scale.", "ts": 1772182851.769572, "tokens": 12}
+{"id": "c0622", "text": "Renewal date for Ferrous CI: March 2.", "ts": 1788188474.901524, "tokens": 13}
+{"id": "c0623", "text": "Renewal date for Ferrous CI: January 7.", "ts": 1792637991.558508, "tokens": 13}
+{"id": "c0624", "text": "Invoice check: Ferrous CI bills $5,550 per month.", "ts": 1786884276.767393, "tokens": 14}
+{"id": "c0625", "text": "For Ferrous CI escalations, talk to Dana Whitfield.", "ts": 1773890891.646008, "tokens": 13}
+{"id": "c0626", "text": "Our account manager at Ferrous CI is Maya Goldberg.", "ts": 1782540954.809334, "tokens": 11}
+{"id": "c0627", "text": "Ferrous CI licence count is 65 seats.", "ts": 1761320525.75796, "tokens": 11}
+{"id": "c0628", "text": "Swag box from Ferrous CI arrived: stickers and a mug.", "ts": 1766172243.126451, "tokens": 14}
+{"id": "c0629", "text": "Ferrous CI sent another marketing newsletter.", "ts": 1761836693.583276, "tokens": 9}
+{"id": "c0630", "text": "Ferrous CI status page showed a brief blip this morning.", "ts": 1784926218.947076, "tokens": 14}
+{"id": "c0631", "text": "Sat through a Ferrous CI webinar; mostly a sales pitch.", "ts": 1778590824.268041, "tokens": 13}
+{"id": "c0632", "text": "Ferrous CI released a redesign of their settings screen.", "ts": 1757338004.843308, "tokens": 12}
+{"id": "c0633", "text": "Luis complained that the Ferrous CI dashboard is slow.", "ts": 1754527661.355915, "tokens": 12}
+{"id": "c0634", "text": "Dentist appointment booked for December 7 at 8:40.", "ts": 1784531480.456206, "tokens": 15}
+{"id": "c0635", "text": "Landlord is Mr. Abernathy; rent questions go there.", "ts": 1766139132.628291, "tokens": 14}
+{"id": "c0636", "text": "The flat is now managed by Ms. Calloway.", "ts": 1772339549.011409, "tokens": 12}
+{"id": "c0637", "text": "Apartment lease runs until September 30.", "ts": 1761368003.763252, "tokens": 9}
+{"id": "c0638", "text": "Signed the extension: lease now ends April 22.", "ts": 1773395615.581949, "tokens": 11}
+{"id": "c0639", "text": "Passport expires July 2027.", "ts": 1777908364.78268, "tokens": 8}
+{"id": "c0640", "text": "Gym locker is number 62.", "ts": 1769663616.129411, "tokens": 8}
+{"id": "c0641", "text": "Car is booked in for its service on March 8.", "ts": 1778686400.247828, "tokens": 12}
+{"id": "c0642", "text": "School pickup is at 16:00 this term.", "ts": 1763948760.174757, "tokens": 11}
+{"id": "c0643", "text": "Pickup time changed to 15:25 from next week.", "ts": 1778748724.950044, "tokens": 13}
+{"id": "c0644", "text": "For client dinners I use The Copper Finch.", "ts": 1764395137.576483, "tokens": 9}
+{"id": "c0645", "text": "Frequent flyer status is with KLM.", "ts": 1783690092.455749, "tokens": 9}
+{"id": "c0646", "text": "Physiotherapist is Dr. Okonkwo.", "ts": 1763443018.444374, "tokens": 12}
+{"id": "c0647", "text": "Started seeing Dr. Hallberg for physio instead.", "ts": 1775606167.971706, "tokens": 11}
+{"id": "c0648", "text": "Vet check-up for Biscuit is on December 10.", "ts": 1767250669.138043, "tokens": 14}
+{"id": "c0649", "text": "Vet moved Biscuit's check-up to January 4.", "ts": 1782779785.206225, "tokens": 14}
+{"id": "c0650", "text": "Taxes are handled by Ines at Ledgerline.", "ts": 1763148956.106753, "tokens": 11}
+{"id": "c0651", "text": "Home insurance renews December 28.", "ts": 1774010498.960025, "tokens": 8}
+{"id": "c0652", "text": "Insurer pushed the home policy renewal to June 30.", "ts": 1793135322.858383, "tokens": 12}
+{"id": "c0653", "text": "Speaking at the infra conference in Lisbon, March 25.", "ts": 1784688137.218552, "tokens": 12}
+{"id": "c0654", "text": "Conference talk confirmed: Austin, March 13.", "ts": 1791816437.448413, "tokens": 10}
+{"id": "c0655", "text": "Office parking spot is bay E48.", "ts": 1772350063.508703, "tokens": 8}
+{"id": "c0656", "text": "Facilities reassigned me to bay F44.", "ts": 1789430153.768033, "tokens": 10}
+{"id": "c0657", "text": "Weather was foggy; spent the evening at the market.", "ts": 1765680407.860428, "tokens": 12}
+{"id": "c0658", "text": "Watched a documentary about bird migration; surprisingly moving.", "ts": 1787388619.124757, "tokens": 11}
+{"id": "c0659", "text": "Reading notes, an essay collection on attention: the argument about scale is the best part.", "ts": 1767109052.766527, "tokens": 18}
+{"id": "c0660", "text": "Fixed the leaking tap with new washers; took ten minutes and I should have called someone.", "ts": 1787083426.723386, "tokens": 19}
+{"id": "c0661", "text": "The neighbours came round for a barbecue; we planned a camping trip until the kids got tired.", "ts": 1778884632.754186, "tokens": 19}
+{"id": "c0662", "text": "Errand list: pick up dry cleaning, get keys cut, fix the bike tyre.", "ts": 1752095434.43155, "tokens": 18}
+{"id": "c0663", "text": "General note on writing design docs: double the first guess.", "ts": 1769849894.177277, "tokens": 12}
+{"id": "c0664", "text": "Reading notes, a novel set in Trieste: not convinced by the conclusion.", "ts": 1760638352.710199, "tokens": 16}
+{"id": "c0665", "text": "General note on writing design docs: say the conclusion first.", "ts": 1786034689.324476, "tokens": 12}
+{"id": "c0666", "text": "Tried a recipe for sourdough focaccia; next time use less lemon.", "ts": 1780930167.059835, "tokens": 18}
+{"id": "c0667", "text": "Fixed the wobbly shelf with some epoxy; took an hour and it is still not right.", "ts": 1780013047.384079, "tokens": 20}
+{"id": "c0668", "text": "Ran 10 km along the river path; legs felt heavy.", "ts": 1763834979.436561, "tokens": 14}
+{"id": "c0669", "text": "Weather was glorious; spent the afternoon sorting old photos.", "ts": 1758525263.444651, "tokens": 11}
+{"id": "c0670", "text": "Ran 12 km along the park loop; legs felt great.", "ts": 1760507958.264737, "tokens": 14}
+{"id": "c0671", "text": "Reading notes, a primer on type theory: not convinced by the conclusion.", "ts": 1757566761.373768, "tokens": 15}
+{"id": "c0672", "text": "Weather was foggy; spent the morning repotting herbs.", "ts": 1785585023.457048, "tokens": 13}
+{"id": "c0673", "text": "Tried a recipe for mushroom risotto; next time use less garlic.", "ts": 1771459596.868077, "tokens": 15}
+{"id": "c0674", "text": "My cousins came round for brunch; we watched the match until the kids got tired.", "ts": 1788168537.807483, "tokens": 17}
+{"id": "c0675", "text": "Watched a short film about deep-sea vents; beautifully shot.", "ts": 1778227857.71237, "tokens": 14}
+{"id": "c0676", "text": "Fixed the desk lamp with duct tape; took an hour and I should have called someone.", "ts": 1766958410.324077, "tokens": 18}
+{"id": "c0677", "text": "Friends from choir came round for brunch; we watched the match until midnight.", "ts": 1788714721.98382, "tokens": 15}
+{"id": "c0678", "text": "Tried a recipe for shakshuka; next time use less garlic.", "ts": 1789845408.752688, "tokens": 16}
+{"id": "c0679", "text": "Ran 8 km along the canal; legs felt light.", "ts": 1761770363.218263, "tokens": 13}
+{"id": "c0680", "text": "Watched a short film about bird migration; fell asleep halfway.", "ts": 1777298805.071548, "tokens": 13}
+{"id": "c0681", "text": "Ran 14 km along the coast road; legs felt heavy.", "ts": 1751437767.480015, "tokens": 14}
+{"id": "c0682", "text": "Reading notes, a history of cartography: the middle chapters drag.", "ts": 1787088388.833891, "tokens": 14}
+{"id": "c0683", "text": "Reading notes, an essay collection on attention: the footnotes are better than the text.", "ts": 1772720223.37523, "tokens": 18}
+{"id": "c0684", "text": "Tried a recipe for shakshuka; next time use less oil.", "ts": 1778058575.262261, "tokens": 16}
+{"id": "c0685", "text": "Friends from choir came round for brunch; we watched the match until the rain stopped.", "ts": 1757336379.664138, "tokens": 17}
+{"id": "c0686", "text": "Tried a recipe for shakshuka; next time use less salt.", "ts": 1791707036.334318, "tokens": 16}
+{"id": "c0687", "text": "Fixed the wobbly shelf with some epoxy; took ten minutes and it is still not right.", "ts": 1758380581.649893, "tokens": 20}
+{"id": "c0688", "text": "Fixed the bike brakes with new washers; took ten minutes and it held.", "ts": 1761584104.844318, "tokens": 16}
+{"id": "c0689", "text": "Watched a short film about deep-sea vents; too long.", "ts": 1768811127.687907, "tokens": 14}
+{"id": "c0690", "text": "My cousins came round for brunch; we planned a camping trip until late.", "ts": 1776353252.195741, "tokens": 15}
+{"id": "c0691", "text": "Ran 17 km along the river path; legs felt light.", "ts": 1781878707.498637, "tokens": 14}
+{"id": "c0692", "text": "Ran 5 km along the canal; legs felt stiff.", "ts": 1792961202.307891, "tokens": 13}
+{"id": "c0693", "text": "Idea: a newsletter about obscure maps. Probably too niche.", "ts": 1787449512.127777, "tokens": 13}
+{"id": "c0694", "text": "Friends from choir came round for a barbecue; we watched the match until late.", "ts": 1791960913.647003, "tokens": 16}
+{"id": "c0695", "text": "Fixed the squeaky door with new washers; took an hour and it held.", "ts": 1752024095.041933, "tokens": 17}
+{"id": "c0696", "text": "Reading notes, a primer on type theory: the middle chapters drag.", "ts": 1788728500.972815, "tokens": 14}
+{"id": "c0697", "text": "General note on estimating work: ask what would change your mind.", "ts": 1759763499.136123, "tokens": 13}
+{"id": "c0698", "text": "Idea: a browser extension that hides comment sections. Probably too niche.", "ts": 1773487401.465371, "tokens": 15}
+{"id": "c0699", "text": "Weather was grim; spent the afternoon sorting old photos.", "ts": 1780033611.775973, "tokens": 11}
+{"id": "c0700", "text": "Errand list: pick up dry cleaning, buy birthday card, water the plants.", "ts": 1763262525.211112, "tokens": 17}
+{"id": "c0701", "text": "Weather was windy; spent the afternoon sorting old photos.", "ts": 1754436846.716882, "tokens": 11}
+{"id": "c0702", "text": "Fixed the desk lamp with some epoxy; took ten minutes and it held.", "ts": 1776398574.698836, "tokens": 15}
+{"id": "c0703", "text": "Tried a recipe for fish tacos; next time use less cumin.", "ts": 1770337627.156542, "tokens": 15}
+{"id": "c0704", "text": "General note on code review: say the conclusion first.", "ts": 1779289559.359758, "tokens": 11}
+{"id": "c0705", "text": "Watched a documentary about the history of zero; beautifully shot.", "ts": 1787001896.480479, "tokens": 13}
+{"id": "c0706", "text": "My cousins came round for dinner; we planned a camping trip until the rain stopped.", "ts": 1761814917.922408, "tokens": 17}
+{"id": "c0707", "text": "My sister came round for a barbecue; we argued about films until the kids got tired.", "ts": 1754501422.196816, "tokens": 18}
+{"id": "c0708", "text": "An old flatmate came round for a barbecue; we argued about films until the rain stopped.", "ts": 1759234170.467082, "tokens": 19}
+{"id": "c0709", "text": "Watched a short film about Roman concrete; fell asleep halfway.", "ts": 1785050790.199862, "tokens": 13}
+{"id": "c0710", "text": "Reading notes, a novel set in Trieste: worth rereading the introduction.", "ts": 1778633236.247964, "tokens": 17}
+{"id": "c0711", "text": "Fixed the leaking tap with new washers; took an hour and I should have called someone.", "ts": 1769138676.813873, "tokens": 19}
+{"id": "c0712", "text": "Reading notes, a novel set in Trieste: the middle chapters drag.", "ts": 1773907064.120696, "tokens": 15}
+{"id": "c0713", "text": "Weather was muggy; spent the morning at the market.", "ts": 1756002163.690916, "tokens": 12}
+{"id": "c0714", "text": "Reading notes, an essay collection on attention: worth rereading the introduction.", "ts": 1775432107.230257, "tokens": 16}
+{"id": "c0715", "text": "Ran 9 km along the river path; legs felt great.", "ts": 1787949720.303435, "tokens": 14}
+{"id": "c0716", "text": "Weather was grim; spent the morning painting the hallway.", "ts": 1755796335.575402, "tokens": 11}
+{"id": "c0717", "text": "Fixed the garden gate with some epoxy; took ten minutes and it is still not right.", "ts": 1761990874.585691, "tokens": 18}
+{"id": "c0718", "text": "Reading notes, a biography of a lighthouse keeper: the argument about scale is the best part.", "ts": 1784212997.925479, "tokens": 20}
+{"id": "c0719", "text": "Weather was grim; spent the evening repotting herbs.", "ts": 1791544714.026948, "tokens": 12}
+{"id": "c0720", "text": "Reading notes, a primer on type theory: the footnotes are better than the text.", "ts": 1794219413.291464, "tokens": 18}
+{"id": "c0721", "text": "The book club came round for a barbecue; we watched the match until late.", "ts": 1776907437.901055, "tokens": 16}
+{"id": "c0722", "text": "Tried a recipe for sourdough focaccia; next time use less salt.", "ts": 1780226225.08289, "tokens": 18}
+{"id": "c0723", "text": "Errand list: post the parcel, drop off recycling, water the plants.", "ts": 1784184155.673565, "tokens": 16}
+{"id": "c0724", "text": "General note on writing design docs: pair on day one.", "ts": 1782606641.712909, "tokens": 12}
+{"id": "c0725", "text": "Errand list: buy lightbulbs, buy birthday card, descale the kettle.", "ts": 1789285010.258887, "tokens": 18}
+{"id": "c0726", "text": "My sister came round for dinner; we argued about films until the kids got tired.", "ts": 1787777457.311444, "tokens": 17}
+{"id": "c0727", "text": "Watched a documentary about glassblowing; fell asleep halfway.", "ts": 1792232608.484498, "tokens": 13}
+{"id": "c0728", "text": "Reading notes, a history of cartography: the footnotes are better than the text.", "ts": 1794166784.820098, "tokens": 18}
+{"id": "c0729", "text": "Tried a recipe for sourdough focaccia; next time use less oil.", "ts": 1751871088.690344, "tokens": 18}
+{"id": "c0730", "text": "Tried a recipe for shakshuka; next time use less cumin.", "ts": 1768314788.604435, "tokens": 17}
+{"id": "c0731", "text": "General note on code review: smaller is better.", "ts": 1779041874.788149, "tokens": 10}
+{"id": "c0732", "text": "Errand list: post the parcel, refill prescription, call the plumber.", "ts": 1785365028.155049, "tokens": 15}
+{"id": "c0733", "text": "General note on onboarding: ask what would change your mind.", "ts": 1778882014.74766, "tokens": 13}
+{"id": "c0734", "text": "Reading notes, a biography of a lighthouse keeper: the footnotes are better than the text.", "ts": 1793168595.413239, "tokens": 20}
+{"id": "c0735", "text": "Idea: a browser extension that hides comment sections. Probably not worth the time.", "ts": 1752495848.423521, "tokens": 17}
+{"id": "c0736", "text": "Weather was windy; spent the evening fixing the fence.", "ts": 1792528222.204458, "tokens": 11}
+{"id": "c0737", "text": "Ran 10 km along the river path; legs felt stiff.", "ts": 1757157284.990497, "tokens": 14}
+{"id": "c0738", "text": "Idea: a tiny app for tracking houseplant watering. Probably not worth the time.", "ts": 1788717734.558904, "tokens": 18}
+{"id": "c0739", "text": "Ran 7 km along the canal; legs felt great.", "ts": 1777886731.705496, "tokens": 13}
+{"id": "c0740", "text": "Fixed the leaking tap with a borrowed wrench; took all afternoon and I felt smug.", "ts": 1768603271.971327, "tokens": 18}
+{"id": "c0741", "text": "Errand list: buy lightbulbs, refill prescription, fix the bike tyre.", "ts": 1753706485.390252, "tokens": 17}
+{"id": "c0742", "text": "Errand list: post the parcel, drop off recycling, descale the kettle.", "ts": 1757974086.405134, "tokens": 17}
+{"id": "c0743", "text": "Errand list: return library books, refill prescription, fix the bike tyre.", "ts": 1780514349.334805, "tokens": 16}
+{"id": "c0744", "text": "Watched a lecture about glassblowing; too long.", "ts": 1792871365.457847, "tokens": 12}
+{"id": "c0745", "text": "Ran 7 km along the coast road; legs felt stiff.", "ts": 1780980905.505018, "tokens": 14}
+{"id": "c0746", "text": "Idea: a tiny app for tracking houseplant watering. Probably worth a weekend.", "ts": 1752027205.440711, "tokens": 17}
+{"id": "c0747", "text": "Tried a recipe for mushroom risotto; next time use less salt.", "ts": 1758754465.041434, "tokens": 15}
+{"id": "c0748", "text": "Errand list: buy lightbulbs, get keys cut, water the plants.", "ts": 1793534978.840713, "tokens": 17}
+{"id": "c0749", "text": "General note on code review: write the agenda down.", "ts": 1770324808.858256, "tokens": 11}
+{"id": "c0750", "text": "Weather was grim; spent the morning repotting herbs.", "ts": 1759587936.872672, "tokens": 12}
+{"id": "c0751", "text": "Watched a short film about glassblowing; surprisingly moving.", "ts": 1772573619.7282, "tokens": 13}
+{"id": "c0752", "text": "Ran 19 km along the park loop; legs felt stiff.", "ts": 1763539084.182927, "tokens": 14}
+{"id": "c0753", "text": "Fixed the wobbly shelf with some epoxy; took all afternoon and it is still not right.", "ts": 1791834388.430243, "tokens": 20}
+{"id": "c0754", "text": "Weather was foggy; spent the afternoon fixing the fence.", "ts": 1792039045.47027, "tokens": 12}
+{"id": "c0755", "text": "Errand list: buy lightbulbs, drop off recycling, descale the kettle.", "ts": 1759108486.53125, "tokens": 18}
+{"id": "c0756", "text": "Ran 18 km along the coast road; legs felt light.", "ts": 1761761637.957638, "tokens": 14}
+{"id": "c0757", "text": "Errand list: pick up dry cleaning, refill prescription, call the plumber.", "ts": 1785840562.877415, "tokens": 16}
+{"id": "c0758", "text": "The book club came round for a barbecue; we played cards until late.", "ts": 1789648362.176823, "tokens": 15}
+{"id": "c0759", "text": "Weather was foggy; spent the morning sorting old photos.", "ts": 1790248233.671647, "tokens": 12}
+{"id": "c0760", "text": "Reading notes, a biography of a lighthouse keeper: the middle chapters drag.", "ts": 1753309031.572851, "tokens": 16}
+{"id": "c0761", "text": "Fixed the squeaky door with duct tape; took all afternoon and I should have called someone.", "ts": 1772640514.861531, "tokens": 19}
+{"id": "c0762", "text": "Fixed the bike brakes with some epoxy; took an hour and I should have called someone.", "ts": 1775119056.497799, "tokens": 18}
+{"id": "c0763", "text": "The neighbours came round for tea; we watched the match until midnight.", "ts": 1761152999.306599, "tokens": 14}
+{"id": "c0764", "text": "Weather was muggy; spent the evening repotting herbs.", "ts": 1765531472.338777, "tokens": 13}
+{"id": "c0765", "text": "Ran 16 km along the old railway line; legs felt stiff.", "ts": 1772948858.335465, "tokens": 15}
+{"id": "c0766", "text": "Weather was windy; spent the evening at the market.", "ts": 1758865058.16511, "tokens": 11}
+{"id": "c0767", "text": "Errand list: post the parcel, refill prescription, fix the bike tyre.", "ts": 1753774472.771624, "tokens": 16}
+{"id": "c0768", "text": "An old flatmate came round for dinner; we argued about films until midnight.", "ts": 1784645290.312802, "tokens": 16}
+{"id": "c0769", "text": "Fixed the wobbly shelf with a borrowed wrench; took an hour and it is still not right.", "ts": 1763961051.704935, "tokens": 21}
+{"id": "c0770", "text": "Ran 16 km along the park loop; legs felt great.", "ts": 1789236923.988524, "tokens": 14}
+{"id": "c0771", "text": "The book club came round for a barbecue; we looked at holiday photos until the rain stopped.", "ts": 1762998772.105676, "tokens": 19}
+{"id": "c0772", "text": "Watched a short film about the history of zero; beautifully shot.", "ts": 1772668108.91606, "tokens": 14}
+{"id": "c0773", "text": "Watched a short film about bird migration; learned a lot.", "ts": 1760907315.629404, "tokens": 13}
+{"id": "c0774", "text": "An old flatmate came round for tea; we played cards until the rain stopped.", "ts": 1786589529.993171, "tokens": 17}
+{"id": "c0775", "text": "Weather was muggy; spent the afternoon napping.", "ts": 1755171818.376656, "tokens": 11}
+{"id": "c0776", "text": "Fixed the wobbly shelf with new washers; took an hour and it held.", "ts": 1792778316.584937, "tokens": 18}
+{"id": "c0777", "text": "Ran 5 km along the canal; legs felt light.", "ts": 1758894729.736096, "tokens": 13}
+{"id": "c0778", "text": "Fixed the garden gate with some epoxy; took all afternoon and it is still not right.", "ts": 1786418351.879388, "tokens": 18}
+{"id": "c0779", "text": "General note on estimating work: double the first guess.", "ts": 1754234904.494516, "tokens": 11}
+{"id": "c0780", "text": "Fixed the squeaky door with a borrowed wrench; took all afternoon and I felt smug.", "ts": 1778020636.935143, "tokens": 19}
+{"id": "c0781", "text": "Watched a documentary about Roman concrete; surprisingly moving.", "ts": 1771347105.078398, "tokens": 11}
+{"id": "c0782", "text": "Watched a short film about glassblowing; fell asleep halfway.", "ts": 1756726521.788622, "tokens": 14}
+{"id": "c0783", "text": "Weather was grim; spent the afternoon repotting herbs.", "ts": 1755152538.393307, "tokens": 12}
+{"id": "c0784", "text": "Weather was glorious; spent the evening fixing the fence.", "ts": 1763140312.03154, "tokens": 11}
+{"id": "c0785", "text": "An old flatmate came round for brunch; we planned a camping trip until midnight.", "ts": 1769684774.248398, "tokens": 17}
+{"id": "c0786", "text": "Errand list: post the parcel, drop off recycling, call the plumber.", "ts": 1783878609.069296, "tokens": 16}
+{"id": "c0787", "text": "Reading notes, a novel set in Trieste: the footnotes are better than the text.", "ts": 1753202771.636269, "tokens": 19}
+{"id": "c0788", "text": "Fixed the wobbly shelf with duct tape; took all afternoon and it is still not right.", "ts": 1768872909.469554, "tokens": 20}
+{"id": "c0789", "text": "Weather was muggy; spent the evening sorting old photos.", "ts": 1767250489.800376, "tokens": 12}
+{"id": "c0790", "text": "General note on onboarding: say the conclusion first.", "ts": 1787304684.372129, "tokens": 11}
+{"id": "c0791", "text": "Idea: a tiny app for tracking houseplant watering. Probably already exists.", "ts": 1759146321.746625, "tokens": 16}
+{"id": "c0792", "text": "Errand list: post the parcel, refill prescription, water the plants.", "ts": 1751642899.876102, "tokens": 15}
+{"id": "c0793", "text": "Weather was windy; spent the morning at the market.", "ts": 1783706591.012766, "tokens": 11}
+{"id": "c0794", "text": "The book club came round for dinner; we played cards until the kids got tired.", "ts": 1766061029.507929, "tokens": 17}
+{"id": "c0795", "text": "Watched a lecture about glassblowing; beautifully shot.", "ts": 1782733500.000702, "tokens": 12}
+{"id": "c0796", "text": "The neighbours came round for a barbecue; we looked at holiday photos until late.", "ts": 1771493585.427074, "tokens": 16}
+{"id": "c0797", "text": "The neighbours came round for dinner; we looked at holiday photos until late.", "ts": 1756697769.23941, "tokens": 15}
+{"id": "c0798", "text": "Watched a documentary about Roman concrete; beautifully shot.", "ts": 1789746998.074259, "tokens": 11}
+{"id": "c0799", "text": "Fixed the squeaky door with a video tutorial; took an hour and I felt smug.", "ts": 1793692070.88673, "tokens": 19}
+{"id": "c0800", "text": "Watched a lecture about deep-sea vents; surprisingly moving.", "ts": 1757804361.697728, "tokens": 13}
+{"id": "c0801", "text": "My sister came round for tea; we watched the match until the kids got tired.", "ts": 1772666418.00493, "tokens": 17}
+{"id": "c0802", "text": "Watched a short film about bird migration; too long.", "ts": 1781208121.623188, "tokens": 12}
+{"id": "c0803", "text": "General note on onboarding: pair on day one.", "ts": 1766142793.648524, "tokens": 11}
+{"id": "c0804", "text": "Watched a documentary about bird migration; beautifully shot.", "ts": 1771224106.73301, "tokens": 11}
+{"id": "c0805", "text": "Ran 6 km along the old railway line; legs felt heavy.", "ts": 1752076526.311683, "tokens": 15}
+{"id": "c0806", "text": "Ran 7 km along the coast road; legs felt heavy.", "ts": 1794087583.27244, "tokens": 14}
+{"id": "c0807", "text": "The neighbours came round for dinner; we watched the match until late.", "ts": 1782537975.881414, "tokens": 14}
+{"id": "c0808", "text": "Watched a documentary about deep-sea vents; too long.", "ts": 1757863030.373274, "tokens": 13}
+{"id": "c0809", "text": "Ran 14 km along the coast road; legs felt tired.", "ts": 1774640787.55521, "tokens": 14}
+{"id": "c0810", "text": "Weather was muggy; spent the evening at the market.", "ts": 1778346414.922024, "tokens": 12}
+{"id": "c0811", "text": "Fixed the wobbly shelf with a video tutorial; took an hour and it held.", "ts": 1761450129.692509, "tokens": 18}
+{"id": "c0812", "text": "The book club came round for dinner; we played cards until the rain stopped.", "ts": 1752843911.89851, "tokens": 16}
+{"id": "c0813", "text": "Tried a recipe for mushroom risotto; next time use less lemon.", "ts": 1760365711.062358, "tokens": 15}
+{"id": "c0814", "text": "Errand list: return library books, buy birthday card, call the plumber.", "ts": 1792852070.138413, "tokens": 16}
+{"id": "c0815", "text": "Fixed the bike brakes with new washers; took ten minutes and it is still not right.", "ts": 1777492771.852691, "tokens": 19}
+{"id": "c0816", "text": "Fixed the garden gate with some epoxy; took all afternoon and it held.", "ts": 1775940375.036913, "tokens": 15}
+{"id": "c0817", "text": "Idea: a board game about tidal rivers. Probably too niche.", "ts": 1763281217.673426, "tokens": 14}
+{"id": "c0818", "text": "Watched a lecture about Roman concrete; surprisingly moving.", "ts": 1761643500.147187, "tokens": 11}
+{"id": "c0819", "text": "Idea: a tiny app for tracking houseplant watering. Probably fun but pointless.", "ts": 1757120955.673053, "tokens": 17}
+{"id": "c0820", "text": "Watched a lecture about Roman concrete; fell asleep halfway.", "ts": 1754222027.425097, "tokens": 12}
+{"id": "c0821", "text": "Errand list: return library books, drop off recycling, fix the bike tyre.", "ts": 1755905095.543586, "tokens": 17}
+{"id": "c0822", "text": "Fixed the desk lamp with duct tape; took all afternoon and it is still not right.", "ts": 1789682368.508244, "tokens": 18}
+{"id": "c0823", "text": "The book club came round for brunch; we looked at holiday photos until the kids got tired.", "ts": 1772662084.995208, "tokens": 19}
+{"id": "c0824", "text": "Weather was muggy; spent the morning repotting herbs.", "ts": 1780385102.099702, "tokens": 13}
+{"id": "c0825", "text": "Errand list: buy lightbulbs, buy birthday card, fix the bike tyre.", "ts": 1793557901.259706, "tokens": 18}
+{"id": "c0826", "text": "Ran 20 km along the coast road; legs felt great.", "ts": 1774363351.645355, "tokens": 14}
+{"id": "c0827", "text": "Idea: a browser extension that hides comment sections. Probably worth a weekend.", "ts": 1791968461.855704, "tokens": 16}
+{"id": "c0828", "text": "Fixed the squeaky door with a borrowed wrench; took an hour and I felt smug.", "ts": 1765570641.195408, "tokens": 19}
+{"id": "c0829", "text": "Tried a recipe for lamb tagine; next time use less chilli.", "ts": 1786571453.10381, "tokens": 16}
+{"id": "c0830", "text": "Tried a recipe for fish tacos; next time use less salt.", "ts": 1781316837.422013, "tokens": 14}
+{"id": "c0831", "text": "Tried a recipe for mushroom risotto; next time use less chilli.", "ts": 1756362451.833244, "tokens": 16}
+{"id": "c0832", "text": "General note on code review: ask what would change your mind.", "ts": 1793990219.437171, "tokens": 13}
+{"id": "c0833", "text": "Reading notes, a novel set in Trieste: the argument about scale is the best part.", "ts": 1754965094.395426, "tokens": 19}
+{"id": "c0834", "text": "Idea: a board game about tidal rivers. Probably already exists.", "ts": 1756238538.455303, "tokens": 14}
+{"id": "c0835", "text": "Ran 11 km along the river path; legs felt heavy.", "ts": 1782894407.510902, "tokens": 14}
+{"id": "c0836", "text": "Fixed the bike brakes with a borrowed wrench; took all afternoon and it held.", "ts": 1775329712.40657, "tokens": 16}
+{"id": "c0837", "text": "Ran 21 km along the canal; legs felt great.", "ts": 1774999030.831292, "tokens": 13}
+{"id": "c0838", "text": "Idea: a board game about tidal rivers. Probably fun but pointless.", "ts": 1770740380.71439, "tokens": 15}
+{"id": "c0839", "text": "Weather was foggy; spent the afternoon sorting old photos.", "ts": 1754617090.971012, "tokens": 12}
+{"id": "c0840", "text": "Tried a recipe for miso aubergine; next time use less chilli.", "ts": 1776204383.189065, "tokens": 19}
+{"id": "c0841", "text": "Ran 8 km along the coast road; legs felt great.", "ts": 1762863500.391748, "tokens": 14}
+{"id": "c0842", "text": "General note on running meetings: smaller is better.", "ts": 1763709829.230443, "tokens": 10}
+{"id": "c0843", "text": "General note on running meetings: write the agenda down.", "ts": 1779900794.618481, "tokens": 11}
+{"id": "c0844", "text": "Idea: a board game about tidal rivers. Probably not worth the time.", "ts": 1780411632.634957, "tokens": 16}
+{"id": "c0845", "text": "Fixed the squeaky door with a video tutorial; took all afternoon and I should have called someone.", "ts": 1755609257.400537, "tokens": 20}
+{"id": "c0846", "text": "Tried a recipe for dal makhani; next time use less lemon.", "ts": 1756393679.753819, "tokens": 16}
+{"id": "c0847", "text": "Watched a lecture about the history of zero; learned a lot.", "ts": 1758651059.825748, "tokens": 14}
+{"id": "c0848", "text": "Watched a short film about Roman concrete; surprisingly moving.", "ts": 1752919343.866483, "tokens": 12}
+{"id": "c0849", "text": "Idea: a newsletter about obscure maps. Probably already exists.", "ts": 1770430602.116645, "tokens": 13}
+{"id": "c0850", "text": "The book club came round for brunch; we watched the match until midnight.", "ts": 1790994816.83953, "tokens": 15}
+{"id": "c0851", "text": "Ran 4 km along the coast road; legs felt light.", "ts": 1759542519.914291, "tokens": 14}
+{"id": "c0852", "text": "Watched a lecture about bird migration; learned a lot.", "ts": 1785998844.110632, "tokens": 12}
+{"id": "c0853", "text": "Reading notes, a primer on type theory: worth rereading the introduction.", "ts": 1757375143.452511, "tokens": 16}
+{"id": "c0854", "text": "Watched a short film about glassblowing; beautifully shot.", "ts": 1769894935.238171, "tokens": 13}
+{"id": "c0855", "text": "Errand list: buy lightbulbs, get keys cut, descale the kettle.", "ts": 1763749440.846576, "tokens": 18}
+{"id": "c0856", "text": "An old flatmate came round for tea; we watched the match until late.", "ts": 1780780253.71991, "tokens": 16}
+{"id": "c0857", "text": "Reading notes, a biography of a lighthouse keeper: not convinced by the conclusion.", "ts": 1782622135.684059, "tokens": 17}
+{"id": "c0858", "text": "Errand list: post the parcel, get keys cut, descale the kettle.", "ts": 1773204454.270708, "tokens": 17}
+{"id": "c0859", "text": "Watched a lecture about bird migration; too long.", "ts": 1764958855.186401, "tokens": 11}
+{"id": "c0860", "text": "Ran 21 km along the old railway line; legs felt light.", "ts": 1786817654.627617, "tokens": 15}
+{"id": "c0861", "text": "Fixed the squeaky door with a video tutorial; took all afternoon and it is still not right.", "ts": 1756345336.519254, "tokens": 20}
+{"id": "c0862", "text": "Fixed the squeaky door with a borrowed wrench; took an hour and I should have called someone.", "ts": 1794264987.803116, "tokens": 20}
+{"id": "c0863", "text": "Ran 12 km along the coast road; legs felt tired.", "ts": 1757113016.263405, "tokens": 14}
+{"id": "c0864", "text": "Watched a lecture about Roman concrete; too long.", "ts": 1788755833.984433, "tokens": 11}
+{"id": "c0865", "text": "Weather was grim; spent the evening painting the hallway.", "ts": 1769049191.084169, "tokens": 11}
+{"id": "c0866", "text": "Ran 7 km along the park loop; legs felt heavy.", "ts": 1792117032.844783, "tokens": 14}
+{"id": "c0867", "text": "Fixed the leaking tap with duct tape; took all afternoon and I should have called someone.", "ts": 1787172271.7751, "tokens": 18}
+{"id": "c0868", "text": "Fixed the squeaky door with a borrowed wrench; took ten minutes and it held.", "ts": 1781771904.324913, "tokens": 17}
+{"id": "c0869", "text": "Ran 10 km along the old railway line; legs felt light.", "ts": 1789359666.234867, "tokens": 15}
+{"id": "c0870", "text": "Tried a recipe for lamb tagine; next time use less lemon.", "ts": 1759664568.943241, "tokens": 15}
+{"id": "c0871", "text": "My sister came round for a barbecue; we played cards until the kids got tired.", "ts": 1764065697.465754, "tokens": 17}
+{"id": "c0872", "text": "Fixed the squeaky door with duct tape; took ten minutes and I should have called someone.", "ts": 1785416418.287408, "tokens": 19}
+{"id": "c0873", "text": "An old flatmate came round for tea; we watched the match until the rain stopped.", "ts": 1752584349.188937, "tokens": 18}
+{"id": "c0874", "text": "Ran 9 km along the canal; legs felt light.", "ts": 1751481485.631497, "tokens": 13}
+{"id": "c0875", "text": "My cousins came round for brunch; we planned a camping trip until midnight.", "ts": 1753834182.814029, "tokens": 15}
+{"id": "c0876", "text": "Ran 4 km along the river path; legs felt heavy.", "ts": 1774508585.89703, "tokens": 14}
+{"id": "c0877", "text": "Errand list: buy lightbulbs, get keys cut, fix the bike tyre.", "ts": 1793156708.735336, "tokens": 18}
+{"id": "c0878", "text": "Watched a documentary about glassblowing; too long.", "ts": 1768898888.919186, "tokens": 12}
+{"id": "c0879", "text": "General note on writing design docs: write the agenda down.", "ts": 1790190933.457976, "tokens": 12}
+{"id": "c0880", "text": "General note on code review: double the first guess.", "ts": 1753265768.030328, "tokens": 11}
+{"id": "c0881", "text": "Idea: a browser extension that hides comment sections. Probably already exists.", "ts": 1759893616.864657, "tokens": 15}
+{"id": "c0882", "text": "My cousins came round for a barbecue; we looked at holiday photos until late.", "ts": 1769192539.941889, "tokens": 16}
+{"id": "c0883", "text": "Errand list: post the parcel, refill prescription, descale the kettle.", "ts": 1773379356.185877, "tokens": 16}
+{"id": "c0884", "text": "Watched a short film about the history of zero; learned a lot.", "ts": 1762363352.55042, "tokens": 15}
+{"id": "c0885", "text": "Errand list: pick up dry cleaning, drop off recycling, water the plants.", "ts": 1771211688.292557, "tokens": 17}
+{"id": "c0886", "text": "Ran 15 km along the coast road; legs felt heavy.", "ts": 1784077955.569177, "tokens": 14}
+{"id": "c0887", "text": "My cousins came round for dinner; we played cards until the rain stopped.", "ts": 1760666090.869475, "tokens": 15}
+{"id": "c0888", "text": "Errand list: buy lightbulbs, drop off recycling, call the plumber.", "ts": 1790308302.370775, "tokens": 17}
+{"id": "c0889", "text": "Errand list: buy lightbulbs, refill prescription, descale the kettle.", "ts": 1768324683.668555, "tokens": 17}
+{"id": "c0890", "text": "Fixed the garden gate with new washers; took an hour and it is still not right.", "ts": 1783987295.620756, "tokens": 19}
+{"id": "c0891", "text": "Friends from choir came round for a barbecue; we looked at holiday photos until the rain stopped.", "ts": 1758422426.628563, "tokens": 19}
+{"id": "c0892", "text": "Ran 14 km along the old railway line; legs felt great.", "ts": 1766147339.256237, "tokens": 15}
+{"id": "c0893", "text": "General note on running meetings: pair on day one.", "ts": 1774976793.731423, "tokens": 11}
+{"id": "c0894", "text": "Ran 15 km along the park loop; legs felt tired.", "ts": 1767723819.822251, "tokens": 14}
+{"id": "c0895", "text": "General note on writing design docs: ask what would change your mind.", "ts": 1752088896.819987, "tokens": 14}
+{"id": "c0896", "text": "Ran 19 km along the canal; legs felt great.", "ts": 1763070535.103035, "tokens": 13}
+{"id": "c0897", "text": "Ran 12 km along the park loop; legs felt light.", "ts": 1766695273.67479, "tokens": 14}
+{"id": "c0898", "text": "Tried a recipe for dal makhani; next time use less chilli.", "ts": 1774014748.313546, "tokens": 17}
+{"id": "c0899", "text": "Friends from choir came round for brunch; we argued about films until late.", "ts": 1780729455.816644, "tokens": 15}
+{"id": "c0900", "text": "Ran 11 km along the coast road; legs felt heavy.", "ts": 1761534371.403303, "tokens": 14}
+{"id": "c0901", "text": "Ran 4 km along the canal; legs felt light.", "ts": 1752735924.886308, "tokens": 13}
+{"id": "c0902", "text": "Errand list: return library books, buy birthday card, water the plants.", "ts": 1758200124.910275, "tokens": 16}
+{"id": "c0903", "text": "An old flatmate came round for brunch; we argued about films until the kids got tired.", "ts": 1779190586.972437, "tokens": 19}
+{"id": "c0904", "text": "An old flatmate came round for a barbecue; we watched the match until late.", "ts": 1768829006.939211, "tokens": 17}
+{"id": "c0905", "text": "General note on writing design docs: smaller is better.", "ts": 1791018814.503957, "tokens": 11}
+{"id": "c0906", "text": "General note on estimating work: say the conclusion first.", "ts": 1773602558.922424, "tokens": 11}
+{"id": "c0907", "text": "Ran 15 km along the river path; legs felt stiff.", "ts": 1776067396.169882, "tokens": 14}
+{"id": "c0908", "text": "Fixed the wobbly shelf with duct tape; took ten minutes and it held.", "ts": 1767110998.350079, "tokens": 17}
+{"id": "c0909", "text": "Ran 9 km along the old railway line; legs felt tired.", "ts": 1779817466.325168, "tokens": 15}
+{"id": "c0910", "text": "The neighbours came round for dinner; we argued about films until midnight.", "ts": 1792031427.926414, "tokens": 14}
+{"id": "c0911", "text": "Errand list: return library books, refill prescription, water the plants.", "ts": 1759663522.768947, "tokens": 15}
+{"id": "c0912", "text": "Errand list: pick up dry cleaning, drop off recycling, descale the kettle.", "ts": 1788365990.112082, "tokens": 18}
+{"id": "c0913", "text": "Errand list: buy lightbulbs, get keys cut, call the plumber.", "ts": 1772998084.386479, "tokens": 17}
+{"id": "c0914", "text": "Tried a recipe for lamb tagine; next time use less cumin.", "ts": 1771210431.527284, "tokens": 16}
+{"id": "c0915", "text": "Ran 7 km along the park loop; legs felt light.", "ts": 1789307036.6983, "tokens": 14}
+{"id": "c0916", "text": "Ran 17 km along the coast road; legs felt light.", "ts": 1788785839.821532, "tokens": 14}
+{"id": "c0917", "text": "Fixed the bike brakes with new washers; took an hour and I felt smug.", "ts": 1789429509.994344, "tokens": 18}
+{"id": "c0918", "text": "Ran 13 km along the canal; legs felt heavy.", "ts": 1785502314.141113, "tokens": 13}
+{"id": "c0919", "text": "General note on onboarding: double the first guess.", "ts": 1756433488.937315, "tokens": 11}
+{"id": "c0920", "text": "General note on estimating work: write the agenda down.", "ts": 1779304632.480919, "tokens": 11}
+{"id": "c0921", "text": "General note on estimating work: smaller is better.", "ts": 1777902931.200175, "tokens": 10}
+{"id": "c0922", "text": "My sister came round for brunch; we played cards until the rain stopped.", "ts": 1768135122.134477, "tokens": 15}
+{"id": "c0923", "text": "General note on running meetings: double the first guess.", "ts": 1791439362.353845, "tokens": 11}
+{"id": "c0924", "text": "Weather was glorious; spent the morning sorting old photos.", "ts": 1767125367.327108, "tokens": 11}
+{"id": "c0925", "text": "Ran 13 km along the coast road; legs felt heavy.", "ts": 1752937212.617333, "tokens": 14}
+{"id": "c0926", "text": "Fixed the squeaky door with some epoxy; took all afternoon and I should have called someone.", "ts": 1780495911.598433, "tokens": 19}
+{"id": "c0927", "text": "Fixed the bike brakes with a borrowed wrench; took an hour and it held.", "ts": 1765142605.504443, "tokens": 16}
+{"id": "c0928", "text": "Errand list: return library books, get keys cut, water the plants.", "ts": 1793872734.31614, "tokens": 16}
+{"id": "c0929", "text": "My cousins came round for a barbecue; we watched the match until the rain stopped.", "ts": 1775849531.716428, "tokens": 17}
+{"id": "c0930", "text": "Fixed the leaking tap with duct tape; took ten minutes and it held.", "ts": 1789907927.068018, "tokens": 15}
+{"id": "c0931", "text": "Weather was windy; spent the evening repotting herbs.", "ts": 1793461524.298081, "tokens": 12}
+{"id": "c0932", "text": "Errand list: pick up dry cleaning, buy birthday card, descale the kettle.", "ts": 1794392278.609063, "tokens": 18}
+{"id": "c0933", "text": "Watched a short film about the history of zero; fell asleep halfway.", "ts": 1768590115.455725, "tokens": 15}
+{"id": "c0934", "text": "Watched a documentary about deep-sea vents; fell asleep halfway.", "ts": 1788743552.086031, "tokens": 14}
+{"id": "c0935", "text": "Ran 13 km along the park loop; legs felt heavy.", "ts": 1780452557.361521, "tokens": 14}
+{"id": "c0936", "text": "Ran 14 km along the river path; legs felt light.", "ts": 1767041939.703258, "tokens": 14}
+{"id": "c0937", "text": "Watched a lecture about glassblowing; learned a lot.", "ts": 1785200518.001302, "tokens": 13}
+{"id": "c0938", "text": "General note on onboarding: smaller is better.", "ts": 1782725426.944703, "tokens": 10}
+{"id": "c0939", "text": "Ran 14 km along the canal; legs felt heavy.", "ts": 1768552315.867449, "tokens": 13}
+{"id": "c0940", "text": "Ran 14 km along the coast road; legs felt great.", "ts": 1769179877.695515, "tokens": 14}
+{"id": "c0941", "text": "Ran 21 km along the canal; legs felt light.", "ts": 1777104521.914655, "tokens": 13}
+{"id": "c0942", "text": "Watched a lecture about Roman concrete; learned a lot.", "ts": 1772897257.96941, "tokens": 12}
+{"id": "c0943", "text": "Errand list: buy lightbulbs, refill prescription, call the plumber.", "ts": 1792742059.76323, "tokens": 16}
+{"id": "c0944", "text": "Fixed the desk lamp with a video tutorial; took all afternoon and I should have called someone.", "ts": 1760055583.551681, "tokens": 19}
+{"id": "c0945", "text": "Watched a short film about bird migration; beautifully shot.", "ts": 1769400114.81593, "tokens": 12}
+{"id": "c0946", "text": "Weather was muggy; spent the afternoon at the market.", "ts": 1765075485.24052, "tokens": 12}
+{"id": "c0947", "text": "Fixed the garden gate with a video tutorial; took all afternoon and I felt smug.", "ts": 1782686763.383083, "tokens": 18}
+{"id": "c0948", "text": "Ran 14 km along the old railway line; legs felt heavy.", "ts": 1783092844.017459, "tokens": 15}
+{"id": "c0949", "text": "Weather was glorious; spent the morning fixing the fence.", "ts": 1771780409.542304, "tokens": 11}
+{"id": "c0950", "text": "General note on code review: pair on day one.", "ts": 1791653047.75613, "tokens": 11}
+{"id": "c0951", "text": "Watched a short film about deep-sea vents; learned a lot.", "ts": 1782647222.382983, "tokens": 15}
+{"id": "c0952", "text": "Watched a documentary about the history of zero; surprisingly moving.", "ts": 1783470811.814491, "tokens": 13}
+{"id": "c0953", "text": "Watched a documentary about deep-sea vents; learned a lot.", "ts": 1761721912.739613, "tokens": 14}
+{"id": "c0954", "text": "Watched a lecture about glassblowing; surprisingly moving.", "ts": 1767969423.882213, "tokens": 12}
+{"id": "c0955", "text": "Errand list: pick up dry cleaning, buy birthday card, call the plumber.", "ts": 1783749621.172871, "tokens": 17}
+{"id": "c0956", "text": "Friends from choir came round for a barbecue; we argued about films until late.", "ts": 1793464047.239043, "tokens": 16}
+{"id": "c0957", "text": "Ran 19 km along the coast road; legs felt tired.", "ts": 1773816008.917968, "tokens": 14}
+{"id": "c0958", "text": "Ran 21 km along the coast road; legs felt tired.", "ts": 1757544801.196051, "tokens": 14}
+{"id": "c0959", "text": "General note on running meetings: say the conclusion first.", "ts": 1781837719.317443, "tokens": 11}
+{"id": "c0960", "text": "Watched a short film about glassblowing; too long.", "ts": 1766617254.901201, "tokens": 13}
+{"id": "c0961", "text": "An old flatmate came round for dinner; we played cards until the rain stopped.", "ts": 1787276161.691094, "tokens": 17}
+{"id": "c0962", "text": "Ran 11 km along the river path; legs felt great.", "ts": 1771370938.127073, "tokens": 14}
+{"id": "c0963", "text": "Fixed the desk lamp with duct tape; took an hour and it held.", "ts": 1790678334.166638, "tokens": 15}
+{"id": "c0964", "text": "Watched a lecture about the history of zero; surprisingly moving.", "ts": 1765379100.478085, "tokens": 13}
+{"id": "c0965", "text": "Idea: a newsletter about obscure maps. Probably not worth the time.", "ts": 1777288627.332262, "tokens": 15}
+{"id": "c0966", "text": "Ran 11 km along the canal; legs felt tired.", "ts": 1793843473.8966, "tokens": 13}
+{"id": "c0967", "text": "Fixed the wobbly shelf with new washers; took ten minutes and it held.", "ts": 1754242561.015797, "tokens": 18}
+{"id": "c0968", "text": "Reading notes, an essay collection on attention: not convinced by the conclusion.", "ts": 1759805033.539693, "tokens": 15}
+{"id": "c0969", "text": "My sister came round for brunch; we planned a camping trip until the kids got tired.", "ts": 1780134019.098361, "tokens": 18}
+{"id": "c0970", "text": "Friends from choir came round for a barbecue; we argued about films until midnight.", "ts": 1791804039.74046, "tokens": 16}
+{"id": "c0971", "text": "Ran 21 km along the river path; legs felt light.", "ts": 1773916071.449541, "tokens": 14}
+{"id": "c0972", "text": "The book club came round for brunch; we played cards until the kids got tired.", "ts": 1752531544.689407, "tokens": 17}
+{"id": "c0973", "text": "Tried a recipe for fish tacos; next time use less oil.", "ts": 1775622475.803525, "tokens": 14}
+{"id": "c0974", "text": "My cousins came round for a barbecue; we played cards until midnight.", "ts": 1769432556.748621, "tokens": 14}
+{"id": "c0975", "text": "Reading notes, a history of cartography: not convinced by the conclusion.", "ts": 1787905551.677791, "tokens": 15}
+{"id": "c0976", "text": "Fixed the desk lamp with new washers; took an hour and I felt smug.", "ts": 1766625428.773782, "tokens": 18}
+{"id": "c0977", "text": "Watched a documentary about deep-sea vents; beautifully shot.", "ts": 1760542456.048664, "tokens": 13}
+{"id": "c0978", "text": "Fixed the bike brakes with a borrowed wrench; took all afternoon and I should have called someone.", "ts": 1754822947.171841, "tokens": 19}
+{"id": "c0979", "text": "Weather was grim; spent the evening sorting old photos.", "ts": 1789244884.445682, "tokens": 11}
+{"id": "c0980", "text": "Friends from choir came round for dinner; we watched the match until midnight.", "ts": 1773905393.935399, "tokens": 15}
+{"id": "c0981", "text": "My cousins came round for tea; we planned a camping trip until late.", "ts": 1786658618.412632, "tokens": 15}
+{"id": "c0982", "text": "Tried a recipe for mushroom risotto; next time use less oil.", "ts": 1754548922.441091, "tokens": 15}
+{"id": "c0983", "text": "Tried a recipe for fish tacos; next time use less chilli.", "ts": 1787930732.449011, "tokens": 15}
+{"id": "c0984", "text": "Errand list: post the parcel, buy birthday card, call the plumber.", "ts": 1758999649.506287, "tokens": 16}
+{"id": "c0985", "text": "Ran 9 km along the river path; legs felt tired.", "ts": 1762823847.732364, "tokens": 14}
+{"id": "c0986", "text": "Idea: a script that renames screenshots by content. Probably not worth the time.", "ts": 1775439069.720461, "tokens": 18}
+{"id": "c0987", "text": "Friends from choir came round for tea; we played cards until late.", "ts": 1771719883.544661, "tokens": 14}
+{"id": "c0988", "text": "Tried a recipe for miso aubergine; next time use less oil.", "ts": 1788930933.655825, "tokens": 18}
+{"id": "c0989", "text": "Idea: a script that renames screenshots by content. Probably already exists.", "ts": 1769731313.733798, "tokens": 16}
+{"id": "c0990", "text": "Idea: a script that renames screenshots by content. Probably fun but pointless.", "ts": 1781646967.651313, "tokens": 17}
+{"id": "c0991", "text": "Ran 21 km along the old railway line; legs felt heavy.", "ts": 1761801791.34497, "tokens": 15}
+{"id": "c0992", "text": "Tried a recipe for mushroom risotto; next time use less cumin.", "ts": 1760672865.742345, "tokens": 16}
+{"id": "c0993", "text": "The neighbours came round for a barbecue; we planned a camping trip until late.", "ts": 1756562604.535096, "tokens": 16}
+{"id": "c0994", "text": "Errand list: return library books, get keys cut, descale the kettle.", "ts": 1767431544.33486, "tokens": 17}
+{"id": "c0995", "text": "Fixed the desk lamp with some epoxy; took all afternoon and it held.", "ts": 1782928461.139116, "tokens": 15}
+{"id": "c0996", "text": "Errand list: post the parcel, buy birthday card, descale the kettle.", "ts": 1766910015.079684, "tokens": 17}
+{"id": "c0997", "text": "Weather was grim; spent the morning napping.", "ts": 1787213934.479957, "tokens": 10}
+{"id": "c0998", "text": "Ran 21 km along the coast road; legs felt heavy.", "ts": 1761995290.723261, "tokens": 14}
+{"id": "c0999", "text": "Ran 14 km along the river path; legs felt stiff.", "ts": 1772786510.611913, "tokens": 14}
+{"id": "c1000", "text": "Watched a lecture about the history of zero; too long.", "ts": 1764733060.520881, "tokens": 13}
+{"id": "c1001", "text": "Fixed the squeaky door with duct tape; took all afternoon and it held.", "ts": 1752433883.784474, "tokens": 16}
+{"id": "c1002", "text": "Fixed the leaking tap with a borrowed wrench; took ten minutes and it held.", "ts": 1780932276.294438, "tokens": 16}
+{"id": "c1003", "text": "Ran 14 km along the old railway line; legs felt stiff.", "ts": 1767127317.281055, "tokens": 15}
+{"id": "c1004", "text": "Tried a recipe for lamb tagine; next time use less salt.", "ts": 1766070642.621548, "tokens": 15}
+{"id": "c1005", "text": "Friends from choir came round for tea; we watched the match until late.", "ts": 1769297373.321079, "tokens": 15}
+{"id": "c1006", "text": "Weather was foggy; spent the evening painting the hallway.", "ts": 1753435671.851041, "tokens": 12}
+{"id": "c1007", "text": "Idea: a script that renames screenshots by content. Probably too niche.", "ts": 1776743082.999089, "tokens": 16}
+{"id": "c1008", "text": "Weather was muggy; spent the morning fixing the fence.", "ts": 1764063095.838625, "tokens": 12}
+{"id": "c1009", "text": "Weather was foggy; spent the afternoon painting the hallway.", "ts": 1772388409.447917, "tokens": 12}
+{"id": "c1010", "text": "My sister came round for brunch; we planned a camping trip until midnight.", "ts": 1791185415.419514, "tokens": 15}
+{"id": "c1011", "text": "Fixed the bike brakes with a video tutorial; took all afternoon and I felt smug.", "ts": 1760026205.096538, "tokens": 18}
+{"id": "c1012", "text": "Fixed the desk lamp with a borrowed wrench; took ten minutes and I felt smug.", "ts": 1756405887.657329, "tokens": 18}
+{"id": "c1013", "text": "Ran 4 km along the old railway line; legs felt tired.", "ts": 1773452775.418717, "tokens": 15}
+{"id": "c1014", "text": "Ran 7 km along the river path; legs felt light.", "ts": 1760272998.81751, "tokens": 14}
+{"id": "c1015", "text": "Ran 17 km along the river path; legs felt heavy.", "ts": 1756063194.298787, "tokens": 14}
+{"id": "c1016", "text": "Errand list: return library books, buy birthday card, descale the kettle.", "ts": 1764050060.19695, "tokens": 17}
+{"id": "c1017", "text": "General note on estimating work: pair on day one.", "ts": 1751838856.625219, "tokens": 11}
+{"id": "c1018", "text": "Fixed the leaking tap with duct tape; took ten minutes and it is still not right.", "ts": 1790003729.545651, "tokens": 18}
+{"id": "c1019", "text": "Reading notes, a history of cartography: the argument about scale is the best part.", "ts": 1764628958.860367, "tokens": 18}
+{"id": "c1020", "text": "Errand list: return library books, refill prescription, descale the kettle.", "ts": 1777696900.230227, "tokens": 16}
+{"id": "c1021", "text": "Ran 4 km along the park loop; legs felt light.", "ts": 1779033924.910536, "tokens": 14}
+{"id": "c1022", "text": "My cousins came round for a barbecue; we looked at holiday photos until midnight.", "ts": 1766932384.980618, "tokens": 16}
+{"id": "c1023", "text": "Fixed the garden gate with duct tape; took ten minutes and it is still not right.", "ts": 1754765061.951927, "tokens": 18}
+{"id": "c1024", "text": "Watched a short film about the history of zero; too long.", "ts": 1779316024.617103, "tokens": 14}
+{"id": "c1025", "text": "Watched a lecture about the history of zero; beautifully shot.", "ts": 1762227272.776249, "tokens": 13}
+{"id": "c1026", "text": "Tried a recipe for fish tacos; next time use less lemon.", "ts": 1785420735.361309, "tokens": 14}
+{"id": "c1027", "text": "Weather was grim; spent the afternoon fixing the fence.", "ts": 1790251058.528482, "tokens": 11}
+{"id": "c1028", "text": "Weather was muggy; spent the afternoon sorting old photos.", "ts": 1786358378.944089, "tokens": 12}
+{"id": "c1029", "text": "Tried a recipe for lamb tagine; next time use less oil.", "ts": 1756038388.145184, "tokens": 15}
+{"id": "c1030", "text": "My sister came round for brunch; we played cards until midnight.", "ts": 1782688157.652296, "tokens": 13}
+{"id": "c1031", "text": "The neighbours came round for brunch; we argued about films until midnight.", "ts": 1782827808.570586, "tokens": 14}
+{"id": "c1032", "text": "Fixed the wobbly shelf with a video tutorial; took an hour and I should have called someone.", "ts": 1764163298.830976, "tokens": 21}
+{"id": "c1033", "text": "Watched a documentary about the history of zero; too long.", "ts": 1794000536.33297, "tokens": 13}
+{"id": "c1034", "text": "Ran 21 km along the river path; legs felt tired.", "ts": 1788353694.59671, "tokens": 14}
+{"id": "c1035", "text": "Reading notes, a history of cartography: worth rereading the introduction.", "ts": 1775192222.661283, "tokens": 16}
+{"id": "c1036", "text": "Watched a lecture about deep-sea vents; beautifully shot.", "ts": 1776634952.508399, "tokens": 13}
+{"id": "c1037", "text": "Friends from choir came round for tea; we argued about films until the rain stopped.", "ts": 1780770186.906697, "tokens": 17}
+{"id": "c1038", "text": "Watched a lecture about deep-sea vents; fell asleep halfway.", "ts": 1770092982.472109, "tokens": 14}
+{"id": "c1039", "text": "Weather was foggy; spent the evening fixing the fence.", "ts": 1762945957.720285, "tokens": 12}
+{"id": "c1040", "text": "The neighbours came round for brunch; we looked at holiday photos until midnight.", "ts": 1782943079.581269, "tokens": 15}
+{"id": "c1041", "text": "Friends from choir came round for dinner; we played cards until late.", "ts": 1779393192.660376, "tokens": 14}
+{"id": "c1042", "text": "Errand list: pick up dry cleaning, refill prescription, water the plants.", "ts": 1768169607.679681, "tokens": 16}
+{"id": "c1043", "text": "Tried a recipe for lamb tagine; next time use less garlic.", "ts": 1765801316.171511, "tokens": 15}
+{"id": "c1044", "text": "Ran 4 km along the old railway line; legs felt great.", "ts": 1779636419.804165, "tokens": 15}
+{"id": "c1045", "text": "Watched a documentary about bird migration; too long.", "ts": 1793150993.256856, "tokens": 11}
+{"id": "c1046", "text": "Errand list: pick up dry cleaning, get keys cut, descale the kettle.", "ts": 1776074358.476053, "tokens": 18}
+{"id": "c1047", "text": "Fixed the garden gate with a video tutorial; took all afternoon and I should have called someone.", "ts": 1774624350.379402, "tokens": 19}
+{"id": "c1048", "text": "Fixed the wobbly shelf with new washers; took an hour and I felt smug.", "ts": 1754798035.141892, "tokens": 20}
+{"id": "c1049", "text": "Weather was muggy; spent the afternoon repotting herbs.", "ts": 1772967761.474942, "tokens": 13}
+{"id": "c1050", "text": "Fixed the squeaky door with duct tape; took ten minutes and it held.", "ts": 1759930251.441183, "tokens": 16}
+{"id": "c1051", "text": "Fixed the garden gate with a borrowed wrench; took all afternoon and it is still not right.", "ts": 1784511645.957153, "tokens": 19}
+{"id": "c1052", "text": "Tried a recipe for sourdough focaccia; next time use less chilli.", "ts": 1764518822.190463, "tokens": 19}
+{"id": "c1053", "text": "Weather was windy; spent the afternoon painting the hallway.", "ts": 1794272334.064938, "tokens": 11}
+{"id": "c1054", "text": "Watched a documentary about deep-sea vents; surprisingly moving.", "ts": 1766559856.638467, "tokens": 13}
+{"id": "c1055", "text": "Weather was glorious; spent the evening napping.", "ts": 1774510207.687223, "tokens": 10}
+{"id": "c1056", "text": "Fixed the desk lamp with new washers; took ten minutes and it is still not right.", "ts": 1792952252.403875, "tokens": 19}
+{"id": "c1057", "text": "Watched a lecture about deep-sea vents; too long.", "ts": 1767432775.746732, "tokens": 13}
+{"id": "c1058", "text": "Weather was foggy; spent the afternoon napping.", "ts": 1768033929.549417, "tokens": 11}
+{"id": "c1059", "text": "Idea: a newsletter about obscure maps. Probably worth a weekend.", "ts": 1790996843.409602, "tokens": 14}
+{"id": "c1060", "text": "An old flatmate came round for tea; we looked at holiday photos until late.", "ts": 1757424529.495077, "tokens": 17}
+{"id": "c1061", "text": "Fixed the garden gate with some epoxy; took ten minutes and I felt smug.", "ts": 1787963065.081956, "tokens": 17}
+{"id": "c1062", "text": "My sister came round for tea; we planned a camping trip until midnight.", "ts": 1786574089.605315, "tokens": 15}
+{"id": "c1063", "text": "Ran 18 km along the park loop; legs felt light.", "ts": 1783519496.876829, "tokens": 14}
+{"id": "c1064", "text": "Ran 17 km along the park loop; legs felt light.", "ts": 1752086370.802509, "tokens": 14}
+{"id": "c1065", "text": "My sister came round for tea; we looked at holiday photos until midnight.", "ts": 1787050413.562979, "tokens": 15}
+{"id": "c1066", "text": "Errand list: return library books, refill prescription, call the plumber.", "ts": 1787566201.274843, "tokens": 15}
+{"id": "c1067", "text": "Tried a recipe for miso aubergine; next time use less lemon.", "ts": 1769868839.853626, "tokens": 18}
+{"id": "c1068", "text": "Idea: a newsletter about obscure maps. Probably fun but pointless.", "ts": 1761723896.814194, "tokens": 14}
+{"id": "c1069", "text": "Friends from choir came round for brunch; we looked at holiday photos until the kids got tired.", "ts": 1756591765.322159, "tokens": 19}
+{"id": "c1070", "text": "Weather was foggy; spent the evening napping.", "ts": 1790999208.315009, "tokens": 11}
+{"id": "c1071", "text": "General note on onboarding: write the agenda down.", "ts": 1791459092.436653, "tokens": 11}
+{"id": "c1072", "text": "Ran 5 km along the old railway line; legs felt stiff.", "ts": 1772191581.545197, "tokens": 15}
+{"id": "c1073", "text": "Fixed the squeaky door with new washers; took all afternoon and it held.", "ts": 1787971140.792205, "tokens": 17}
+{"id": "c1074", "text": "Weather was foggy; spent the evening repotting herbs.", "ts": 1781092595.223854, "tokens": 13}
+{"id": "c1075", "text": "Ran 15 km along the old railway line; legs felt heavy.", "ts": 1770795881.660702, "tokens": 15}
+{"id": "c1076", "text": "Errand list: pick up dry cleaning, drop off recycling, call the plumber.", "ts": 1753002740.333521, "tokens": 17}
+{"id": "c1077", "text": "Fixed the bike brakes with a video tutorial; took ten minutes and it held.", "ts": 1761865999.994703, "tokens": 16}
+{"id": "c1078", "text": "Ran 16 km along the river path; legs felt great.", "ts": 1786905955.250164, "tokens": 14}
+{"id": "c1079", "text": "Ran 5 km along the park loop; legs felt light.", "ts": 1781642974.513928, "tokens": 14}
+{"id": "c1080", "text": "Fixed the desk lamp with some epoxy; took an hour and I felt smug.", "ts": 1778309188.427573, "tokens": 17}
+{"id": "c1081", "text": "Idea: a browser extension that hides comment sections. Probably fun but pointless.", "ts": 1763315056.604852, "tokens": 16}
+{"id": "c1082", "text": "Ran 21 km along the coast road; legs felt stiff.", "ts": 1760790303.7762, "tokens": 14}
+{"id": "c1083", "text": "Watched a documentary about the history of zero; learned a lot.", "ts": 1763549998.149206, "tokens": 14}
+{"id": "c1084", "text": "Watched a lecture about bird migration; surprisingly moving.", "ts": 1763154587.668173, "tokens": 11}
+{"id": "c1085", "text": "Fixed the leaking tap with duct tape; took ten minutes and I felt smug.", "ts": 1779187150.369508, "tokens": 17}
+{"id": "c1086", "text": "Weather was foggy; spent the morning painting the hallway.", "ts": 1791321607.679859, "tokens": 12}
+{"id": "c1087", "text": "My cousins came round for brunch; we played cards until the rain stopped.", "ts": 1766274905.715429, "tokens": 15}
+{"id": "c1088", "text": "Ran 14 km along the canal; legs felt tired.", "ts": 1754485305.712842, "tokens": 13}
+{"id": "c1089", "text": "Ran 6 km along the river path; legs felt stiff.", "ts": 1786616514.291569, "tokens": 14}
+{"id": "c1090", "text": "Ran 20 km along the old railway line; legs felt stiff.", "ts": 1768643107.718251, "tokens": 15}
+{"id": "c1091", "text": "Tried a recipe for dal makhani; next time use less cumin.", "ts": 1776784167.198974, "tokens": 17}
+{"id": "c1092", "text": "An old flatmate came round for tea; we played cards until the kids got tired.", "ts": 1763374427.489454, "tokens": 18}
+{"id": "c1093", "text": "My sister came round for brunch; we played cards until the kids got tired.", "ts": 1771213616.134598, "tokens": 16}
+{"id": "c1094", "text": "Errand list: pick up dry cleaning, buy birthday card, fix the bike tyre.", "ts": 1752054999.362567, "tokens": 18}
+{"id": "c1095", "text": "Watched a short film about deep-sea vents; surprisingly moving.", "ts": 1767142203.549524, "tokens": 14}
+{"id": "c1096", "text": "Fixed the garden gate with duct tape; took all afternoon and I should have called someone.", "ts": 1773971938.089289, "tokens": 18}
+{"id": "c1097", "text": "Ran 18 km along the canal; legs felt heavy.", "ts": 1767603424.101591, "tokens": 13}
+{"id": "c1098", "text": "Watched a short film about glassblowing; learned a lot.", "ts": 1787242572.481049, "tokens": 14}
+{"id": "c1099", "text": "Fixed the desk lamp with duct tape; took ten minutes and I felt smug.", "ts": 1786549812.584705, "tokens": 17}
+{"id": "c1100", "text": "Friends from choir came round for a barbecue; we played cards until the kids got tired.", "ts": 1770936869.317185, "tokens": 18}
+{"id": "c1101", "text": "My sister came round for a barbecue; we planned a camping trip until the kids got tired.", "ts": 1766118895.558318, "tokens": 19}
+{"id": "c1102", "text": "Fixed the wobbly shelf with a video tutorial; took all afternoon and I should have called someone.", "ts": 1779128144.620173, "tokens": 21}
+{"id": "c1103", "text": "An old flatmate came round for a barbecue; we looked at holiday photos until midnight.", "ts": 1758325533.878766, "tokens": 18}
+{"id": "c1104", "text": "Fixed the bike brakes with duct tape; took all afternoon and I felt smug.", "ts": 1774272782.671937, "tokens": 17}
+{"id": "c1105", "text": "Ran 16 km along the old railway line; legs felt light.", "ts": 1788180824.962232, "tokens": 15}
+{"id": "c1106", "text": "Friends from choir came round for a barbecue; we played cards until late.", "ts": 1764385259.038561, "tokens": 15}
+{"id": "c1107", "text": "Ran 6 km along the river path; legs felt light.", "ts": 1758265111.269971, "tokens": 14}
+{"id": "c1108", "text": "Ran 11 km along the old railway line; legs felt great.", "ts": 1758503244.812477, "tokens": 15}
+{"id": "c1109", "text": "Ran 5 km along the old railway line; legs felt tired.", "ts": 1773815657.944734, "tokens": 15}
+{"id": "c1110", "text": "Errand list: buy lightbulbs, drop off recycling, fix the bike tyre.", "ts": 1762198322.21909, "tokens": 18}
+{"id": "c1111", "text": "Watched a documentary about Roman concrete; too long.", "ts": 1760169261.039425, "tokens": 11}
+{"id": "c1112", "text": "Watched a documentary about glassblowing; learned a lot.", "ts": 1765878234.017865, "tokens": 13}
+{"id": "c1113", "text": "Fixed the bike brakes with a video tutorial; took all afternoon and it is still not right.", "ts": 1785892197.344943, "tokens": 19}
+{"id": "c1114", "text": "Errand list: post the parcel, get keys cut, call the plumber.", "ts": 1759171872.288569, "tokens": 16}
+{"id": "c1115", "text": "Ran 11 km along the park loop; legs felt heavy.", "ts": 1775897082.336639, "tokens": 14}
+{"id": "c1116", "text": "Fixed the bike brakes with a borrowed wrench; took all afternoon and it is still not right.", "ts": 1779682547.484868, "tokens": 19}
+{"id": "c1117", "text": "My cousins came round for brunch; we looked at holiday photos until the rain stopped.", "ts": 1758572853.880252, "tokens": 17}
+{"id": "c1118", "text": "My cousins came round for dinner; we planned a camping trip until late.", "ts": 1790426779.946662, "tokens": 15}
+{"id": "c1119", "text": "Ran 8 km along the canal; legs felt heavy.", "ts": 1767919097.201662, "tokens": 13}
+{"id": "c1120", "text": "Tried a recipe for fish tacos; next time use less garlic.", "ts": 1773895440.710881, "tokens": 14}
+{"id": "c1121", "text": "Fixed the desk lamp with some epoxy; took all afternoon and it is still not right.", "ts": 1789035259.717499, "tokens": 18}
+{"id": "c1122", "text": "My cousins came round for tea; we watched the match until midnight.", "ts": 1773766477.690013, "tokens": 14}
+{"id": "c1123", "text": "Errand list: buy lightbulbs, buy birthday card, call the plumber.", "ts": 1771363304.896796, "tokens": 17}
+{"id": "c1124", "text": "Errand list: return library books, drop off recycling, call the plumber.", "ts": 1754898586.308772, "tokens": 16}
+{"id": "c1125", "text": "The book club came round for brunch; we played cards until midnight.", "ts": 1784009714.513878, "tokens": 14}
+{"id": "c1126", "text": "Ran 7 km along the river path; legs felt great.", "ts": 1793782604.412287, "tokens": 14}
+{"id": "c1127", "text": "Ran 6 km along the canal; legs felt heavy.", "ts": 1766822568.567197, "tokens": 13}
+{"id": "c1128", "text": "Fixed the desk lamp with a borrowed wrench; took all afternoon and I felt smug.", "ts": 1790758497.813876, "tokens": 18}
+{"id": "c1129", "text": "Tried a recipe for miso aubergine; next time use less cumin.", "ts": 1764371006.55957, "tokens": 19}
+{"id": "c1130", "text": "Fixed the bike brakes with a borrowed wrench; took ten minutes and I should have called someone.", "ts": 1765826190.79861, "tokens": 19}
+{"id": "c1131", "text": "Ran 4 km along the canal; legs felt heavy.", "ts": 1770247851.668816, "tokens": 13}
+{"id": "c1132", "text": "Fixed the leaking tap with a borrowed wrench; took all afternoon and it held.", "ts": 1774220918.323137, "tokens": 16}
+{"id": "c1133", "text": "Fixed the wobbly shelf with duct tape; took an hour and I should have called someone.", "ts": 1766743533.175143, "tokens": 20}
+{"id": "c1134", "text": "Idea: a tiny app for tracking houseplant watering. Probably too niche.", "ts": 1787408228.324607, "tokens": 16}
+{"id": "c1135", "text": "Reading notes, a biography of a lighthouse keeper: worth rereading the introduction.", "ts": 1762591747.825353, "tokens": 18}
+{"id": "c1136", "text": "The book club came round for brunch; we looked at holiday photos until midnight.", "ts": 1761565362.386903, "tokens": 16}
+{"id": "c1137", "text": "Weather was glorious; spent the afternoon repotting herbs.", "ts": 1771030086.031249, "tokens": 12}
+{"id": "c1138", "text": "Tried a recipe for dal makhani; next time use less salt.", "ts": 1791353904.644035, "tokens": 16}
+{"id": "c1139", "text": "Errand list: pick up dry cleaning, drop off recycling, fix the bike tyre.", "ts": 1770529257.710153, "tokens": 18}
+{"id": "c1140", "text": "Fixed the squeaky door with a video tutorial; took an hour and it held.", "ts": 1773321429.094354, "tokens": 17}
+{"id": "c1141", "text": "Idea: a board game about tidal rivers. Probably worth a weekend.", "ts": 1769152531.034507, "tokens": 15}
+{"id": "c1142", "text": "Ran 11 km along the park loop; legs felt stiff.", "ts": 1771363113.611376, "tokens": 14}
+{"id": "c1143", "text": "Ran 5 km along the river path; legs felt tired.", "ts": 1781412607.834638, "tokens": 14}
+{"id": "c1144", "text": "Weather was windy; spent the evening painting the hallway.", "ts": 1776876394.865492, "tokens": 11}
+{"id": "c1145", "text": "Idea: a script that renames screenshots by content. Probably worth a weekend.", "ts": 1760018292.478956, "tokens": 17}
+{"id": "c1146", "text": "The neighbours came round for tea; we looked at holiday photos until the rain stopped.", "ts": 1765743498.68882, "tokens": 17}
+{"id": "c1147", "text": "Ran 21 km along the old railway line; legs felt stiff.", "ts": 1752644920.44846, "tokens": 15}
+{"id": "c1148", "text": "Ran 9 km along the old railway line; legs felt heavy.", "ts": 1760071578.14703, "tokens": 15}
+{"id": "c1149", "text": "Friends from choir came round for tea; we looked at holiday photos until the rain stopped.", "ts": 1753617611.609663, "tokens": 18}
+{"id": "c1150", "text": "Ran 16 km along the old railway line; legs felt great.", "ts": 1756927519.841702, "tokens": 15}
+{"id": "c1151", "text": "Ran 9 km along the river path; legs felt stiff.", "ts": 1760146997.473859, "tokens": 14}
+{"id": "c1152", "text": "Fixed the wobbly shelf with some epoxy; took an hour and I felt smug.", "ts": 1791940626.598746, "tokens": 19}
+{"id": "c1153", "text": "Watched a short film about deep-sea vents; fell asleep halfway.", "ts": 1759219430.015357, "tokens": 15}
+{"id": "c1154", "text": "Weather was grim; spent the afternoon napping.", "ts": 1763972573.792231, "tokens": 10}
+{"id": "c1155", "text": "My cousins came round for tea; we planned a camping trip until midnight.", "ts": 1786173526.098221, "tokens": 15}
+{"id": "c1156", "text": "The neighbours came round for dinner; we played cards until the rain stopped.", "ts": 1772458723.188649, "tokens": 15}
+{"id": "c1157", "text": "Errand list: pick up dry cleaning, get keys cut, call the plumber.", "ts": 1752926077.909356, "tokens": 17}
+{"id": "c1158", "text": "Fixed the garden gate with a video tutorial; took all afternoon and it held.", "ts": 1777208671.076568, "tokens": 16}
+{"id": "c1159", "text": "Watched a lecture about Roman concrete; beautifully shot.", "ts": 1772693758.002142, "tokens": 11}
+{"id": "c1160", "text": "Watched a lecture about the history of zero; fell asleep halfway.", "ts": 1781662137.669454, "tokens": 14}
+{"id": "c1161", "text": "Reading notes, an essay collection on attention: the middle chapters drag.", "ts": 1776241102.384622, "tokens": 14}
+{"id": "c1162", "text": "Weather was windy; spent the morning repotting herbs.", "ts": 1782789309.908591, "tokens": 12}
+{"id": "c1163", "text": "Ran 6 km along the river path; legs felt heavy.", "ts": 1778404684.79998, "tokens": 14}
+{"id": "c1164", "text": "Weather was windy; spent the morning napping.", "ts": 1788025776.889787, "tokens": 10}
+{"id": "c1165", "text": "Ran 9 km along the canal; legs felt tired.", "ts": 1788982836.142237, "tokens": 13}
+{"id": "c1166", "text": "Reading notes, a primer on type theory: the argument about scale is the best part.", "ts": 1778895664.778957, "tokens": 18}
+{"id": "c1167", "text": "My sister came round for dinner; we looked at holiday photos until the rain stopped.", "ts": 1778273930.405286, "tokens": 17}
+{"id": "c1168", "text": "Weather was grim; spent the evening at the market.", "ts": 1754969047.690362, "tokens": 11}
+{"id": "c1169", "text": "Fixed the desk lamp with a video tutorial; took all afternoon and it held.", "ts": 1780655257.830237, "tokens": 16}
+{"id": "c1170", "text": "Weather was windy; spent the afternoon napping.", "ts": 1784735383.272144, "tokens": 10}
+{"id": "c1171", "text": "The neighbours came round for dinner; we watched the match until the rain stopped.", "ts": 1789054356.323259, "tokens": 16}
+{"id": "c1172", "text": "Ran 17 km along the canal; legs felt light.", "ts": 1768612987.854688, "tokens": 13}
+{"id": "c1173", "text": "Errand list: buy lightbulbs, refill prescription, water the plants.", "ts": 1763379085.043356, "tokens": 16}
+{"id": "c1174", "text": "Weather was grim; spent the evening napping.", "ts": 1772650978.490164, "tokens": 10}
+{"id": "c1175", "text": "Fixed the desk lamp with duct tape; took ten minutes and it held.", "ts": 1762485410.238789, "tokens": 15}
+{"id": "c1176", "text": "Friends from choir came round for tea; we played cards until the rain stopped.", "ts": 1779962786.355769, "tokens": 16}
+{"id": "c1177", "text": "Fixed the leaking tap with new washers; took an hour and it is still not right.", "ts": 1780243549.425699, "tokens": 19}
+{"id": "c1178", "text": "Errand list: return library books, buy birthday card, fix the bike tyre.", "ts": 1775636871.876403, "tokens": 17}
+{"id": "c1179", "text": "Tried a recipe for sourdough focaccia; next time use less garlic.", "ts": 1778092629.175553, "tokens": 18}
+{"id": "c1180", "text": "Watched a documentary about glassblowing; surprisingly moving.", "ts": 1783270551.869144, "tokens": 12}
+{"id": "c1181", "text": "Fixed the garden gate with duct tape; took ten minutes and I should have called someone.", "ts": 1774432262.292297, "tokens": 18}
+{"id": "c1182", "text": "Fixed the squeaky door with new washers; took an hour and it is still not right.", "ts": 1768549313.5931, "tokens": 20}
+{"id": "c1183", "text": "Weather was glorious; spent the afternoon painting the hallway.", "ts": 1774174691.012977, "tokens": 11}
+{"id": "c1184", "text": "Fixed the garden gate with duct tape; took an hour and I should have called someone.", "ts": 1763245411.645065, "tokens": 18}
+{"id": "c1185", "text": "My cousins came round for tea; we argued about films until the kids got tired.", "ts": 1785806999.439826, "tokens": 17}
+{"id": "c1186", "text": "Ran 15 km along the park loop; legs felt great.", "ts": 1782500485.387718, "tokens": 14}
+{"id": "c1187", "text": "Ran 17 km along the canal; legs felt tired.", "ts": 1752022440.357441, "tokens": 13}
+{"id": "c1188", "text": "Errand list: post the parcel, buy birthday card, water the plants.", "ts": 1766332772.995708, "tokens": 16}
+{"id": "c1189", "text": "Errand list: return library books, drop off recycling, descale the kettle.", "ts": 1787126255.836203, "tokens": 17}
+{"id": "c1190", "text": "An old flatmate came round for a barbecue; we planned a camping trip until late.", "ts": 1755868110.21969, "tokens": 18}
+{"id": "c1191", "text": "Ran 13 km along the park loop; legs felt great.", "ts": 1778538872.369143, "tokens": 14}
+{"id": "c1192", "text": "Fixed the wobbly shelf with duct tape; took an hour and I felt smug.", "ts": 1781246552.757097, "tokens": 19}
+{"id": "c1193", "text": "Friends from choir came round for brunch; we planned a camping trip until midnight.", "ts": 1761084399.49409, "tokens": 16}
+{"id": "c1194", "text": "Fixed the bike brakes with some epoxy; took an hour and it held.", "ts": 1792184474.347963, "tokens": 15}
+{"id": "c1195", "text": "Weather was windy; spent the morning fixing the fence.", "ts": 1774845792.381432, "tokens": 11}
+{"id": "c1196", "text": "Tried a recipe for sourdough focaccia; next time use less cumin.", "ts": 1753741611.441482, "tokens": 19}
+{"id": "c1197", "text": "General note on running meetings: ask what would change your mind.", "ts": 1771723765.145462, "tokens": 13}
+{"id": "c1198", "text": "Tried a recipe for miso aubergine; next time use less salt.", "ts": 1793979074.549071, "tokens": 18}
+{"id": "c1199", "text": "Watched a short film about the history of zero; surprisingly moving.", "ts": 1753122808.426389, "tokens": 14}
+{"id": "c1200", "text": "Fixed the leaking tap with a borrowed wrench; took an hour and it held.", "ts": 1785425620.385229, "tokens": 16}
+{"id": "c1201", "text": "Ran 20 km along the coast road; legs felt tired.", "ts": 1784717302.630879, "tokens": 14}
+{"id": "c1202", "text": "My cousins came round for a barbecue; we played cards until late.", "ts": 1781108184.740243, "tokens": 14}
+{"id": "c1203", "text": "My sister came round for a barbecue; we looked at holiday photos until midnight.", "ts": 1776127643.942226, "tokens": 16}
+{"id": "c1204", "text": "Watched a short film about Roman concrete; too long.", "ts": 1763855053.851712, "tokens": 12}
+{"id": "c1205", "text": "Fixed the garden gate with some epoxy; took an hour and I should have called someone.", "ts": 1772899482.563476, "tokens": 18}
+{"id": "c1206", "text": "Watched a documentary about bird migration; fell asleep halfway.", "ts": 1754206961.54617, "tokens": 12}
+{"id": "c1207", "text": "The book club came round for a barbecue; we watched the match until the rain stopped.", "ts": 1783891117.45576, "tokens": 18}
+{"id": "c1208", "text": "Tried a recipe for miso aubergine; next time use less garlic.", "ts": 1757384929.698177, "tokens": 18}
+{"id": "c1209", "text": "Ran 5 km along the canal; legs felt tired.", "ts": 1790105581.50732, "tokens": 13}
+{"id": "c1210", "text": "Fixed the garden gate with some epoxy; took an hour and it is still not right.", "ts": 1766781454.720781, "tokens": 18}
+{"id": "c1211", "text": "Ran 17 km along the old railway line; legs felt tired.", "ts": 1775753647.884737, "tokens": 15}
+{"id": "c1212", "text": "Ran 4 km along the park loop; legs felt stiff.", "ts": 1753720603.793221, "tokens": 14}
+{"id": "c1213", "text": "Ran 19 km along the park loop; legs felt great.", "ts": 1771692172.241337, "tokens": 14}
+{"id": "c1214", "text": "The book club came round for a barbecue; we argued about films until late.", "ts": 1786573769.609654, "tokens": 16}
+{"id": "c1215", "text": "Errand list: buy lightbulbs, buy birthday card, water the plants.", "ts": 1794322357.370504, "tokens": 17}
+{"id": "c1216", "text": "Weather was foggy; spent the evening sorting old photos.", "ts": 1787564917.355334, "tokens": 12}
+{"id": "c1217", "text": "Fixed the wobbly shelf with a borrowed wrench; took ten minutes and it held.", "ts": 1777486541.965126, "tokens": 18}
+{"id": "c1218", "text": "Fixed the wobbly shelf with new washers; took all afternoon and I should have called someone.", "ts": 1762003602.127773, "tokens": 21}
+{"id": "c1219", "text": "Fixed the squeaky door with a borrowed wrench; took an hour and it held.", "ts": 1792944298.091997, "tokens": 17}
+{"id": "c1220", "text": "The neighbours came round for tea; we watched the match until the kids got tired.", "ts": 1774960895.300272, "tokens": 17}
+{"id": "c1221", "text": "Weather was muggy; spent the morning painting the hallway.", "ts": 1790160710.254934, "tokens": 12}
+{"id": "c1222", "text": "Ran 5 km along the coast road; legs felt tired.", "ts": 1777870283.24952, "tokens": 14}
+{"id": "c1223", "text": "Ran 16 km along the canal; legs felt heavy.", "ts": 1785497418.274109, "tokens": 13}
+{"id": "c1224", "text": "The neighbours came round for a barbecue; we watched the match until the kids got tired.", "ts": 1781345458.281705, "tokens": 18}
+{"id": "c1225", "text": "Ran 10 km along the canal; legs felt stiff.", "ts": 1757167844.068773, "tokens": 13}
+{"id": "c1226", "text": "My sister came round for dinner; we looked at holiday photos until the kids got tired.", "ts": 1766281601.174021, "tokens": 18}
+{"id": "c1227", "text": "Ran 16 km along the coast road; legs felt tired.", "ts": 1776199015.843954, "tokens": 14}
+{"id": "c1228", "text": "The book club came round for dinner; we planned a camping trip until the kids got tired.", "ts": 1794176245.80426, "tokens": 19}
+{"id": "c1229", "text": "Friends from choir came round for dinner; we argued about films until the kids got tired.", "ts": 1768941184.506498, "tokens": 18}
+{"id": "c1230", "text": "Ran 5 km along the park loop; legs felt great.", "ts": 1761626698.803541, "tokens": 14}
+{"id": "c1231", "text": "Ran 4 km along the canal; legs felt tired.", "ts": 1787175128.192725, "tokens": 13}
+{"id": "c1232", "text": "Ran 19 km along the river path; legs felt heavy.", "ts": 1768221743.05521, "tokens": 14}
+{"id": "c1233", "text": "The book club came round for brunch; we played cards until the rain stopped.", "ts": 1768451820.418591, "tokens": 16}
+{"id": "c1234", "text": "Friends from choir came round for dinner; we looked at holiday photos until the rain stopped.", "ts": 1766566577.022396, "tokens": 18}
+{"id": "c1235", "text": "Friends from choir came round for a barbecue; we looked at holiday photos until midnight.", "ts": 1791557478.470322, "tokens": 17}
+{"id": "c1236", "text": "The book club came round for tea; we planned a camping trip until late.", "ts": 1778783079.981342, "tokens": 16}
+{"id": "c1237", "text": "Ran 12 km along the canal; legs felt great.", "ts": 1752189327.450606, "tokens": 13}
+{"id": "c1238", "text": "Fixed the bike brakes with duct tape; took all afternoon and I should have called someone.", "ts": 1787600064.613111, "tokens": 18}
+{"id": "c1239", "text": "Errand list: pick up dry cleaning, refill prescription, descale the kettle.", "ts": 1775485887.603405, "tokens": 17}
+{"id": "c1240", "text": "Watched a short film about bird migration; surprisingly moving.", "ts": 1753839941.040704, "tokens": 12}
+{"id": "c1241", "text": "Watched a documentary about bird migration; learned a lot.", "ts": 1792979013.955413, "tokens": 12}
+{"id": "c1242", "text": "Ran 5 km along the park loop; legs felt tired.", "ts": 1759595794.911927, "tokens": 14}
+{"id": "c1243", "text": "Ran 4 km along the coast road; legs felt great.", "ts": 1790052091.062336, "tokens": 14}
+{"id": "c1244", "text": "Ran 11 km along the river path; legs felt tired.", "ts": 1759753038.873667, "tokens": 14}
+{"id": "c1245", "text": "Weather was grim; spent the morning at the market.", "ts": 1775051119.979419, "tokens": 11}
+{"id": "c1246", "text": "Friends from choir came round for tea; we played cards until midnight.", "ts": 1793332733.785888, "tokens": 14}
+{"id": "c1247", "text": "Ran 10 km along the coast road; legs felt light.", "ts": 1763480551.956161, "tokens": 14}
+{"id": "c1248", "text": "Fixed the bike brakes with new washers; took all afternoon and it is still not right.", "ts": 1781152466.383879, "tokens": 19}
+{"id": "c1249", "text": "Ran 6 km along the coast road; legs felt tired.", "ts": 1762502686.775796, "tokens": 14}
+{"id": "c1250", "text": "Ran 6 km along the canal; legs felt stiff.", "ts": 1762765015.405966, "tokens": 13}
+{"id": "c1251", "text": "Ran 18 km along the park loop; legs felt stiff.", "ts": 1754687827.86153, "tokens": 14}
+{"id": "c1252", "text": "Tried a recipe for dal makhani; next time use less oil.", "ts": 1754349009.4042, "tokens": 16}
+{"id": "c1253", "text": "Ran 14 km along the coast road; legs felt stiff.", "ts": 1792670048.819961, "tokens": 14}
+{"id": "c1254", "text": "My sister came round for brunch; we argued about films until midnight.", "ts": 1778866822.091045, "tokens": 14}
+{"id": "c1255", "text": "Ran 14 km along the old railway line; legs felt tired.", "ts": 1758949848.766076, "tokens": 15}
+{"id": "c1256", "text": "Fixed the leaking tap with a borrowed wrench; took ten minutes and I should have called someone.", "ts": 1762309367.786172, "tokens": 19}
+{"id": "c1257", "text": "Ran 20 km along the canal; legs felt stiff.", "ts": 1778509462.835716, "tokens": 13}
+{"id": "c1258", "text": "An old flatmate came round for tea; we argued about films until the rain stopped.", "ts": 1761820871.769459, "tokens": 18}
+{"id": "c1259", "text": "Weather was foggy; spent the afternoon at the market.", "ts": 1753343332.590426, "tokens": 12}
+{"id": "c1260", "text": "Weather was muggy; spent the morning sorting old photos.", "ts": 1772420967.068913, "tokens": 12}
+{"id": "c1261", "text": "My cousins came round for tea; we watched the match until late.", "ts": 1775586007.796237, "tokens": 14}
+{"id": "c1262", "text": "Fixed the garden gate with a video tutorial; took ten minutes and it held.", "ts": 1760532068.075377, "tokens": 16}
+{"id": "c1263", "text": "Fixed the squeaky door with new washers; took ten minutes and it held.", "ts": 1783770237.446765, "tokens": 17}
+{"id": "c1264", "text": "My cousins came round for a barbecue; we watched the match until midnight.", "ts": 1780940239.52922, "tokens": 15}
+{"id": "c1265", "text": "Ran 5 km along the old railway line; legs felt heavy.", "ts": 1759275823.900688, "tokens": 15}
+{"id": "c1266", "text": "Weather was grim; spent the morning sorting old photos.", "ts": 1779871937.514732, "tokens": 11}
+{"id": "c1267", "text": "Weather was glorious; spent the morning napping.", "ts": 1788242078.347489, "tokens": 10}
+{"id": "c1268", "text": "Errand list: post the parcel, drop off recycling, fix the bike tyre.", "ts": 1756400494.787927, "tokens": 17}
+{"id": "c1269", "text": "My sister came round for dinner; we planned a camping trip until the kids got tired.", "ts": 1777828557.23378, "tokens": 18}
+{"id": "c1270", "text": "My sister came round for dinner; we looked at holiday photos until midnight.", "ts": 1794049214.198283, "tokens": 15}
+{"id": "c1271", "text": "Fixed the squeaky door with new washers; took all afternoon and I should have called someone.", "ts": 1777261898.07861, "tokens": 20}
+{"id": "c1272", "text": "Friends from choir came round for tea; we planned a camping trip until the kids got tired.", "ts": 1782312945.592278, "tokens": 19}
+{"id": "c1273", "text": "Weather was windy; spent the evening napping.", "ts": 1754004988.10417, "tokens": 10}
+{"id": "c1274", "text": "Watched a lecture about glassblowing; fell asleep halfway.", "ts": 1770381832.610162, "tokens": 13}
+{"id": "c1275", "text": "Ran 15 km along the coast road; legs felt stiff.", "ts": 1781611650.666864, "tokens": 14}
+{"id": "c1276", "text": "Ran 10 km along the canal; legs felt heavy.", "ts": 1757446910.551281, "tokens": 13}
+{"id": "c1277", "text": "Fixed the leaking tap with some epoxy; took an hour and it held.", "ts": 1790035045.481198, "tokens": 15}
+{"id": "c1278", "text": "Errand list: pick up dry cleaning, refill prescription, fix the bike tyre.", "ts": 1774934008.102189, "tokens": 17}
+{"id": "c1279", "text": "Fixed the squeaky door with a video tutorial; took ten minutes and it held.", "ts": 1773636659.025587, "tokens": 17}
+{"id": "c1280", "text": "Fixed the garden gate with duct tape; took an hour and I felt smug.", "ts": 1752042185.450789, "tokens": 17}
+{"id": "c1281", "text": "Ran 10 km along the canal; legs felt great.", "ts": 1755600150.310202, "tokens": 13}
+{"id": "c1282", "text": "The neighbours came round for tea; we planned a camping trip until the rain stopped.", "ts": 1790697228.689855, "tokens": 17}
+{"id": "c1283", "text": "Fixed the garden gate with a video tutorial; took an hour and it is still not right.", "ts": 1757110489.743045, "tokens": 19}
+{"id": "c1284", "text": "Ran 19 km along the old railway line; legs felt great.", "ts": 1781640965.480019, "tokens": 15}
+{"id": "c1285", "text": "Friends from choir came round for tea; we argued about films until the kids got tired.", "ts": 1752662098.114942, "tokens": 18}
+{"id": "c1286", "text": "Weather was muggy; spent the evening painting the hallway.", "ts": 1760559909.138329, "tokens": 12}
+{"id": "c1287", "text": "Fixed the leaking tap with a video tutorial; took an hour and I should have called someone.", "ts": 1774205474.912448, "tokens": 19}
+{"id": "c1288", "text": "Ran 16 km along the coast road; legs felt great.", "ts": 1755513126.28408, "tokens": 14}
+{"id": "c1289", "text": "An old flatmate came round for dinner; we watched the match until late.", "ts": 1789733017.668443, "tokens": 16}
+{"id": "c1290", "text": "The neighbours came round for dinner; we argued about films until late.", "ts": 1792791802.334831, "tokens": 14}
+{"id": "c1291", "text": "Ran 4 km along the river path; legs felt great.", "ts": 1783213378.100023, "tokens": 14}
+{"id": "c1292", "text": "Ran 18 km along the park loop; legs felt heavy.", "ts": 1775385138.572906, "tokens": 14}
+{"id": "c1293", "text": "Ran 12 km along the river path; legs felt heavy.", "ts": 1755840295.388301, "tokens": 14}
+{"id": "c1294", "text": "Weather was foggy; spent the morning fixing the fence.", "ts": 1792803179.881273, "tokens": 12}
+{"id": "c1295", "text": "My sister came round for brunch; we looked at holiday photos until the kids got tired.", "ts": 1766410166.976321, "tokens": 18}
+{"id": "c1296", "text": "Errand list: return library books, drop off recycling, water the plants.", "ts": 1787882315.91783, "tokens": 16}
+{"id": "c1297", "text": "Weather was muggy; spent the afternoon fixing the fence.", "ts": 1759081382.557177, "tokens": 12}
+{"id": "c1298", "text": "Errand list: post the parcel, buy birthday card, fix the bike tyre.", "ts": 1779056395.623901, "tokens": 17}
+{"id": "c1299", "text": "Fixed the bike brakes with duct tape; took all afternoon and it is still not right.", "ts": 1786997382.035434, "tokens": 18}
+{"id": "c1300", "text": "The neighbours came round for brunch; we watched the match until late.", "ts": 1752121533.182035, "tokens": 14}
+{"id": "c1301", "text": "Weather was windy; spent the evening sorting old photos.", "ts": 1790123157.122931, "tokens": 11}
+{"id": "c1302", "text": "My sister came round for dinner; we planned a camping trip until the rain stopped.", "ts": 1791829527.517084, "tokens": 17}
+{"id": "c1303", "text": "Weather was glorious; spent the evening painting the hallway.", "ts": 1785427003.273425, "tokens": 11}
+{"id": "c1304", "text": "Fixed the garden gate with a borrowed wrench; took ten minutes and it is still not right.", "ts": 1755151339.477619, "tokens": 19}
+{"id": "c1305", "text": "Weather was windy; spent the afternoon at the market.", "ts": 1784228366.451375, "tokens": 11}
+{"id": "c1306", "text": "Weather was foggy; spent the afternoon repotting herbs.", "ts": 1789963665.36189, "tokens": 13}
+{"id": "c1307", "text": "Ran 12 km along the canal; legs felt tired.", "ts": 1777355322.217183, "tokens": 13}
+{"id": "c1308", "text": "Fixed the desk lamp with a video tutorial; took ten minutes and it is still not right.", "ts": 1772957385.966335, "tokens": 19}
+{"id": "c1309", "text": "Weather was grim; spent the afternoon at the market.", "ts": 1765842559.220691, "tokens": 11}
+{"id": "c1310", "text": "The neighbours came round for a barbecue; we played cards until midnight.", "ts": 1768516821.547224, "tokens": 14}
+{"id": "c1311", "text": "Weather was glorious; spent the morning repotting herbs.", "ts": 1765327568.29561, "tokens": 12}
+{"id": "c1312", "text": "Errand list: buy lightbulbs, drop off recycling, water the plants.", "ts": 1757040180.507834, "tokens": 17}
+{"id": "c1313", "text": "Ran 16 km along the park loop; legs felt tired.", "ts": 1771888704.020466, "tokens": 14}
+{"id": "c1314", "text": "Fixed the leaking tap with some epoxy; took an hour and I should have called someone.", "ts": 1784421230.274762, "tokens": 18}
+{"id": "c1315", "text": "Watched a short film about Roman concrete; learned a lot.", "ts": 1789456993.992697, "tokens": 13}
+{"id": "c1316", "text": "Ran 6 km along the old railway line; legs felt light.", "ts": 1765959514.076663, "tokens": 15}
+{"id": "c1317", "text": "An old flatmate came round for a barbecue; we played cards until the kids got tired.", "ts": 1780187640.7267, "tokens": 19}
+{"id": "c1318", "text": "Ran 18 km along the park loop; legs felt great.", "ts": 1764740919.542265, "tokens": 14}
+{"id": "c1319", "text": "Ran 12 km along the canal; legs felt stiff.", "ts": 1786916400.588555, "tokens": 13}
+{"id": "c1320", "text": "The neighbours came round for a barbecue; we watched the match until late.", "ts": 1792805298.989617, "tokens": 15}
+{"id": "c1321", "text": "Fixed the garden gate with a borrowed wrench; took an hour and it held.", "ts": 1783738747.097728, "tokens": 16}
+{"id": "c1322", "text": "Ran 11 km along the coast road; legs felt stiff.", "ts": 1786987410.150938, "tokens": 14}
+{"id": "c1323", "text": "Weather was glorious; spent the evening sorting old photos.", "ts": 1768832108.705459, "tokens": 11}
+{"id": "c1324", "text": "Fixed the desk lamp with some epoxy; took an hour and I should have called someone.", "ts": 1764406193.253336, "tokens": 18}
+{"id": "c1325", "text": "Fixed the garden gate with some epoxy; took ten minutes and I should have called someone.", "ts": 1783091582.48905, "tokens": 18}
+{"id": "c1326", "text": "My sister came round for brunch; we watched the match until midnight.", "ts": 1776736643.814978, "tokens": 14}
+{"id": "c1327", "text": "Ran 13 km along the old railway line; legs felt heavy.", "ts": 1758806385.529649, "tokens": 15}
+{"id": "c1328", "text": "Ran 20 km along the river path; legs felt tired.", "ts": 1793070504.380711, "tokens": 14}
+{"id": "c1329", "text": "Fixed the bike brakes with new washers; took ten minutes and I felt smug.", "ts": 1772935961.872768, "tokens": 18}
+{"id": "c1330", "text": "The book club came round for dinner; we played cards until late.", "ts": 1763803449.104478, "tokens": 14}
+{"id": "c1331", "text": "The neighbours came round for a barbecue; we argued about films until late.", "ts": 1758468542.933392, "tokens": 15}
+{"id": "c1332", "text": "Weather was windy; spent the afternoon fixing the fence.", "ts": 1783390717.70113, "tokens": 11}
+{"id": "c1333", "text": "Fixed the bike brakes with new washers; took an hour and it held.", "ts": 1784909782.655512, "tokens": 16}
+{"id": "c1334", "text": "Fixed the garden gate with a video tutorial; took an hour and I felt smug.", "ts": 1786671484.869029, "tokens": 18}
+{"id": "c1335", "text": "Ran 19 km along the old railway line; legs felt tired.", "ts": 1791455140.63525, "tokens": 15}
+{"id": "c1336", "text": "Watched a documentary about Roman concrete; learned a lot.", "ts": 1767184071.663587, "tokens": 12}
+{"id": "c1337", "text": "Ran 8 km along the river path; legs felt great.", "ts": 1755154524.587014, "tokens": 14}
+{"id": "c1338", "text": "Weather was grim; spent the evening fixing the fence.", "ts": 1760085606.552524, "tokens": 11}
+{"id": "c1339", "text": "Fixed the squeaky door with new washers; took an hour and I should have called someone.", "ts": 1761761374.941637, "tokens": 20}
+{"id": "c1340", "text": "Ran 7 km along the canal; legs felt light.", "ts": 1757150361.967731, "tokens": 13}
+{"id": "c1341", "text": "Errand list: post the parcel, get keys cut, water the plants.", "ts": 1773467312.336201, "tokens": 16}
+{"id": "c1342", "text": "Fixed the garden gate with new washers; took ten minutes and it is still not right.", "ts": 1784763298.501012, "tokens": 19}
+{"id": "c1343", "text": "Fixed the desk lamp with a video tutorial; took an hour and I felt smug.", "ts": 1779599256.205244, "tokens": 18}
+{"id": "c1344", "text": "Ran 17 km along the park loop; legs felt heavy.", "ts": 1774488688.671278, "tokens": 14}
+{"id": "c1345", "text": "Fixed the leaking tap with a video tutorial; took all afternoon and it held.", "ts": 1793468999.640325, "tokens": 16}
+{"id": "c1346", "text": "Ran 12 km along the coast road; legs felt light.", "ts": 1781656064.916155, "tokens": 14}
+{"id": "c1347", "text": "Weather was windy; spent the morning painting the hallway.", "ts": 1786993989.518542, "tokens": 11}
+{"id": "c1348", "text": "Friends from choir came round for dinner; we looked at holiday photos until late.", "ts": 1782794173.658865, "tokens": 16}
+{"id": "c1349", "text": "Fixed the desk lamp with some epoxy; took all afternoon and I felt smug.", "ts": 1772966039.040309, "tokens": 17}
+{"id": "c1350", "text": "The book club came round for tea; we played cards until the kids got tired.", "ts": 1789479801.912914, "tokens": 17}
+{"id": "c1351", "text": "Fixed the squeaky door with new washers; took ten minutes and I felt smug.", "ts": 1755897357.375254, "tokens": 19}
+{"id": "c1352", "text": "Friends from choir came round for a barbecue; we played cards until midnight.", "ts": 1767149151.812666, "tokens": 15}
+{"id": "c1353", "text": "My sister came round for tea; we looked at holiday photos until the rain stopped.", "ts": 1760318125.679067, "tokens": 17}
+{"id": "c1354", "text": "The neighbours came round for dinner; we looked at holiday photos until the kids got tired.", "ts": 1764222899.228758, "tokens": 18}
+{"id": "c1355", "text": "Fixed the bike brakes with some epoxy; took ten minutes and it is still not right.", "ts": 1794107065.267069, "tokens": 18}
+{"id": "c1356", "text": "The book club came round for brunch; we watched the match until late.", "ts": 1755239140.60988, "tokens": 15}
+{"id": "c1357", "text": "Fixed the leaking tap with some epoxy; took ten minutes and I felt smug.", "ts": 1778602157.524844, "tokens": 17}
+{"id": "c1358", "text": "My sister came round for a barbecue; we looked at holiday photos until the kids got tired.", "ts": 1765621615.522785, "tokens": 19}
+{"id": "c1359", "text": "Ran 7 km along the old railway line; legs felt great.", "ts": 1782812481.25196, "tokens": 15}
+{"id": "c1360", "text": "Fixed the leaking tap with new washers; took all afternoon and I should have called someone.", "ts": 1778309525.420819, "tokens": 19}
+{"id": "c1361", "text": "Ran 8 km along the coast road; legs felt heavy.", "ts": 1782243817.130185, "tokens": 14}
+{"id": "c1362", "text": "Fixed the squeaky door with a borrowed wrench; took all afternoon and it held.", "ts": 1759227890.397451, "tokens": 17}
+{"id": "c1363", "text": "Ran 9 km along the coast road; legs felt stiff.", "ts": 1759115487.579255, "tokens": 14}
+{"id": "c1364", "text": "Fixed the wobbly shelf with some epoxy; took ten minutes and it held.", "ts": 1755090124.984954, "tokens": 17}
+{"id": "c1365", "text": "My sister came round for brunch; we watched the match until late.", "ts": 1770350695.264111, "tokens": 14}
+{"id": "c1366", "text": "Fixed the wobbly shelf with a video tutorial; took ten minutes and it is still not right.", "ts": 1776137035.468595, "tokens": 21}
+{"id": "c1367", "text": "Watched a documentary about Roman concrete; fell asleep halfway.", "ts": 1754780474.308173, "tokens": 12}
+{"id": "c1368", "text": "Watched a lecture about deep-sea vents; learned a lot.", "ts": 1756812650.401012, "tokens": 14}
+{"id": "c1369", "text": "The book club came round for brunch; we looked at holiday photos until late.", "ts": 1792395210.29549, "tokens": 16}
+{"id": "c1370", "text": "Ran 8 km along the park loop; legs felt tired.", "ts": 1752243398.17613, "tokens": 14}
+{"id": "c1371", "text": "Tried a recipe for dal makhani; next time use less garlic.", "ts": 1762544528.34284, "tokens": 16}
+{"id": "c1372", "text": "Ran 6 km along the coast road; legs felt great.", "ts": 1770935670.285152, "tokens": 14}
+{"id": "c1373", "text": "My sister came round for a barbecue; we played cards until the rain stopped.", "ts": 1775216378.696273, "tokens": 16}
+{"id": "c1374", "text": "Fixed the squeaky door with a video tutorial; took ten minutes and I felt smug.", "ts": 1762132384.056516, "tokens": 19}
+{"id": "c1375", "text": "An old flatmate came round for a barbecue; we argued about films until midnight.", "ts": 1766120487.15538, "tokens": 17}
+{"id": "c1376", "text": "Ran 19 km along the park loop; legs felt heavy.", "ts": 1766521754.665089, "tokens": 14}
+{"id": "c1377", "text": "Weather was muggy; spent the afternoon painting the hallway.", "ts": 1775484117.374203, "tokens": 12}
+{"id": "c1378", "text": "Ran 14 km along the river path; legs felt tired.", "ts": 1784624257.443521, "tokens": 14}
+{"id": "c1379", "text": "Watched a short film about Roman concrete; beautifully shot.", "ts": 1755036416.015565, "tokens": 12}
+{"id": "c1380", "text": "Fixed the desk lamp with new washers; took ten minutes and I felt smug.", "ts": 1777547323.589733, "tokens": 18}
+{"id": "c1381", "text": "Fixed the leaking tap with a borrowed wrench; took an hour and I should have called someone.", "ts": 1761446469.435773, "tokens": 19}
+{"id": "c1382", "text": "Ran 15 km along the park loop; legs felt heavy.", "ts": 1780143117.529763, "tokens": 14}
+{"id": "c1383", "text": "Ran 16 km along the river path; legs felt light.", "ts": 1786088538.086085, "tokens": 14}
+{"id": "c1384", "text": "The neighbours came round for a barbecue; we planned a camping trip until the rain stopped.", "ts": 1758833981.41027, "tokens": 18}
+{"id": "c1385", "text": "Tried a recipe for shakshuka; next time use less chilli.", "ts": 1788725026.632148, "tokens": 17}
+{"id": "c1386", "text": "Fixed the squeaky door with some epoxy; took an hour and I should have called someone.", "ts": 1768554586.220633, "tokens": 19}
+{"id": "c1387", "text": "Fixed the garden gate with new washers; took an hour and I should have called someone.", "ts": 1783818145.16962, "tokens": 19}
+{"id": "c1388", "text": "Fixed the bike brakes with duct tape; took an hour and I should have called someone.", "ts": 1781701390.070687, "tokens": 18}
+{"id": "c1389", "text": "Ran 11 km along the coast road; legs felt tired.", "ts": 1791385210.070174, "tokens": 14}
+{"id": "c1390", "text": "Fixed the wobbly shelf with some epoxy; took all afternoon and I felt smug.", "ts": 1761657573.034241, "tokens": 19}
+{"id": "c1391", "text": "Ran 19 km along the river path; legs felt light.", "ts": 1775307681.779551, "tokens": 14}
+{"id": "c1392", "text": "Ran 20 km along the river path; legs felt stiff.", "ts": 1754855739.298872, "tokens": 14}
+{"id": "c1393", "text": "Ran 19 km along the old railway line; legs felt stiff.", "ts": 1760822752.907583, "tokens": 15}
+{"id": "c1394", "text": "Fixed the bike brakes with duct tape; took ten minutes and I should have called someone.", "ts": 1769065416.049123, "tokens": 18}
+{"id": "c1395", "text": "My sister came round for brunch; we planned a camping trip until the rain stopped.", "ts": 1765081454.532898, "tokens": 17}
+{"id": "c1396", "text": "Ran 4 km along the old railway line; legs felt stiff.", "ts": 1771649558.848487, "tokens": 15}
+{"id": "c1397", "text": "Fixed the garden gate with new washers; took ten minutes and I felt smug.", "ts": 1766852393.8102, "tokens": 18}
+{"id": "c1398", "text": "The book club came round for dinner; we looked at holiday photos until the rain stopped.", "ts": 1762035924.864299, "tokens": 18}
+{"id": "c1399", "text": "Ran 20 km along the park loop; legs felt stiff.", "ts": 1787040331.099485, "tokens": 14}
+{"id": "c1400", "text": "Ran 21 km along the old railway line; legs felt great.", "ts": 1760946599.239561, "tokens": 15}
+{"id": "c1401", "text": "The neighbours came round for a barbecue; we played cards until the rain stopped.", "ts": 1756869141.911391, "tokens": 16}
+{"id": "c1402", "text": "Ran 4 km along the park loop; legs felt great.", "ts": 1794091905.224977, "tokens": 14}
+{"id": "c1403", "text": "Friends from choir came round for dinner; we looked at holiday photos until the kids got tired.", "ts": 1767373209.624189, "tokens": 19}
+{"id": "c1404", "text": "Tried a recipe for shakshuka; next time use less lemon.", "ts": 1773019660.632529, "tokens": 16}
+{"id": "c1405", "text": "My cousins came round for a barbecue; we argued about films until the kids got tired.", "ts": 1787123244.219913, "tokens": 18}
+{"id": "c1406", "text": "Watched a lecture about bird migration; beautifully shot.", "ts": 1791503057.763713, "tokens": 11}
+{"id": "c1407", "text": "An old flatmate came round for dinner; we planned a camping trip until the kids got tired.", "ts": 1765674959.396418, "tokens": 20}
+{"id": "c1408", "text": "Weather was muggy; spent the evening fixing the fence.", "ts": 1767639160.67254, "tokens": 12}
+{"id": "c1409", "text": "Friends from choir came round for brunch; we argued about films until the kids got tired.", "ts": 1781947902.292744, "tokens": 18}
+{"id": "c1410", "text": "Ran 13 km along the park loop; legs felt stiff.", "ts": 1774800163.889655, "tokens": 14}
+{"id": "c1411", "text": "Fixed the garden gate with new washers; took all afternoon and it is still not right.", "ts": 1780965390.550791, "tokens": 19}
+{"id": "c1412", "text": "Weather was glorious; spent the afternoon napping.", "ts": 1761022958.846832, "tokens": 10}
+{"id": "c1413", "text": "An old flatmate came round for dinner; we watched the match until the kids got tired.", "ts": 1780871535.385029, "tokens": 19}
+{"id": "c1414", "text": "Fixed the wobbly shelf with a borrowed wrench; took an hour and I felt smug.", "ts": 1759642824.087368, "tokens": 20}
+{"id": "c1415", "text": "Fixed the bike brakes with new washers; took an hour and it is still not right.", "ts": 1785512136.104823, "tokens": 19}
+{"id": "c1416", "text": "Watched a documentary about the history of zero; fell asleep halfway.", "ts": 1769912241.6335, "tokens": 14}
+{"id": "c1417", "text": "Weather was windy; spent the afternoon repotting herbs.", "ts": 1777181168.970889, "tokens": 12}
+{"id": "c1418", "text": "The neighbours came round for dinner; we watched the match until midnight.", "ts": 1761447165.781671, "tokens": 14}
+{"id": "c1419", "text": "Weather was glorious; spent the evening repotting herbs.", "ts": 1757518940.779231, "tokens": 12}
+{"id": "c1420", "text": "Ran 10 km along the coast road; legs felt tired.", "ts": 1779754198.927209, "tokens": 14}
+{"id": "c1421", "text": "An old flatmate came round for a barbecue; we looked at holiday photos until the kids got tired.", "ts": 1789686449.298794, "tokens": 21}
+{"id": "c1422", "text": "My cousins came round for brunch; we looked at holiday photos until late.", "ts": 1777593578.240314, "tokens": 15}
+{"id": "c1423", "text": "Fixed the desk lamp with a borrowed wrench; took all afternoon and I should have called someone.", "ts": 1758001412.626678, "tokens": 19}
+{"id": "c1424", "text": "Ran 11 km along the park loop; legs felt light.", "ts": 1762026902.141679, "tokens": 14}
+{"id": "c1425", "text": "Fixed the wobbly shelf with duct tape; took all afternoon and I felt smug.", "ts": 1756610862.260325, "tokens": 19}
+{"id": "c1426", "text": "Ran 10 km along the park loop; legs felt tired.", "ts": 1762524721.449252, "tokens": 14}
+{"id": "c1427", "text": "Ran 20 km along the coast road; legs felt light.", "ts": 1787492067.899225, "tokens": 14}
+{"id": "c1428", "text": "Fixed the bike brakes with new washers; took all afternoon and I felt smug.", "ts": 1754077105.710449, "tokens": 18}
+{"id": "c1429", "text": "My sister came round for brunch; we looked at holiday photos until late.", "ts": 1787910733.258682, "tokens": 15}
+{"id": "c1430", "text": "The neighbours came round for brunch; we played cards until late.", "ts": 1781183423.723988, "tokens": 13}
+{"id": "c1431", "text": "Fixed the leaking tap with a borrowed wrench; took an hour and it is still not right.", "ts": 1770895438.651538, "tokens": 19}
+{"id": "c1432", "text": "Friends from choir came round for brunch; we played cards until midnight.", "ts": 1755833486.524613, "tokens": 14}
+{"id": "c1433", "text": "Ran 5 km along the coast road; legs felt light.", "ts": 1763827894.553745, "tokens": 14}
+{"id": "c1434", "text": "Ran 5 km along the river path; legs felt great.", "ts": 1767158083.216805, "tokens": 14}
+{"id": "c1435", "text": "Ran 21 km along the old railway line; legs felt tired.", "ts": 1778723588.294663, "tokens": 15}
+{"id": "c1436", "text": "Fixed the desk lamp with some epoxy; took an hour and it held.", "ts": 1757838348.376487, "tokens": 15}
+{"id": "c1437", "text": "Ran 18 km along the coast road; legs felt great.", "ts": 1790247276.438699, "tokens": 14}
+{"id": "c1438", "text": "The neighbours came round for tea; we planned a camping trip until midnight.", "ts": 1763557659.682194, "tokens": 15}
+{"id": "c1439", "text": "The neighbours came round for brunch; we played cards until the kids got tired.", "ts": 1782646972.630668, "tokens": 16}
+{"id": "c1440", "text": "Ran 7 km along the canal; legs felt tired.", "ts": 1781577857.155338, "tokens": 13}
+{"id": "c1441", "text": "Fixed the garden gate with a borrowed wrench; took all afternoon and I felt smug.", "ts": 1787441317.974209, "tokens": 18}
+{"id": "c1442", "text": "An old flatmate came round for dinner; we played cards until the kids got tired.", "ts": 1760769201.828357, "tokens": 18}
+{"id": "c1443", "text": "Ran 21 km along the canal; legs felt tired.", "ts": 1753108532.166025, "tokens": 13}
+{"id": "c1444", "text": "Ran 14 km along the park loop; legs felt great.", "ts": 1775725771.825702, "tokens": 14}
+{"id": "c1445", "text": "Watched a lecture about bird migration; fell asleep halfway.", "ts": 1767482848.884494, "tokens": 12}
+{"id": "c1446", "text": "Ran 7 km along the coast road; legs felt light.", "ts": 1775135210.395816, "tokens": 14}
+{"id": "c1447", "text": "Ran 9 km along the old railway line; legs felt stiff.", "ts": 1760499224.550489, "tokens": 15}
+{"id": "c1448", "text": "Friends from choir came round for dinner; we planned a camping trip until the rain stopped.", "ts": 1761990638.107999, "tokens": 18}
+{"id": "c1449", "text": "Ran 15 km along the canal; legs felt heavy.", "ts": 1754328973.760168, "tokens": 13}
+{"id": "c1450", "text": "Friends from choir came round for tea; we argued about films until late.", "ts": 1753114635.938855, "tokens": 15}
+{"id": "c1451", "text": "The book club came round for brunch; we played cards until late.", "ts": 1756157798.075138, "tokens": 14}
+{"id": "c1452", "text": "Fixed the squeaky door with new washers; took an hour and I felt smug.", "ts": 1768937875.733922, "tokens": 19}
+{"id": "c1453", "text": "Fixed the garden gate with new washers; took an hour and I felt smug.", "ts": 1775277327.872876, "tokens": 18}
+{"id": "c1454", "text": "The book club came round for tea; we argued about films until midnight.", "ts": 1784485153.827182, "tokens": 15}
+{"id": "c1455", "text": "Fixed the wobbly shelf with a video tutorial; took an hour and it is still not right.", "ts": 1784917179.365505, "tokens": 21}
+{"id": "c1456", "text": "Friends from choir came round for brunch; we planned a camping trip until the kids got tired.", "ts": 1792714956.906374, "tokens": 19}
+{"id": "c1457", "text": "Fixed the squeaky door with some epoxy; took ten minutes and it is still not right.", "ts": 1757560117.365777, "tokens": 19}
+{"id": "c1458", "text": "An old flatmate came round for a barbecue; we played cards until midnight.", "ts": 1773755448.194853, "tokens": 16}
+{"id": "c1459", "text": "Ran 18 km along the river path; legs felt great.", "ts": 1780268274.017825, "tokens": 14}
+{"id": "c1460", "text": "Fixed the wobbly shelf with some epoxy; took an hour and it held.", "ts": 1762192292.346158, "tokens": 17}
+{"id": "c1461", "text": "Weather was grim; spent the afternoon painting the hallway.", "ts": 1757385492.360131, "tokens": 11}
+{"id": "c1462", "text": "Ran 8 km along the river path; legs felt heavy.", "ts": 1769216545.190778, "tokens": 14}
+{"id": "c1463", "text": "Fixed the desk lamp with a video tutorial; took ten minutes and I should have called someone.", "ts": 1758042261.467884, "tokens": 19}
+{"id": "c1464", "text": "Weather was glorious; spent the morning at the market.", "ts": 1755964576.019637, "tokens": 11}
+{"id": "c1465", "text": "Fixed the bike brakes with duct tape; took ten minutes and it held.", "ts": 1767929014.451107, "tokens": 15}
+{"id": "c1466", "text": "Fixed the desk lamp with some epoxy; took ten minutes and it is still not right.", "ts": 1778245035.726276, "tokens": 18}
+{"id": "c1467", "text": "Weather was glorious; spent the evening at the market.", "ts": 1772475617.463172, "tokens": 11}
+{"id": "c1468", "text": "Ran 15 km along the park loop; legs felt light.", "ts": 1791926989.076755, "tokens": 14}
+{"id": "c1469", "text": "Fixed the desk lamp with new washers; took ten minutes and I should have called someone.", "ts": 1753724205.664052, "tokens": 19}
+{"id": "c1470", "text": "Fixed the leaking tap with a video tutorial; took an hour and it is still not right.", "ts": 1793358546.966977, "tokens": 19}
+{"id": "c1471", "text": "Weather was grim; spent the morning fixing the fence.", "ts": 1770743120.892332, "tokens": 11}
+{"id": "c1472", "text": "The book club came round for tea; we planned a camping trip until midnight.", "ts": 1769844158.725599, "tokens": 16}
+{"id": "c1473", "text": "Ran 13 km along the old railway line; legs felt stiff.", "ts": 1774025053.526399, "tokens": 15}
+{"id": "c1474", "text": "Ran 17 km along the canal; legs felt stiff.", "ts": 1769447078.678653, "tokens": 13}
+{"id": "c1475", "text": "Fixed the wobbly shelf with new washers; took ten minutes and I should have called someone.", "ts": 1753877431.31803, "tokens": 21}
+{"id": "c1476", "text": "The neighbours came round for tea; we looked at holiday photos until midnight.", "ts": 1782146683.889819, "tokens": 15}
+{"id": "c1477", "text": "Ran 17 km along the old railway line; legs felt stiff.", "ts": 1785896720.510095, "tokens": 15}
+{"id": "c1478", "text": "My cousins came round for dinner; we watched the match until the kids got tired.", "ts": 1753509161.982856, "tokens": 17}
+{"id": "c1479", "text": "Ran 13 km along the coast road; legs felt great.", "ts": 1754802413.680906, "tokens": 14}
+{"id": "c1480", "text": "Fixed the garden gate with some epoxy; took all afternoon and I felt smug.", "ts": 1791801501.952524, "tokens": 17}
+{"id": "c1481", "text": "Fixed the desk lamp with new washers; took an hour and I should have called someone.", "ts": 1778456425.993604, "tokens": 19}
+{"id": "c1482", "text": "The book club came round for tea; we played cards until midnight.", "ts": 1784539243.049455, "tokens": 14}
+{"id": "c1483", "text": "Ran 17 km along the old railway line; legs felt light.", "ts": 1777601594.421174, "tokens": 15}
+{"id": "c1484", "text": "Ran 9 km along the old railway line; legs felt great.", "ts": 1753001793.892878, "tokens": 15}
+{"id": "c1485", "text": "Ran 15 km along the river path; legs felt great.", "ts": 1775312180.148174, "tokens": 14}
+{"id": "c1486", "text": "The neighbours came round for brunch; we played cards until the rain stopped.", "ts": 1775957003.687711, "tokens": 15}
+{"id": "c1487", "text": "Ran 15 km along the old railway line; legs felt great.", "ts": 1777249528.59768, "tokens": 15}
+{"id": "c1488", "text": "My sister came round for a barbecue; we watched the match until the rain stopped.", "ts": 1759630491.760573, "tokens": 17}
+{"id": "c1489", "text": "Ran 20 km along the canal; legs felt heavy.", "ts": 1780853184.550653, "tokens": 13}
+{"id": "c1490", "text": "Ran 12 km along the river path; legs felt great.", "ts": 1769799124.621828, "tokens": 14}
+{"id": "c1491", "text": "Ran 12 km along the old railway line; legs felt heavy.", "ts": 1771413587.565022, "tokens": 15}
+{"id": "c1492", "text": "Watched a documentary about glassblowing; beautifully shot.", "ts": 1768920682.905474, "tokens": 12}
+{"id": "c1493", "text": "Fixed the squeaky door with duct tape; took ten minutes and I felt smug.", "ts": 1787367335.116423, "tokens": 18}
+{"id": "c1494", "text": "Ran 19 km along the old railway line; legs felt light.", "ts": 1778148783.89166, "tokens": 15}
+{"id": "c1495", "text": "Ran 17 km along the river path; legs felt tired.", "ts": 1767752970.05842, "tokens": 14}
+{"id": "c1496", "text": "Fixed the wobbly shelf with a borrowed wrench; took all afternoon and I should have called someone.", "ts": 1752755139.690503, "tokens": 21}
+{"id": "c1497", "text": "Ran 14 km along the canal; legs felt great.", "ts": 1783139357.237032, "tokens": 13}
+{"id": "c1498", "text": "My sister came round for dinner; we watched the match until the rain stopped.", "ts": 1787310766.562773, "tokens": 16}
+{"id": "c1499", "text": "Friends from choir came round for dinner; we planned a camping trip until midnight.", "ts": 1790552830.164149, "tokens": 16}

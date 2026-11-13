@@ -1,0 +1,14 @@
+# Runtime configuration. Keys must match ambient.config.Config; unknown keys are an error.
+# Thresholds fitted by `python -m ambient.eval.calibrate` live in calibration.json and
+# override the matching keys here.
+
+model = "jev-1.14.0"
+
+# Chosen by `python -m ambient.eval.prefilter` (see reports/prefilter.json).
+embedder = "minilm"
+store = "numpy"
+hybrid = true
+top_k = 20
+
+token_budget = 400
+gate_timeout_ms = 100
