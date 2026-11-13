@@ -30,6 +30,7 @@ from .metrics import average_precision, best_f_beta, brier, ece, pr_curve, thres
 
 REPORT = ROOT / "reports" / "calibration.json"
 VARIANTS = ("noul", "score", "choice")
+CONFLICT_VARIANTS = ("different_values", "same_fact")
 GATE_PRECISION_FLOOR = 0.98
 GATE_RECALL_FLOOR = 0.98
 SURFACE_PRECISION_FLOOR = 0.95
@@ -56,7 +57,7 @@ async def collect(split: str = "cal") -> dict:
             pairs = conflict_pairs(cands, rt, cfg)
             # All three relevance wordings in one request over the same state: a fair comparison.
             qs = {Q.relevance_id(c.chunk.id, v): Q.relevance_question(c.chunk, v) for v in VARIANTS for c in cands}
-            qs |= {Q.conflict_id(a.id, b.id): Q.conflict_question(a, b) for a, b in pairs}
+            qs |= {f"{v}:{Q.conflict_id(a.id, b.id)}": Q.conflict_question(a, b, v) for v in CONFLICT_VARIANTS for a, b in pairs}
             fan = await judge.ask(Q.event_state(ev), qs)
             per = None
             if g.warrants_retrieval and i < SHAPE_SUBSET:
@@ -72,8 +73,11 @@ async def collect(split: str = "cal") -> dict:
             rows["rel"].append(row)
         for a, b in pairs:
             same = fact_of.get(a.id) is not None and fact_of.get(a.id) == fact_of.get(b.id)
+            # `both_relevant` marks the pairs the runtime actually acts on: conflict answers
+            # are only read when both notes are relevant to the event.
             rows["conf"].append({"event": g.id, "earlier": a.id, "later": b.id, "label": same,
-                                 "p": fan.answers[Q.conflict_id(a.id, b.id)]["noul"]})
+                                 "both_relevant": a.id in rel and b.id in rel,
+                                 **{v: fan.answers[f"{v}:{Q.conflict_id(a.id, b.id)}"]["noul"] for v in CONFLICT_VARIANTS}})
         if per:
             for c, p in zip(cands, per):
                 rows["shape"].append({"event": g.id, "chunk": c.chunk.id, "label": c.chunk.id in rel,
@@ -89,6 +93,12 @@ async def collect(split: str = "cal") -> dict:
 def _thin(curve: list[dict], n: int = 60) -> list[dict]:
     step = max(1, len(curve) // n)
     return curve[::step] + ([curve[-1]] if (len(curve) - 1) % step else [])
+
+
+def _mid_gap(scores, threshold: float) -> float:
+    """Move a threshold from the lowest accepted score to halfway toward the next score below it."""
+    below = [x for x in scores if x < threshold]
+    return (threshold + max(below)) / 2 if below else threshold
 
 
 def fit(rows: dict) -> tuple[Calibration, dict]:
@@ -108,10 +118,16 @@ def fit(rows: dict) -> tuple[Calibration, dict]:
         cv_p[te] = LogisticRegression(C=1.0).fit(X[tr], y[tr]).predict_proba(X[te])[:, 1]
     naive = np.minimum([r["specific"] for r in g], [r["needs_detail"] for r in g])
     yes_pt = threshold_for_precision(y, cv_p, GATE_PRECISION_FLOOR)
-    gate_yes = yes_pt["threshold"] if yes_pt else 0.99
-    pos_sorted = np.sort(cv_p[y])
-    gate_no = float(pos_sorted[int(np.floor((1 - GATE_RECALL_FLOOR) * len(pos_sorted)))]) - 1e-6
-    gate_no = min(gate_no, gate_yes - 1e-6)
+    lo, hi = float(cv_p[~y].max()), float(cv_p[y].min())
+    if lo < hi:
+        # Perfectly separated: the data cannot say where in the gap the line belongs, so
+        # split it in thirds and keep the middle third as the unsettled band.
+        gate_no, gate_yes = lo + (hi - lo) / 3, lo + 2 * (hi - lo) / 3
+    else:
+        gate_yes = yes_pt["threshold"] if yes_pt else 0.99
+        pos_sorted = np.sort(cv_p[y])
+        gate_no = float(pos_sorted[int(np.floor((1 - GATE_RECALL_FLOOR) * len(pos_sorted)))]) - 1e-6
+        gate_no = min(gate_no, gate_yes - 1e-6)
     report["gate"] = {
         "n": len(y), "positives": int(y.sum()),
         "ap": {"specific_only": average_precision(y, [r["specific"] for r in g]),
@@ -120,6 +136,7 @@ def fit(rows: dict) -> tuple[Calibration, dict]:
         "ece": {"min_of_both": ece(y, naive), "logistic_cv": ece(y, cv_p)},
         "brier": {"min_of_both": brier(y, naive), "logistic_cv": brier(y, cv_p)},
         "gate_yes": gate_yes, "gate_yes_point": yes_pt, "gate_no": gate_no,
+        "highest_negative_p": lo, "lowest_positive_p": hi,
         "unsettled_share": float(np.mean((cv_p > gate_no) & (cv_p < gate_yes))),
         "false_positive_rate_at_yes": float(np.mean(cv_p[~y] >= gate_yes)),
         "by_kind_mean_p": {k: float(np.mean([p for p, r in zip(cv_p, g) if r["kind"] == k])) for k in sorted({r["kind"] for r in g})},
@@ -162,20 +179,27 @@ def fit(rows: dict) -> tuple[Calibration, dict]:
 
     # ---- conflict ----
     cf = rows["conf"]
-    conflict_min = 0.7
-    if cf and any(r["label"] for r in cf):
-        yc, pc = [r["label"] for r in cf], [r["p"] for r in cf]
-        bf = best_f_beta(yc, pc)
-        conflict_min = bf["threshold"]
-        report["conflict"] = {"n": len(cf), "positives": int(sum(yc)), "ap": average_precision(yc, pc), "ece": ece(yc, pc),
-                              "conflict_min": conflict_min, "point": bf, "pr_curve": _thin(pr_curve(yc, pc))}
+    conflict_min, conflict_variant = 0.7, "different_values"
+    acted = [r for r in cf if r["both_relevant"]]
+    if acted and any(r["label"] for r in acted):
+        yc = [r["label"] for r in acted]
+        ya = [r["label"] for r in cf]
+        per = {v: {"ap_pairs_acted_on": average_precision(yc, [r[v] for r in acted]),
+                   "ap_all_pairs": average_precision(ya, [r[v] for r in cf]),
+                   "ece_pairs_acted_on": ece(yc, [r[v] for r in acted]),
+                   "best_f1": best_f_beta(yc, [r[v] for r in acted])} for v in CONFLICT_VARIANTS}
+        conflict_variant = max(CONFLICT_VARIANTS, key=lambda v: per[v]["ap_pairs_acted_on"])
+        conflict_min = _mid_gap([r[conflict_variant] for r in acted], per[conflict_variant]["best_f1"]["threshold"])
+        report["conflict"] = {"n_all_pairs": len(cf), "n_pairs_acted_on": len(acted), "positives_acted_on": int(sum(yc)),
+                              "variants": per, "chosen": conflict_variant, "conflict_min": conflict_min,
+                              "pr_curve": _thin(pr_curve(yc, [r[conflict_variant] for r in acted]))}
 
     xs, ys_ = iso.X_thresholds_.tolist(), iso.y_thresholds_.tolist()
     cal = Calibration(
         gate={"coef": lr.coef_[0].tolist(), "intercept": float(lr.intercept_[0])},
         relevance={"x": xs, "y": ys_},
         thresholds={"gate_yes": gate_yes, "gate_no": gate_no, "relevance_min": relevance_min, "surface_min": surface_min,
-                    "conflict_min": conflict_min, "relevance_primitive": primitive, "fanout_shape": shape},
+                    "conflict_min": conflict_min, "conflict_variant": conflict_variant, "relevance_primitive": primitive, "fanout_shape": shape},
         meta={"model": rows["model"], "split": "cal", "n_events": len(g)},
     )
     return cal, report

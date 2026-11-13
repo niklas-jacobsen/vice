@@ -11,4 +11,7 @@ hybrid = true
 top_k = 20
 
 token_budget = 400
-gate_timeout_ms = 100
+# The design target was 100 ms. Measured from this machine (reports/latency.json), a warm
+# gate request takes 165 ms p50 / ~200 ms p95 and never came in under 134 ms, so a 100 ms
+# budget would suppress every event. 300 ms covers the observed tail.
+gate_timeout_ms = 300

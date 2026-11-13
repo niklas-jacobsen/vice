@@ -42,12 +42,16 @@ class Config:
     fanout_shape: str = "single"  # "single" = one request, K questions; "per_candidate" = K requests
     relevance_primitive: str = "noul"  # "noul" | "score" | "choice"
     relevance_min: float = 0.5
-    # Speculative conflict checks: candidate pairs at least this similar. Measured on the
-    # calibration split, 0.5 catches ~88% of same-fact pairs at ~36 extra questions per event.
-    # Relevant pairs it misses get a follow-up request (pipeline._check_missing_conflicts).
+    # Speculative conflict checks: candidate pairs at least this similar. On the calibration
+    # split 0.5 catches ~88% of same-fact pairs at ~36 extra questions per event.
+    # Tried 0.4 / cap 80: the bigger request was slower (fan-out p50 206 -> 250 ms) and did not
+    # lower end-to-end p95, so 0.5 stays.
+    # Relevant pairs not compared speculatively get a follow-up request
+    # (pipeline._check_missing_conflicts); that second round trip is what sets p95.
     conflict_pair_sim: float = 0.5
     max_conflict_pairs: int = 40
     conflict_min: float = 0.7
+    conflict_variant: str = "different_values"  # or "same_fact"; see questions.conflict_question
 
     # Temporal logic
     conflict_half_life_days: float = 14.0  # how fast a contradicted older fact loses value

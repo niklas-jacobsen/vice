@@ -46,7 +46,7 @@ async def run_conflict_followup(judge: Judge, event: AmbientEvent, pairs: list[t
     """Second request, used only when two relevant notes were not compared speculatively."""
     with tracer.start_as_current_span("conflict_followup") as span:
         span.set_attribute("conflict.pairs", len(pairs))
-        res = await judge.ask(Q.event_state(event), {Q.conflict_id(e.id, l.id): Q.conflict_question(e, l) for e, l in pairs},
+        res = await judge.ask(Q.event_state(event), {Q.conflict_id(e.id, l.id): Q.conflict_question(e, l, cfg.conflict_variant) for e, l in pairs},
                               timeout_s=cfg.request_timeout_s)
     return {Q.parse_conflict_id(k): float(a["noul"]) for k, a in res.answers.items()}, res.input_tokens
 
@@ -56,7 +56,7 @@ async def run_fanout(judge: Judge, event: AmbientEvent, cands: list[Candidate],
     variant = cfg.relevance_primitive
     state = Q.event_state(event)
     rel_qs = {Q.relevance_id(c.chunk.id, variant): Q.relevance_question(c.chunk, variant) for c in cands}
-    conf_qs = {Q.conflict_id(e.id, l.id): Q.conflict_question(e, l) for e, l in pairs}
+    conf_qs = {Q.conflict_id(e.id, l.id): Q.conflict_question(e, l, cfg.conflict_variant) for e, l in pairs}
 
     if cfg.fanout_shape == "single":
         batches = [{**rel_qs, **conf_qs}]

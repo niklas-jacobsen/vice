@@ -15,7 +15,7 @@ import numpy as np
 from .config import CALIBRATION_PATH, Config
 
 _THRESHOLD_KEYS = {"gate_yes", "gate_no", "relevance_min", "surface_min", "conflict_min",
-                   "relevance_primitive", "fanout_shape", "top_k"}
+                   "relevance_primitive", "fanout_shape", "top_k", "conflict_variant"}
 
 
 def _logit(p: float) -> float:

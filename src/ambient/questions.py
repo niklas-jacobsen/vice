@@ -134,7 +134,27 @@ def parse_conflict_id(qid: str) -> tuple[str, str]:
     return earlier, later
 
 
-def conflict_question(earlier: Chunk, later: Chunk) -> Noul:
+def conflict_question(earlier: Chunk, later: Chunk, variant: str = "different_values") -> Noul:
+    """Two candidate wordings; calibration picks one on the calibration split.
+
+    "same_fact" asks a single judgment and leaves the rest to code: if two notes record the
+    same attribute of the same thing, the newer one stands, whether or not the values differ.
+    "different_values" asks for sameness and disagreement in one question.
+    """
+    if variant == "same_fact":
+        return Noul(
+            instructions={
+                "question": "Do these two notes record the same kind of fact about the same thing?",
+                "earlier_note": earlier.text,
+                "later_note": later.text,
+            },
+            criteria=NoulCriteria(
+                true="Both notes are about one attribute of one subject, such as one project's launch date or one person's manager, whether or not they agree.",
+                false="The notes concern different subjects, or different attributes of the same subject.",
+            ),
+        )
+    if variant != "different_values":
+        raise ValueError(f"unknown conflict variant: {variant}")
     return Noul(
         instructions={
             "question": "Do these two notes give different values for the same fact?",
