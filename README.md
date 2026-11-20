@@ -1,8 +1,6 @@
-# vice
+# vice - very interesting context engine
 
-Zero-UI ambient memory for your notes.
-
-vice sits in the background. When you copy something, drop a file, or ask a question, it
+vice is a zero-UI ambient memory for your notes that works in the background. When you copy something, drop a file, or ask a question, it
 decides whether your own notes hold a detail you need, finds the right note, and drops
 any older version of the same fact. If nothing in your notes helps, it does nothing.
 
