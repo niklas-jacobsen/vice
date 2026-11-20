@@ -34,15 +34,33 @@ _WIKILINK = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 _COMMENT = re.compile(r"%%.*?%%", re.S)
 _FILE_DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 _enc = None
+_unk: int | None = None
 
 
 def count_tokens(text: str) -> int:
-    global _enc
-    if _enc is None:
-        import tiktoken
+    """Tokens as the embedding model counts them (MiniLM WordPiece, no special tokens).
 
-        _enc = tiktoken.get_encoding("cl100k_base")
-    return len(_enc.encode(text, disallowed_special=()))
+    Within about 2% of cl100k on notes, and it keeps chunk limits in the same units as
+    the model's 256-token window. WordPiece turns any word over 100 characters (a long
+    URL, base64, minified code) into one [UNK]; those spans count at 4 characters a
+    token so they cannot slip past a budget.
+    """
+    global _enc, _unk
+    if _enc is None:
+        from tokenizers import Tokenizer
+
+        from .embed import minilm_files
+
+        _enc = Tokenizer.from_file(str(minilm_files(only=("tokenizer.json",)) / "tokenizer.json"))
+        _enc.no_truncation()
+        _enc.no_padding()
+        _unk = _enc.token_to_id("[UNK]")
+    e = _enc.encode(text, add_special_tokens=False)
+    n = len(e.ids)
+    for tid, (start, end) in zip(e.ids, e.offsets):
+        if tid == _unk and end - start > 4:
+            n += -(-(end - start) // 4) - 1
+    return n
 
 
 def _parse_date(value: str) -> float | None:

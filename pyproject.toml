@@ -1,6 +1,6 @@
 [project]
 name = "vice-ai"
-version = "0.1.0"
+version = "0.1.1"
 description = "Zero-UI ambient memory for your notes. Jev makes judgments, code makes decisions."
 readme = "README.md"
 license = "MIT"
@@ -19,9 +19,10 @@ classifiers = [
 dependencies = [
     "typesafe-sdk[http2]>=0.7.5",
     "numpy",
-    "fastembed",
+    "onnxruntime",
+    "tokenizers",
+    "huggingface_hub",
     "bm25s",
-    "tiktoken",
     "opentelemetry-sdk",
     "watchdog",
     "keyring",
@@ -30,7 +31,7 @@ dependencies = [
 
 [project.optional-dependencies]
 mcp = ["mcp>=1.2"]
-eval = ["scikit-learn", "model2vec", "sqlite-vec", "lancedb", "hnswlib"]
+eval = ["scikit-learn", "fastembed", "tiktoken", "model2vec", "sqlite-vec", "lancedb", "hnswlib"]
 dev = ["pytest", "pytest-asyncio", "build"]
 
 [project.urls]

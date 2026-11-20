@@ -83,7 +83,9 @@ longer exists. Fix the cause, then run `vice start` again.
 
 ## The first sync is slow
 
-It downloads a 90 MB model and embeds every note. Later syncs only embed changed text.
+It downloads a 90 MB model from Hugging Face into `~/.vice/models` and embeds every note.
+Later syncs only embed changed text. If the download is blocked on your network, run the
+first sync somewhere it is not; after that the model loads offline.
 A vault of a few thousand notes takes a minute or two the first time.
 
 ## Starting over
