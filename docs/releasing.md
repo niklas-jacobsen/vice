@@ -22,12 +22,15 @@
 3. Merge to `main`, then tag and push:
 
    ```bash
-   git tag v0.1.0
+   git tag -a v0.1.2 -m "vice 0.1.2"
    ```
 
    ```bash
-   git push origin v0.1.0
+   git push origin v0.1.2
    ```
+
+   Use the new version number; the workflow refuses a tag that does not match
+   `pyproject.toml`.
 
 4. The **Release** workflow runs the tests, checks the tag matches the version, builds
    the sdist and wheel, publishes to PyPI, and creates a GitHub Release with both files
@@ -35,10 +38,11 @@
 5. Update the tap. The build job's log prints the sdist checksum; or compute it:
 
    ```bash
-   curl -sL https://files.pythonhosted.org/packages/source/v/vice-ai/vice_ai-0.1.0.tar.gz | shasum -a 256
+   curl -sL https://files.pythonhosted.org/packages/source/v/vice-ai/vice_ai-0.1.2.tar.gz | shasum -a 256
    ```
 
-   Put the new `url` and `sha256` in `Formula/vice-ai.rb` in the tap and push.
+   Put the new `url` and `sha256` in `Formula/vice-ai.rb` in the tap and push. Copy the
+   same file to `packaging/homebrew/vice-ai.rb` here so the two stay identical.
 6. Check both install paths on a clean machine or user account:
 
    ```bash
@@ -49,12 +53,21 @@
    brew install niklas-jacobsen/tap/vice-ai
    ```
 
-## Not yet verified
+## Notes
 
-- The Release workflow has not run; it will first run on the first tag.
-- The Homebrew formula has not been installed from a tap. It installs from PyPI wheels
-  into a private virtualenv, which is acceptable for a personal tap but not for
-  homebrew-core.
+- The Release workflow and the tap install have both been run for 0.1.0 and 0.1.1.
+- **PyPI's index lags a new upload by a minute or so.** A `brew install` or `pipx install`
+  straight after the workflow finishes can fail with "no matching distribution". Wait
+  and retry.
+- **Native libraries must survive Homebrew's relinking.** Homebrew rewrites the install
+  ID of every dylib in a formula, and fails with `HeaderPadError` on prebuilt libraries
+  that lack header padding. 0.1.0 hit this through `fastembed` and `tiktoken`, which is
+  why neither is a runtime dependency any more. Before adding a runtime dependency with
+  native code, install the wheel in a clean virtualenv and run
+  `install_name_tool -id /opt/homebrew/opt/vice-ai/libexec/x <copy>` on a copy of each
+  file that `otool -hv` reports as `DYLIB`.
+- The formula installs from PyPI wheels into a private virtualenv. That is fine for a
+  personal tap but not acceptable for homebrew-core.
 - `brew services start vice-ai` and `vice start` both run the service. Use one.
 
 ## If the Jev model changes
