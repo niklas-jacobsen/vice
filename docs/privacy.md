@@ -6,7 +6,9 @@ exactly what happens to it.
 ## What stays on your machine
 
 - **Your notes and their embeddings.** Indexing and similarity search run locally. The
-  embedding model is downloaded once and then runs offline.
+  embedding model is downloaded once from Hugging Face (a fixed version, into
+  `~/.vice/models`) and then runs offline. That download sends nothing about you or your
+  notes.
 - **Your configuration, the decision log, and the context file.** All under `~/.vice/`,
   which is readable only by your user.
 - **Your API key.** In the macOS Keychain. It is never written to a config file, a log,

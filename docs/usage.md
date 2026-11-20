@@ -31,7 +31,8 @@ Then index your notes:
 vice sync
 ```
 
-The first sync downloads the embedding model (about 90 MB) and embeds every note. Later
+The first sync downloads the embedding model (about 90 MB, from Hugging Face, into
+`~/.vice/models`) and embeds every note. Later
 syncs only embed text that changed.
 
 ## Commands
@@ -95,6 +96,7 @@ Everything is under `~/.vice/` (set `VICE_HOME` to move it):
 | `context.json` | The latest context vice produced. |
 | `decisions.jsonl` | One line per event handled. |
 | `index/` | Embedded notes. Safe to delete; `vice sync` rebuilds it. |
+| `models/` | The embedding model (about 90 MB), pinned to one version. Safe to delete; it is downloaded again when needed. |
 | `logs/` | Background service output. |
 
 ## How notes are read
