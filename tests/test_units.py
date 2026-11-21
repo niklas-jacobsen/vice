@@ -10,14 +10,14 @@ from vice_ai.decide import decide
 from vice_ai.eval import metrics as M
 from vice_ai.pack import knapsack, pack
 from vice_ai.pregate import PreGate, redact
-from vice_ai.types import Action, AmbientEvent, Candidate, Chunk
+from vice_ai.types import Action, AmbientEvent, Candidate, Block
 
 CFG = Config()
 NOW = 1_800_000_000.0
 
 
 def cand(cid, p, age_days=1.0, tokens=10):
-    c = Candidate(Chunk(cid, f"note {cid}", NOW - age_days * DAY, tokens), 0.0)
+    c = Candidate(Block(cid, f"note {cid}", NOW - age_days * DAY, tokens), 0.0)
     c.raw_p = c.p = p
     return c
 
@@ -81,7 +81,7 @@ def test_pack_beats_greedy_by_value_and_skips_ineligible():
     for c in cs:
         c.value = c.p
     cs.append(cand("old", 0.9, tokens=1)); cs[-1].value = 0.9; cs[-1].superseded_by = "a"
-    assert {c.chunk.id for c in pack(cs, CFG.replace(token_budget=60))} == {"a", "b"}
+    assert {c.block.id for c in pack(cs, CFG.replace(token_budget=60))} == {"a", "b"}
 
 
 # --- conflict resolution ---
@@ -111,7 +111,7 @@ def test_no_supersession_without_confirmed_conflict_or_relevant_successor():
 def test_three_versions_only_newest_survives():
     v1, v2, v3 = cand("v1", 0.9, 300), cand("v2", 0.9, 150), cand("v3", 0.9, 5)
     resolve([v1, v2, v3], {("v1", "v2"): 0.9, ("v2", "v3"): 0.9, ("v1", "v3"): 0.9}, CFG, NOW)
-    assert [c.chunk.id for c in pack([v1, v2, v3], CFG)] == ["v3"]
+    assert [c.block.id for c in pack([v1, v2, v3], CFG)] == ["v3"]
 
 
 # --- decision truth table: every row ---
@@ -173,7 +173,7 @@ def test_metrics_by_hand():
     assert M.ece([1, 0], [0.5, 0.5]) == 0.0 and M.ece([0, 0], [0.95, 0.95]) == pytest.approx(0.95)
 
 
-def test_mcp_source_is_described_to_jev_like_a_typed_question():
+def test_mcp_trigger_is_described_to_jev_like_a_typed_question():
     from vice_ai import questions as Q
     from vice_ai.types import AmbientEvent
     mcp = Q.event_state(AmbientEvent("a", "mcp", "x", 0.0))

@@ -7,11 +7,11 @@ from __future__ import annotations
 
 from typesafe_sdk import Choice, Noul, NoulCriteria, Score
 
-from .types import AmbientEvent, Chunk
+from .types import AmbientEvent, Block
 
 # --- State -------------------------------------------------------------------------------
 
-SOURCE_DESCRIPTIONS = {
+TRIGGER_DESCRIPTIONS = {
     "clipboard": "text the user just copied",
     "file_drop": "a file the user just dropped, shown as its name and opening lines",
     "palette": "a command the user just typed",
@@ -23,7 +23,7 @@ SOURCE_DESCRIPTIONS = {
 def event_state(event: AmbientEvent) -> dict:
     return {
         "event": {
-            "kind": SOURCE_DESCRIPTIONS.get(event.source, event.source),
+            "kind": TRIGGER_DESCRIPTIONS.get(event.trigger, event.trigger),
             "text": event.text,
         }
     }
@@ -63,17 +63,17 @@ REL_PREFIX = "rel."
 CHOICE_RELEVANT = "states_needed_detail"
 
 
-def relevance_id(chunk_id: str, variant: str = "noul") -> str:
-    return f"{REL_PREFIX}{variant}.{chunk_id}"
+def relevance_id(block_id: str, variant: str = "noul") -> str:
+    return f"{REL_PREFIX}{variant}.{block_id}"
 
 
-def relevance_question(chunk: Chunk, variant: str = "noul"):
+def relevance_question(block: Block, variant: str = "noul"):
     """The note sits in its own question so no question has to look it up in a shared list."""
     if variant == "noul":
         return Noul(
             instructions={
                 "question": "Does this note state the detail that `event.text` asks about or depends on?",
-                "note": chunk.text,
+                "note": block.text,
             },
             criteria=NoulCriteria(
                 true="The note states the specific fact needed, such as the date, name, number, or setting in question.",
@@ -84,7 +84,7 @@ def relevance_question(chunk: Chunk, variant: str = "noul"):
         return Score(
             instructions={
                 "question": "How well does this note supply the detail that `event.text` asks about or depends on?",
-                "note": chunk.text,
+                "note": block.text,
             },
             criteria=[
                 "The note concerns a different project, person, or topic.",
@@ -96,7 +96,7 @@ def relevance_question(chunk: Chunk, variant: str = "noul"):
         return Choice(
             instructions={
                 "question": "How does this note relate to what `event.text` asks about or depends on?",
-                "note": chunk.text,
+                "note": block.text,
             },
             criteria={
                 CHOICE_RELEVANT: "The note states the specific fact needed.",
@@ -136,7 +136,7 @@ def parse_conflict_id(qid: str) -> tuple[str, str]:
     return earlier, later
 
 
-def conflict_question(earlier: Chunk, later: Chunk, variant: str = "different_values") -> Noul:
+def conflict_question(earlier: Block, later: Block, variant: str = "different_values") -> Noul:
     """Two candidate wordings; calibration picks one on the calibration split.
 
     "same_fact" asks a single judgment and leaves the rest to code: if two notes record the

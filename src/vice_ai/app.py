@@ -6,7 +6,7 @@ import sys
 
 from . import keys, paths, tracing
 from .calibrate import Calibration, load_calibration
-from .index import NotesIndex, SyncStats
+from .index import Index, SyncStats
 from .jev import JudgeError, TypeSafeJudge
 from .listeners import clipboard_listener, file_drop_listener, palette_listener
 from .outputs import Dispatcher
@@ -27,7 +27,7 @@ class App:
         self.settings = settings
         self.cal = calibration_for(settings)
         self.cfg = self.cal.apply(settings.pipeline)
-        self.index = NotesIndex(settings.notes, self.cfg)
+        self.index = Index(settings.sources, self.cfg)
         self.judge: TypeSafeJudge | None = None
         self.pipeline: Pipeline | None = None
         self.dispatcher = Dispatcher(settings.outputs, echo=echo)
@@ -77,16 +77,16 @@ class App:
                 except JudgeError:
                     pass  # the next real request will report it
 
-        async def watch_notes() -> None:
+        async def watch_sources() -> None:
             while True:
                 await asyncio.sleep(s.resync_s)
                 try:
                     if stats := await self.resync():
-                        print(f"vice: notes changed; {stats.chunks} chunks ({stats.embedded} embedded)", file=sys.stderr, flush=True)
+                        print(f"vice: sources changed; {stats.blocks} blocks ({stats.embedded} embedded)", file=sys.stderr, flush=True)
                 except Exception as e:  # noqa: BLE001
                     print(f"vice: re-index failed: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
 
-        tasks = [worker(), keep_warm(), watch_notes()]
+        tasks = [worker(), keep_warm(), watch_sources()]
         active = []
         if s.palette:
             tasks.append(palette_listener(self.handle))
@@ -98,6 +98,6 @@ class App:
             for folder in s.drop_folders:
                 tasks.append(file_drop_listener(queue, folder))
             active.append(f"file_drop({len(s.drop_folders)})")
-        print(f"vice: listening on {', '.join(active) or 'nothing'}; {len(self.pipeline.retriever.chunks)} note chunks; "
+        print(f"vice: listening on {', '.join(active) or 'nothing'}; {len(self.pipeline.retriever.blocks)} blocks; "
               f"model {self.cfg.model}", file=sys.stderr, flush=True)
         await asyncio.gather(*tasks)

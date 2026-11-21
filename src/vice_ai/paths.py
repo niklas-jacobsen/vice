@@ -1,7 +1,7 @@
 """Where vice keeps things. Everything lives under one folder so it is easy to find and delete.
 
     ~/.vice/config.toml        your settings
-    ~/.vice/index/             embedded notes (rebuildable; safe to delete)
+    ~/.vice/index/             embedded blocks (rebuildable; safe to delete)
     ~/.vice/context.json       the latest context vice decided was worth having
     ~/.vice/decisions.jsonl    one line per event handled
     ~/.vice/logs/              output of the background service
@@ -26,7 +26,7 @@ def home() -> Path:
 def ensure_home() -> Path:
     h = home()
     h.mkdir(parents=True, exist_ok=True)
-    os.chmod(h, 0o700)  # notes excerpts and decisions are private to this user
+    os.chmod(h, 0o700)  # blocks and decisions are private to this user
     return h
 
 

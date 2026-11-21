@@ -14,36 +14,36 @@ from .config import Config
 from .jev import Judge
 from .retrieve import Retriever
 from .tracing import tracer
-from .types import AmbientEvent, Candidate, Chunk
+from .types import AmbientEvent, Candidate, Block
 
 
 @dataclass
 class FanoutOutcome:
-    relevance: dict[str, float] = field(default_factory=dict)  # chunk id -> raw probability
+    relevance: dict[str, float] = field(default_factory=dict)  # block id -> raw probability
     conflicts: dict[tuple[str, str], float] = field(default_factory=dict)  # (earlier id, later id) -> probability
     latency_ms: float = 0.0
     input_tokens: int = 0
     requests: int = 0
 
 
-def conflict_pairs(cands: list[Candidate], retriever: Retriever, cfg: Config) -> list[tuple[Chunk, Chunk]]:
+def conflict_pairs(cands: list[Candidate], retriever: Retriever, cfg: Config) -> list[tuple[Block, Block]]:
     """Pairs worth a conflict check: similar enough to be about the same fact, written at different times."""
     scored = []
     for i, a in enumerate(cands):
         for b in cands[i + 1:]:
-            if a.chunk.ts == b.chunk.ts:
+            if a.block.ts == b.block.ts:
                 continue
-            sim = retriever.similarity(a.chunk, b.chunk)
+            sim = retriever.similarity(a.block, b.block)
             if sim >= cfg.conflict_pair_sim:
-                earlier, later = sorted((a.chunk, b.chunk), key=lambda c: c.ts)
+                earlier, later = sorted((a.block, b.block), key=lambda c: c.ts)
                 scored.append((sim, earlier, later))
     scored.sort(key=lambda t: -t[0])
     return [(e, l) for _, e, l in scored[: cfg.max_conflict_pairs]]
 
 
-async def run_conflict_followup(judge: Judge, event: AmbientEvent, pairs: list[tuple[Chunk, Chunk]],
+async def run_conflict_followup(judge: Judge, event: AmbientEvent, pairs: list[tuple[Block, Block]],
                                 cfg: Config) -> tuple[dict[tuple[str, str], float], int]:
-    """Second request, used only when two relevant notes were not compared speculatively."""
+    """Second request, used only when two relevant blocks were not compared speculatively."""
     with tracer.start_as_current_span("conflict_followup") as span:
         span.set_attribute("conflict.pairs", len(pairs))
         res = await judge.ask(Q.event_state(event), {Q.conflict_id(e.id, l.id): Q.conflict_question(e, l, cfg.conflict_variant) for e, l in pairs},
@@ -52,10 +52,10 @@ async def run_conflict_followup(judge: Judge, event: AmbientEvent, pairs: list[t
 
 
 async def run_fanout(judge: Judge, event: AmbientEvent, cands: list[Candidate],
-                     pairs: list[tuple[Chunk, Chunk]], cfg: Config) -> FanoutOutcome:
+                     pairs: list[tuple[Block, Block]], cfg: Config) -> FanoutOutcome:
     variant = cfg.relevance_primitive
     state = Q.event_state(event)
-    rel_qs = {Q.relevance_id(c.chunk.id, variant): Q.relevance_question(c.chunk, variant) for c in cands}
+    rel_qs = {Q.relevance_id(c.block.id, variant): Q.relevance_question(c.block, variant) for c in cands}
     conf_qs = {Q.conflict_id(e.id, l.id): Q.conflict_question(e, l, cfg.conflict_variant) for e, l in pairs}
 
     if cfg.fanout_shape == "single":
@@ -80,6 +80,6 @@ async def run_fanout(judge: Judge, event: AmbientEvent, cands: list[Candidate],
             if qid.startswith(Q.CONF_PREFIX):
                 out.conflicts[Q.parse_conflict_id(qid)] = float(ans["noul"])
             else:
-                chunk_id = qid.split(".", 2)[2]
-                out.relevance[chunk_id] = Q.relevance_probability(ans, variant)
+                block_id = qid.split(".", 2)[2]
+                out.relevance[block_id] = Q.relevance_probability(ans, variant)
     return out

@@ -97,10 +97,10 @@ class PreGate:
         for k in [k for k, ts in self._seen.items() if event.ts - ts > self.cfg.dedupe_window_s]:
             del self._seen[k]
         # A repeated copy is noise; a repeated question is a person asking again.
-        if event.source not in ("palette", "mcp"):
+        if event.trigger not in ("palette", "mcp"):
             if digest in self._seen:
                 return PreGateOutcome(False, "duplicate")
             self._seen[digest] = event.ts
 
-        cleaned = AmbientEvent(event.id, event.source, text, event.ts, event.meta)
+        cleaned = AmbientEvent(event.id, event.trigger, text, event.ts, event.meta)
         return PreGateOutcome(True, "ok", cleaned, n)

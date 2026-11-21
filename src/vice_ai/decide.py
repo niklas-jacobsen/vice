@@ -31,7 +31,7 @@ def decide(gate_status: str, packed: list[Candidate] | None, cfg: Config) -> Dec
         return Decision(Action.SUPPRESS, "fanout_unavailable")
 
     best = max((c.p for c in packed), default=0.0)
-    context = [c.chunk for c in packed]
+    context = [c.block for c in packed]
     if gate_status == "unsettled":
         if best >= cfg.surface_min:
             return Decision(Action.ATTACH, "unsettled_gate_strong_match", context)

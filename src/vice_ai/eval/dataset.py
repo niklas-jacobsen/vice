@@ -19,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from ..config import ROOT
-from ..types import AmbientEvent, Chunk
+from ..types import AmbientEvent, Block
 
 DATA_DIR = ROOT / "data" / "golden"
 NOW = datetime(2026, 11, 13, 12, 0, tzinfo=timezone.utc)
@@ -298,13 +298,13 @@ def build(seed: int = SEED):
 
     enc = tiktoken.get_encoding("cl100k_base")
     r = random.Random(seed)
-    chunks: list[dict] = []
-    facts: list[dict] = []  # {entity, etype, attr, queries, versions: [chunk ids oldest..newest]}
+    blocks: list[dict] = []
+    facts: list[dict] = []  # {entity, etype, attr, queries, versions: [block ids oldest..newest]}
 
-    def add_chunk(text: str, days_ago: float) -> str:
-        cid = f"c{len(chunks):04d}"
+    def add_block(text: str, days_ago: float) -> str:
+        cid = f"c{len(blocks):04d}"
         ts = (NOW - timedelta(days=days_ago, minutes=r.randint(0, 600))).timestamp()
-        chunks.append({"id": cid, "text": text, "ts": ts, "tokens": len(enc.encode(text))})
+        blocks.append({"id": cid, "text": text, "ts": ts, "tokens": len(enc.encode(text))})
         return cid
 
     def first(name: str) -> str:
@@ -322,7 +322,7 @@ def build(seed: int = SEED):
         ids = []
         for v, age in zip(values, ages):
             t = r.choice(templates)
-            ids.append(add_chunk(t.format(e=entity, v=v, p=first(r.choice([p for p in PEOPLE if p != entity]))), age))
+            ids.append(add_block(t.format(e=entity, v=v, p=first(r.choice([p for p in PEOPLE if p != entity]))), age))
         facts.append({"entity": entity, "etype": etype, "attr": attr, "queries": queries, "versions": ids})
 
     for etype, entities, attrs in (("project", PROJECTS, PROJECT_ATTRS), ("person", PEOPLE, PERSON_ATTRS), ("vendor", VENDORS, VENDOR_ATTRS)):
@@ -330,7 +330,7 @@ def build(seed: int = SEED):
             for attr, (gen, templates, queries) in attrs.items():
                 add_fact(e, etype, attr, gen, templates, queries)
             for t in r.sample(FILLER[etype], k=min(6, len(FILLER[etype]))):
-                add_chunk(t.format(e=e, p=first(r.choice([p for p in PEOPLE if p != e]))), r.uniform(1, 500))
+                add_block(t.format(e=e, p=first(r.choice([p for p in PEOPLE if p != e]))), r.uniform(1, 500))
     for subj, gen, templates, queries in PERSONAL:
         n = r.choice([1, 2])
         values: list[str] = []
@@ -339,19 +339,19 @@ def build(seed: int = SEED):
             if v not in values:
                 values.append(v)
         ages = sorted((r.uniform(3, 400) for _ in range(n)), reverse=True)
-        ids = [add_chunk(templates[i if i < len(templates) else -1].format(v=v), age) for i, (v, age) in enumerate(zip(values, ages))]
+        ids = [add_block(templates[i if i < len(templates) else -1].format(v=v), age) for i, (v, age) in enumerate(zip(values, ages))]
         facts.append({"entity": subj, "etype": "personal", "attr": subj, "queries": queries, "versions": ids})
 
     seen_noise: set[str] = set()
     target = 1500
     for _ in range(200_000):
-        if len(chunks) >= target:
+        if len(blocks) >= target:
             break
         tmpl, slots = r.choice(NOISE_PARTS)
         text = tmpl.format(**{k: r.choice(v) for k, v in slots.items()})
         if text not in seen_noise:
             seen_noise.add(text)
-            add_chunk(text, r.uniform(1, 500))
+            add_block(text, r.uniform(1, 500))
 
     # ---- events ----
     events: list[GoldEvent] = []
@@ -407,9 +407,9 @@ def build(seed: int = SEED):
         r.shuffle(group)
         for i, e in enumerate(group):
             e.split = "cal" if i % 2 == 0 else "test"
-    # chunk id -> fact id, for grading conflict judgments (two versions of one fact conflict).
+    # block id -> fact id, for grading conflict judgments (two versions of one fact conflict).
     fact_of = {cid: f"{f['etype']}:{f['entity']}:{f['attr']}" for f in facts for cid in f["versions"]}
-    return chunks, events, fact_of
+    return blocks, events, fact_of
 
 
 def load_facts(path: Path = DATA_DIR) -> dict[str, str]:
@@ -417,21 +417,21 @@ def load_facts(path: Path = DATA_DIR) -> dict[str, str]:
 
 
 def write(out: Path = DATA_DIR) -> None:
-    chunks, events, fact_of = build()
+    blocks, events, fact_of = build()
     out.mkdir(parents=True, exist_ok=True)
-    (out / "chunks.jsonl").write_text("".join(json.dumps(c, ensure_ascii=False) + "\n" for c in chunks))
+    (out / "blocks.jsonl").write_text("".join(json.dumps(c, ensure_ascii=False) + "\n" for c in blocks))
     (out / "events.jsonl").write_text("".join(json.dumps(asdict(e), ensure_ascii=False) + "\n" for e in events))
     (out / "facts.json").write_text(json.dumps(fact_of, indent=0))
     pos = sum(e.warrants_retrieval for e in events)
-    print(f"{len(chunks)} chunks, {len(events)} events ({pos} warrant retrieval, {len(events) - pos} do not) -> {out}")
+    print(f"{len(blocks)} blocks, {len(events)} events ({pos} warrant retrieval, {len(events) - pos} do not) -> {out}")
     for kind in sorted({e.kind for e in events}):
         print(f"  {kind:16s} {sum(e.kind == kind for e in events)}")
 
 
-def load(path: Path = DATA_DIR) -> tuple[list[Chunk], list[GoldEvent]]:
-    chunks = [Chunk(**json.loads(l)) for l in (path / "chunks.jsonl").read_text().splitlines()]
+def load(path: Path = DATA_DIR) -> tuple[list[Block], list[GoldEvent]]:
+    blocks = [Block(**json.loads(l)) for l in (path / "blocks.jsonl").read_text().splitlines()]
     events = [GoldEvent(**json.loads(l)) for l in (path / "events.jsonl").read_text().splitlines()]
-    return chunks, events
+    return blocks, events
 
 
 if __name__ == "__main__":

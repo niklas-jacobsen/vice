@@ -14,14 +14,14 @@ from vice_ai.listeners import palette_listener, palette_send, read_dropped_file
 from vice_ai.pipeline import Pipeline
 from vice_ai.retrieve import Retriever
 from vice_ai.store import NumpyStore
-from vice_ai.types import Action, AmbientEvent, Chunk
+from vice_ai.types import Action, AmbientEvent, Block
 
 NOW = 1_800_000_000.0
-CHUNKS = [
-    Chunk("old", "Atlas launch is set for March 3.", NOW - 200 * DAY, 9),
-    Chunk("new", "Atlas launch moved to April 18.", NOW - 3 * DAY, 8),
-    Chunk("logo", "Long thread about the Atlas logo.", NOW - 50 * DAY, 8),
-    Chunk("run", "Ran 10 km along the canal.", NOW - 9 * DAY, 8),
+BLOCKS = [
+    Block("old", "Atlas launch is set for March 3.", NOW - 200 * DAY, 9),
+    Block("new", "Atlas launch moved to April 18.", NOW - 3 * DAY, 8),
+    Block("logo", "Long thread about the Atlas logo.", NOW - 50 * DAY, 8),
+    Block("run", "Ran 10 km along the canal.", NOW - 9 * DAY, 8),
 ]
 
 
@@ -39,7 +39,7 @@ class StubEmbedder:
 
 def retriever():
     rt = Retriever(StubEmbedder(), NumpyStore(), hybrid=False)
-    rt.index(CHUNKS)
+    rt.index(BLOCKS)
     return rt
 
 
@@ -67,7 +67,7 @@ async def test_yes_path_surfaces_only_the_current_fact():
     res = await Pipeline(CFG, judge, retriever()).handle(event())
     assert res.decision.action == Action.SURFACE and res.gate_status == "yes"
     assert [c.id for c in res.decision.context] == ["new"]
-    assert next(c for c in res.candidates if c.chunk.id == "old").superseded_by == "new"
+    assert next(c for c in res.candidates if c.block.id == "old").superseded_by == "new"
     # Speculative: gate and fan-out are two requests, and the fan-out carries the conflict question.
     assert len(judge.calls) == 2
     fan = max(judge.calls, key=lambda c: len(c["questions"]))
@@ -134,7 +134,7 @@ async def test_per_candidate_shape_gives_the_same_decision():
 ])
 def test_other_primitives_map_to_one_probability(variant, answer):
     assert Q.relevance_probability(answer, variant) == 0.92
-    assert Q.relevance_question(CHUNKS[0], variant).model_dump()["type"] == variant
+    assert Q.relevance_question(BLOCKS[0], variant).model_dump()["type"] == variant
 
 
 async def test_palette_round_trip():
@@ -142,14 +142,14 @@ async def test_palette_round_trip():
     sock = Path(tempfile.mkdtemp(prefix="amb", dir="/tmp")) / "p.sock"
 
     async def handle(ev):
-        return {"action": "attach", "echo": ev.text, "source": ev.source}
+        return {"action": "attach", "echo": ev.text, "trigger": ev.trigger}
 
     server = asyncio.create_task(palette_listener(handle, sock))
     for _ in range(50):
         if sock.exists():
             break
         await asyncio.sleep(0.01)
-    assert await palette_send("when does Atlas ship?", sock) == {"action": "attach", "echo": "when does Atlas ship?", "source": "palette"}
+    assert await palette_send("when does Atlas ship?", sock) == {"action": "attach", "echo": "when does Atlas ship?", "trigger": "palette"}
     assert oct(sock.stat().st_mode)[-3:] == "600"
     server.cancel()
 
@@ -159,3 +159,4 @@ def test_dropped_file_reading(tmp_path):
     (tmp_path / "scan.pdf").write_bytes(b"%PDF-1.7\x00\xff")
     assert read_dropped_file(tmp_path / "agenda.md") == "Dropped file: agenda.md\n---\n1. Confirm Atlas launch date"
     assert read_dropped_file(tmp_path / "scan.pdf") == "Dropped file: scan.pdf"
+

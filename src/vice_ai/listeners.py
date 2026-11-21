@@ -1,4 +1,4 @@
-"""Ambient event sources. Each one puts AmbientEvents on a shared asyncio queue.
+"""Triggers. Each one puts AmbientEvents on a shared asyncio queue.
 
   clipboard   polls the macOS pasteboard change counter (no accessibility permission needed)
   file drop   watches a folder; a new text file becomes an event of its name and opening lines

@@ -40,9 +40,9 @@ SHAPE_SUBSET = 40
 async def collect(split: str = "cal") -> dict:
     """One gate request and one fan-out request per event. Cached on disk, so reruns are free."""
     cfg = load_config()
-    chunks, events = load()
+    blocks, events = load()
     fact_of = load_facts()
-    rt = build_retriever(cfg, chunks)
+    rt = build_retriever(cfg, blocks)
     judge = build_judge(cfg, cache=True)
     await judge.warm()
     sem = asyncio.Semaphore(8)
@@ -56,20 +56,20 @@ async def collect(split: str = "cal") -> dict:
             cands = rt.search(ev.text, cfg.top_k)
             pairs = conflict_pairs(cands, rt, cfg)
             # All three relevance wordings in one request over the same state: a fair comparison.
-            qs = {Q.relevance_id(c.chunk.id, v): Q.relevance_question(c.chunk, v) for v in VARIANTS for c in cands}
+            qs = {Q.relevance_id(c.block.id, v): Q.relevance_question(c.block, v) for v in VARIANTS for c in cands}
             qs |= {f"{v}:{Q.conflict_id(a.id, b.id)}": Q.conflict_question(a, b, v) for v in CONFLICT_VARIANTS for a, b in pairs}
             fan = await judge.ask(Q.event_state(ev), qs)
             per = None
             if g.warrants_retrieval and i < SHAPE_SUBSET:
-                per = await asyncio.gather(*(judge.ask(Q.event_state(ev), {Q.relevance_id(c.chunk.id): Q.relevance_question(c.chunk)}) for c in cands))
+                per = await asyncio.gather(*(judge.ask(Q.event_state(ev), {Q.relevance_id(c.block.id): Q.relevance_question(c.block)}) for c in cands))
         rows["tokens"] += gate.input_tokens + fan.input_tokens + sum(p.input_tokens for p in per or [])
         rows["gate"].append({"event": g.id, "label": g.warrants_retrieval, "kind": g.kind,
                              "specific": gate.answers[Q.GATE_SPECIFIC]["noul"], "needs_detail": gate.answers[Q.GATE_NEEDS_DETAIL]["noul"]})
         rel = set(g.relevant_ids)
         for c in cands:
-            row = {"event": g.id, "chunk": c.chunk.id, "label": c.chunk.id in rel, "warrants": g.warrants_retrieval}
+            row = {"event": g.id, "block": c.block.id, "label": c.block.id in rel, "warrants": g.warrants_retrieval}
             for v in VARIANTS:
-                row[v] = Q.relevance_probability(fan.answers[Q.relevance_id(c.chunk.id, v)], v)
+                row[v] = Q.relevance_probability(fan.answers[Q.relevance_id(c.block.id, v)], v)
             rows["rel"].append(row)
         for a, b in pairs:
             same = fact_of.get(a.id) is not None and fact_of.get(a.id) == fact_of.get(b.id)
@@ -80,9 +80,9 @@ async def collect(split: str = "cal") -> dict:
                                  **{v: fan.answers[f"{v}:{Q.conflict_id(a.id, b.id)}"]["noul"] for v in CONFLICT_VARIANTS}})
         if per:
             for c, p in zip(cands, per):
-                rows["shape"].append({"event": g.id, "chunk": c.chunk.id, "label": c.chunk.id in rel,
-                                      "per_candidate": p.answers[Q.relevance_id(c.chunk.id)]["noul"],
-                                      "single": Q.relevance_probability(fan.answers[Q.relevance_id(c.chunk.id)], "noul")})
+                rows["shape"].append({"event": g.id, "block": c.block.id, "label": c.block.id in rel,
+                                      "per_candidate": p.answers[Q.relevance_id(c.block.id)]["noul"],
+                                      "single": Q.relevance_probability(fan.answers[Q.relevance_id(c.block.id)], "noul")})
 
     await asyncio.gather(*(one(i, g) for i, g in enumerate(evs)))
     await judge.aclose()

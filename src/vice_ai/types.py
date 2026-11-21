@@ -8,24 +8,24 @@ from typing import Any
 @dataclass(frozen=True)
 class AmbientEvent:
     id: str
-    source: str  # "clipboard" | "file_drop" | "palette"
+    trigger: str  # "clipboard" | "file_drop" | "palette" | "mcp"
     text: str
     ts: float  # epoch seconds
     meta: dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass(frozen=True)
-class Chunk:
+class Block:
     id: str
     text: str
-    ts: float  # epoch seconds the note was written
+    ts: float  # epoch seconds the block was written
     tokens: int
     source: str = ""  # where it came from, e.g. "Vault/Projects/Atlas.md"
 
 
 @dataclass
 class Candidate:
-    chunk: Chunk
+    block: Block
     retrieval_score: float
     raw_p: float | None = None  # Jev's relevance probability, uncalibrated
     p: float | None = None  # calibrated relevance probability
@@ -43,7 +43,7 @@ class Action(str, Enum):
 class Decision:
     action: Action
     reason: str
-    context: list[Chunk] = field(default_factory=list)
+    context: list[Block] = field(default_factory=list)
 
 
 @dataclass

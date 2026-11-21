@@ -38,7 +38,7 @@ def summarise(results, gold) -> dict:
         "context_recall": nanmean([context_recall(packed(r), set(g.required_ids)) for r, g in pos]),
         "exact_context_rate": sum(set(packed(r)) == set(g.required_ids) for r, g in pos) / max(len(pos), 1),
         "stale_fact_rate": sum(stale) / max(len(stale), 1),  # a superseded version made it into the context
-        "prefilter_recall_required@k": nanmean([recall_at_k([c.chunk.id for c in r.candidates], set(g.required_ids), 10**6)
+        "prefilter_recall_required@k": nanmean([recall_at_k([c.block.id for c in r.candidates], set(g.required_ids), 10**6)
                                                 for r, g in pos if r.candidates]),
         "actions": dict(Counter(r.decision.action.value for r in results)),
         "reasons": dict(Counter(r.decision.reason for r in results)),
@@ -63,9 +63,9 @@ async def main() -> None:
     cal = load_calibration(model=cfg.model)
     if not cal.gate:
         raise SystemExit("No calibration found. Run: python -m vice_ai.eval.calibrate")
-    chunks, events = load()
+    blocks, events = load()
     gold = [e for e in events if e.split == "test"]
-    rt = build_retriever(cal.apply(cfg), chunks)
+    rt = build_retriever(cal.apply(cfg), blocks)
 
     live = build_judge(cfg, cache=True, read_cache=False)
     await live.warm()

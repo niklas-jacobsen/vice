@@ -1,4 +1,4 @@
-"""Persistent notes index. Embeddings are cached by chunk content, so only new or edited
+"""Persistent index of blocks. Embeddings are cached by block content, so only new or edited
 text is embedded again. The cache is disposable: delete ~/.vice/index and it is rebuilt.
 """
 from __future__ import annotations
@@ -10,24 +10,25 @@ from pathlib import Path
 
 import numpy as np
 
-from . import notes, paths
+from . import paths
+from . import sources as loaders
 from .config import Config
 from .embed import Embedder, make_embedder
 from .retrieve import Retriever
-from .settings import NotesSource
+from .settings import Source
 from .store import make_store
 
 
 @dataclass
 class SyncStats:
-    chunks: int
+    blocks: int
     embedded: int
     reused: int
     seconds: float
 
 
-class NotesIndex:
-    def __init__(self, sources: tuple[NotesSource, ...], cfg: Config, directory: Path | None = None,
+class Index:
+    def __init__(self, sources: tuple[Source, ...], cfg: Config, directory: Path | None = None,
                  embedder: Embedder | None = None):
         self.sources, self.cfg = sources, cfg
         self.dir = directory or paths.index_dir()
@@ -61,27 +62,27 @@ class NotesIndex:
         (self.dir / "meta.json").write_text(json.dumps({"embedder": self.cfg.embedder, "ids": ids, "saved": time.time()}))
 
     def changed(self) -> bool:
-        return notes.fingerprint(self.sources) != self.fingerprint
+        return loaders.fingerprint(self.sources) != self.fingerprint
 
     def build(self) -> tuple[Retriever, SyncStats]:
         """Read every source, embed what is new, and return a ready retriever."""
         t0 = time.perf_counter()
-        fp = notes.fingerprint(self.sources)
-        chunks = notes.load_all(self.sources)
+        fp = loaders.fingerprint(self.sources)
+        blocks = loaders.load_all(self.sources)
         cache = self._load_cache()
-        missing = [c for c in chunks if c.id not in cache]
+        missing = [c for c in blocks if c.id not in cache]
         if missing:
             for c, v in zip(missing, self.embedder.embed_docs([c.text for c in missing])):
                 cache[c.id] = v
         dim = len(next(iter(cache.values()))) if cache else 384
-        vecs = np.stack([cache[c.id] for c in chunks]) if chunks else np.zeros((0, dim), dtype=np.float32)
-        if missing or len(cache) != len(chunks):
-            self._save_cache([c.id for c in chunks], vecs)  # also drops vectors for deleted text
-        rt = Retriever(self.embedder, make_store(self.cfg.store), hybrid=self.cfg.hybrid and bool(chunks), rrf_k=self.cfg.rrf_k)
-        if chunks:
-            rt.index(chunks, vecs)
+        vecs = np.stack([cache[c.id] for c in blocks]) if blocks else np.zeros((0, dim), dtype=np.float32)
+        if missing or len(cache) != len(blocks):
+            self._save_cache([c.id for c in blocks], vecs)  # also drops vectors for deleted text
+        rt = Retriever(self.embedder, make_store(self.cfg.store), hybrid=self.cfg.hybrid and bool(blocks), rrf_k=self.cfg.rrf_k)
+        if blocks:
+            rt.index(blocks, vecs)
         else:
-            rt.chunks, rt.vecs = [], vecs
+            rt.blocks, rt.vecs = [], vecs
         self.embedder.embed_query("warm up")
         self.fingerprint = fp
-        return rt, SyncStats(len(chunks), len(missing), len(chunks) - len(missing), time.perf_counter() - t0)
+        return rt, SyncStats(len(blocks), len(missing), len(blocks) - len(missing), time.perf_counter() - t0)

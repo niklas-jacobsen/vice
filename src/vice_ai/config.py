@@ -61,7 +61,7 @@ class Config:
     # Temporal logic
     conflict_half_life_days: float = 14.0  # how fast a contradicted older fact loses value
     recency_half_life_days: float = 365.0
-    recency_weight: float = 0.1  # mild global tie-breaker toward newer notes
+    recency_weight: float = 0.1  # mild global tie-breaker toward newer blocks
 
     # Packing and decision
     token_budget: int = 400

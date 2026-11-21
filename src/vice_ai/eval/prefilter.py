@@ -23,10 +23,10 @@ REPORT = ROOT / "reports" / "prefilter.json"
 
 
 def run() -> dict:
-    chunks, events = load()
+    blocks, events = load()
     pos = [e for e in events if e.warrants_retrieval and e.split == "cal"]
-    texts = [c.text for c in chunks]
-    out: dict = {"n_chunks": len(chunks), "n_events": len(pos), "embedders": [], "stores": []}
+    texts = [c.text for c in blocks]
+    out: dict = {"n_blocks": len(blocks), "n_events": len(pos), "embedders": [], "stores": []}
 
     best_vecs = {}
     for name in [*FASTEMBED_MODELS, *STATIC_MODELS]:
@@ -45,11 +45,11 @@ def run() -> dict:
             q_ms.append((time.perf_counter() - t0) * 1000)
         for hybrid in (False, True):
             rt = Retriever(emb, make_store("numpy"), hybrid=hybrid)
-            rt.index(chunks, vecs)
+            rt.index(blocks, vecs)
             row = {"embedder": name, "hybrid": hybrid, "dim": int(vecs.shape[1]), "load_s": round(load_s, 2),
                    "index_docs_per_s": round(len(texts) / index_s), "embed_query_p50_ms": round(pctl(q_ms, 50), 2),
                    "embed_query_p95_ms": round(pctl(q_ms, 95), 2)}
-            ranked = {e.id: [c.chunk.id for c in rt.search(e.text, max(KS))] for e in pos}
+            ranked = {e.id: [c.block.id for c in rt.search(e.text, max(KS))] for e in pos}
             for k in KS:
                 row[f"recall_required@{k}"] = round(nanmean([recall_at_k(ranked[e.id], set(e.required_ids), k) for e in pos]), 4)
             row["recall_relevant@12"] = round(nanmean([recall_at_k(ranked[e.id], set(e.relevant_ids), 12) for e in pos]), 4)

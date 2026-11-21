@@ -9,12 +9,12 @@ from .embed import make_embedder
 from .jev import TypeSafeJudge
 from .retrieve import Retriever
 from .store import make_store
-from .types import Chunk
+from .types import Block
 
 
-def build_retriever(cfg: Config, chunks: list[Chunk]) -> Retriever:
+def build_retriever(cfg: Config, blocks: list[Block]) -> Retriever:
     rt = Retriever(make_embedder(cfg.embedder), make_store(cfg.store), hybrid=cfg.hybrid, rrf_k=cfg.rrf_k)
-    rt.index(chunks)
+    rt.index(blocks)
     rt.embedder.embed_query("warm up")  # first ONNX call is slow; pay it at start-up
     return rt
 

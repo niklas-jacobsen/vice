@@ -28,7 +28,7 @@ def _summary(ms: list[float]) -> dict:
 
 async def run() -> dict:
     cfg = load_config()
-    chunks, events = load()
+    blocks, events = load()
     cal = [e for e in events if e.split == "cal"]
     out: dict = {"model": cfg.model, "gate": {}, "fanout": {}}
 
@@ -53,7 +53,7 @@ async def run() -> dict:
         out["gate"][key] = {"cold": _summary(cold), "warm": _summary(warm)}
         print("gate", key, out["gate"][key], flush=True)
 
-    rt = build_retriever(cfg, chunks)
+    rt = build_retriever(cfg, blocks)
     pos = [e for e in cal if e.warrants_retrieval][:15]
     for shape in ("single", "per_candidate"):
         for k in (4, 8, 12, 20):

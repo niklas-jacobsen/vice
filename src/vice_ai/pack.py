@@ -1,7 +1,7 @@
 """0/1 knapsack over the token budget.
 
-Value is each note's adjusted relevance probability, so the packed set maximises the
-expected number of relevant notes that fit. Exact dynamic programme; with K <= ~20
+Value is each block's adjusted relevance probability, so the packed set maximises the
+expected number of relevant blocks that fit. Exact dynamic programme; with K <= ~20
 candidates and budgets of a few thousand tokens it runs in well under a millisecond.
 """
 from __future__ import annotations
@@ -32,7 +32,7 @@ def knapsack(values: list[float], weights: list[int], budget: int) -> list[int]:
 
 def pack(cands: list[Candidate], cfg: Config) -> list[Candidate]:
     # Eligibility is judged on the calibrated probability, the scale the threshold was fitted on.
-    # `value` (probability after temporal adjustment) only ranks notes competing for the budget.
+    # `value` (probability after temporal adjustment) only ranks blocks competing for the budget.
     eligible = [c for c in cands if c.p is not None and c.p >= cfg.relevance_min and not c.superseded_by]
-    idx = knapsack([c.value for c in eligible], [max(1, c.chunk.tokens) for c in eligible], cfg.token_budget)
+    idx = knapsack([c.value for c in eligible], [max(1, c.block.tokens) for c in eligible], cfg.token_budget)
     return sorted((eligible[i] for i in idx), key=lambda c: -c.value)

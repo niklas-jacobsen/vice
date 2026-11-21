@@ -1,8 +1,8 @@
 """vice command line.
 
-    vice setup        first-time configuration (key, notes, sources)
-    vice sync         index your notes now
-    vice ask "..."    ask a question against your notes
+    vice setup        first-time configuration (key, sources, triggers)
+    vice sync         index your sources now
+    vice ask "..."    query your sources
     vice run          run in the foreground
     vice start|stop   run in the background (macOS)
     vice status       what is configured and whether it is running
@@ -27,9 +27,9 @@ from .settings import SettingsError
 PRIVACY = """\
 Before you start, what vice sends where:
 
-  * Your notes are indexed on this machine. Embeddings never leave it.
-  * When an event passes the local checks, its text and the ~20 most similar note
-    excerpts are sent to TypeSafe's API (api.typesafe.ai) to be judged.
+  * Your sources are indexed on this machine. Embeddings never leave it.
+  * When an event passes the local checks, its text and the ~20 most similar
+    blocks are sent to TypeSafe's API (api.typesafe.ai) to be judged.
   * Text that looks like a password, key, token or card number is removed first,
     and clipboard entries a password manager marks as secret are never read.
   * Clipboard watching is OFF unless you turn it on.
@@ -49,7 +49,7 @@ def _yes(prompt: str, default: bool) -> bool:
     return default if not ans else ans.startswith("y")
 
 
-def _note_type(path: Path) -> str:
+def _source_type(path: Path) -> str:
     if path.is_file() and path.suffix == ".jsonl":
         return "jsonl"
     return "obsidian" if (path / ".obsidian").is_dir() else "markdown"
@@ -79,20 +79,20 @@ def cmd_setup(args) -> int:
         print(f"\nKeeping your existing configuration at {cfg_path}. Use --force to rewrite it.")
         return 0
 
-    notes = [Path(n).expanduser() for n in args.notes or []]
-    if interactive and not notes:
+    sources = [Path(n).expanduser() for n in args.source or []]
+    if interactive and not sources:
         while True:
-            p = _ask("\nFolder of notes to remember (Obsidian vault or Markdown folder; blank to finish)")
+            p = _ask("\nSource to index (Obsidian vault, Markdown folder or .jsonl file; blank to finish)")
             if not p:
                 break
             path = Path(p).expanduser()
             if not path.exists():
                 print(f"  {path} does not exist.")
                 continue
-            notes.append(path)
-    for n in notes:
+            sources.append(path)
+    for n in sources:
         if not n.exists():
-            print(f"error: notes path {n} does not exist", file=sys.stderr)
+            print(f"error: source path {n} does not exist", file=sys.stderr)
             return 2
 
     clipboard = args.clipboard if args.clipboard is not None else (interactive and _yes("Watch the clipboard?", False))
@@ -104,11 +104,11 @@ def cmd_setup(args) -> int:
         s, h = str(p.resolve()), str(Path.home())
         return "~" + s[len(h):] if s.startswith(h) else s
 
-    cfg_path.write_text(settings_mod.render_default([(_note_type(n), tilde(n)) for n in notes], clipboard, file_drop, drop_folder, notification))
+    cfg_path.write_text(settings_mod.render_default([(_source_type(n), tilde(n)) for n in sources], clipboard, file_drop, drop_folder, notification))
     cfg_path.chmod(0o600)
     settings_mod.load()  # fail now, not later, if what we wrote is wrong
     print(f"\nWrote {cfg_path}")
-    print("Next:  vice sync     (index your notes; the first run downloads a ~90 MB embedding model)")
+    print("Next:  vice sync     (index your sources; the first run downloads a ~90 MB embedding model)")
     print("       vice ask \"...\"  (try a question)")
     print("       vice start    (run in the background)")
     return 0
@@ -140,17 +140,17 @@ async def _with_app(fn, echo: bool = False):
 
 
 def cmd_sync(args) -> int:
-    from .index import NotesIndex
+    from .index import Index
 
     s = _load_settings()
-    if not s.notes:
-        print(f"No notes sources configured. Add a [[notes]] block to {paths.config_file()}.")
+    if not s.sources:
+        print(f"No sources configured. Add a [[sources]] entry to {paths.config_file()}.")
         return 1
     try:
-        _, stats = NotesIndex(s.notes, s.pipeline).build()
+        _, stats = Index(s.sources, s.pipeline).build()
     except FileNotFoundError as e:
         raise SystemExit(f"vice: {e}")
-    print(f"Indexed {stats.chunks} chunks from {len(s.notes)} source(s) in {stats.seconds:.1f}s "
+    print(f"Indexed {stats.blocks} blocks from {len(s.sources)} source(s) in {stats.seconds:.1f}s "
           f"({stats.embedded} embedded, {stats.reused} reused).")
     return 0
 
@@ -160,8 +160,8 @@ def _print_reply(reply: dict, as_json: bool) -> None:
         print(json.dumps(reply, indent=2, ensure_ascii=False))
         return
     if not reply["context"]:
-        why = {"gate_no": "this does not look like something that needs your notes",
-               "no_relevant_context": "nothing in your notes answers this",
+        why = {"gate_no": "this does not look like something that needs your sources",
+               "no_relevant_context": "nothing in your sources answers this",
                "gate_unavailable": "TypeSafe did not answer in time",
                "fanout_unavailable": "TypeSafe did not answer in time"}.get(reply["reason"], reply["reason"])
         print(f"Nothing to show: {why}.")
@@ -226,18 +226,18 @@ def cmd_status(args) -> int:
     except SettingsError as e:
         print(f"config:  {e}")
         return 1
-    srcs = [n for n, on in (("clipboard", s.clipboard), ("file_drop", s.file_drop), ("palette", s.palette)) if on]
-    print(f"sources: {', '.join(srcs) or 'none'}")
+    trg = [n for n, on in (("clipboard", s.clipboard), ("file_drop", s.file_drop), ("palette", s.palette)) if on]
+    print(f"triggers: {', '.join(trg) or 'none'}")
     for f in s.drop_folders if s.file_drop else ():
         print(f"         drop folder {f}")
     print(f"outputs: {', '.join(f'{o.type}({'+'.join(o.on)})' for o in s.outputs) or 'none (decisions are still logged)'}")
-    if not s.notes:
-        print("notes:   none configured")
-    for n in s.notes:
-        print(f"notes:   {n.name} ({n.type}) {n.path}{'' if n.path.exists() else '  <-- MISSING'}")
+    if not s.sources:
+        print("sources: none configured")
+    for n in s.sources:
+        print(f"sources: {n.name} ({n.type}) {n.path}{'' if n.path.exists() else '  <-- MISSING'}")
     meta = paths.index_dir() / "meta.json"
     if meta.exists():
-        print(f"index:   {len(json.loads(meta.read_text())['ids'])} chunks")
+        print(f"index:   {len(json.loads(meta.read_text())['ids'])} blocks")
     else:
         print("index:   not built yet (run `vice sync`)")
     cal = "your own" if paths.user_calibration().exists() else "shipped default (fitted on synthetic data)"
@@ -275,12 +275,12 @@ def cmd_key(args) -> int:
 
 
 def main(argv: list[str] | None = None) -> None:
-    ap = argparse.ArgumentParser(prog="vice", description="Zero-UI ambient memory for your notes.")
+    ap = argparse.ArgumentParser(prog="vice", description="Context retrieval engine for AI agents.")
     ap.add_argument("--version", action="version", version=f"vice {__version__}")
     sub = ap.add_subparsers(dest="cmd", required=True, metavar="command")
 
     p = sub.add_parser("setup", help="first-time configuration")
-    p.add_argument("--notes", action="append", metavar="PATH", help="notes folder or .jsonl file (repeatable)")
+    p.add_argument("--source", action="append", metavar="PATH", help="Obsidian vault, Markdown folder or .jsonl file (repeatable)")
     p.add_argument("--clipboard", action=argparse.BooleanOptionalAction, default=None, help="watch the clipboard")
     p.add_argument("--drop-folder", metavar="PATH", help="watch this folder for dropped files")
     p.add_argument("--notify", action=argparse.BooleanOptionalAction, default=None, help="notify on a strong match")
@@ -290,8 +290,8 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("--replace-key", action="store_true", help="prompt for a new key even if one is stored")
     p.set_defaults(fn=cmd_setup)
 
-    sub.add_parser("sync", help="index your notes now").set_defaults(fn=cmd_sync)
-    p = sub.add_parser("ask", help="ask a question against your notes")
+    sub.add_parser("sync", help="index your sources now").set_defaults(fn=cmd_sync)
+    p = sub.add_parser("ask", help="query your sources")
     p.add_argument("text")
     p.add_argument("--json", action="store_true", help="print the full decision as JSON")
     p.set_defaults(fn=cmd_ask)

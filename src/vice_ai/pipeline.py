@@ -47,13 +47,13 @@ class Pipeline:
         t_start = time.perf_counter()
         timings: dict[str, float] = {}
         with tracer.start_as_current_span("pipeline") as span:
-            span.set_attribute("event.source", raw_event.source)
+            span.set_attribute("event.trigger", raw_event.trigger)
             res = await self._handle(raw_event, now if now is not None else raw_event.ts, timings)
             timings["total"] = (time.perf_counter() - t_start) * 1000
             res.timings_ms = timings
             span.set_attribute("decision.action", res.decision.action.value)
             span.set_attribute("decision.reason", res.decision.reason)
-            span.set_attribute("decision.chunks", len(res.decision.context))
+            span.set_attribute("decision.blocks", len(res.decision.context))
             return res
 
     async def _handle(self, raw_event: AmbientEvent, now: float, timings: dict) -> PipelineResult:
@@ -104,7 +104,7 @@ class Pipeline:
     async def _check_missing_conflicts(self, event, cands, fan: FanoutOutcome, timings: dict) -> int:
         if self.cfg.max_conflict_pairs <= 0:  # conflict checking switched off
             return 0
-        relevant = sorted((c.chunk for c in cands if c.p >= self.cfg.relevance_min), key=lambda ch: ch.ts)
+        relevant = sorted((c.block for c in cands if c.p >= self.cfg.relevance_min), key=lambda ch: ch.ts)
         missing = [(a, b) for i, a in enumerate(relevant) for b in relevant[i + 1:]
                    if a.ts != b.ts and (a.id, b.id) not in fan.conflicts]
         if not missing:
@@ -117,7 +117,7 @@ class Pipeline:
 
     def _score(self, cands, fan: FanoutOutcome) -> None:
         for c in cands:
-            if c.chunk.id not in fan.relevance:
-                raise JudgeError(f"fan-out returned no relevance answer for {c.chunk.id}")
-            c.raw_p = fan.relevance[c.chunk.id]
+            if c.block.id not in fan.relevance:
+                raise JudgeError(f"fan-out returned no relevance answer for {c.block.id}")
+            c.raw_p = fan.relevance[c.block.id]
             c.p = self.cal.relevance_p(c.raw_p)

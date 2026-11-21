@@ -27,7 +27,7 @@ def as_reply(res: PipelineResult) -> dict:
     return {
         "action": res.decision.action.value,
         "reason": res.decision.reason,
-        "event": {"source": res.event.source, "text": res.event.text},
+        "event": {"trigger": res.event.trigger, "text": res.event.text},
         "gate": {"status": res.gate_status, "p": res.gate_p},
         "context": [{"id": c.id, "text": c.text, "source": c.source,
                      "written": time.strftime("%Y-%m-%d", time.gmtime(c.ts))} for c in res.decision.context],
