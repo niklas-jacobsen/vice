@@ -240,3 +240,71 @@ def test_setup_writes_a_valid_private_config(vault, capsys):
 def test_status_before_setup_explains_what_to_do(capsys):
     assert run_cli("status") == 1
     assert "vice setup" in capsys.readouterr().out
+
+
+async def test_dispatcher_only_limits_outputs_but_always_logs(tmp_path):
+    seen = tmp_path / "seen.json"
+    script = tmp_path / "hook.py"
+    script.write_text(f"import sys, pathlib; pathlib.Path({str(seen)!r}).write_text(sys.stdin.read())")
+    d = outputs.Dispatcher((Output("context_file", ("surface",)),
+                            Output("command", ("surface",), {"run": [sys.executable, str(script)]})))
+    await d.emit(result(Action.SURFACE), only=("context_file",))
+    assert paths.context_file().exists() and not seen.exists()
+    await d.emit(result(Action.SUPPRESS), only=("context_file",))
+    assert [json.loads(l)["action"] for l in paths.decisions_file().read_text().splitlines()] == ["surface", "suppress"]
+
+
+def test_mcp_questions_are_not_deduplicated():
+    from vice_ai.pregate import PreGate
+    pg = PreGate(Config())
+    ev = AmbientEvent("m1", "mcp", "when does the Atlas project launch?", 100.0)
+    assert pg.check(ev).ok and pg.check(ev).ok
+
+
+# --- MCP server ---
+
+def _reply(action, reason, n=0):
+    return outputs.as_reply(PipelineResult(
+        AmbientEvent("e", "mcp", "when does Atlas ship?", 0.0),
+        Decision(action, reason, [Chunk(f"c{i}", f"Atlas ships\n  April {18 + i}.", 1_700_000_000.0, 6, "Vault/Atlas.md")
+                                  for i in range(n)]), 0.9, "yes"))
+
+
+def test_recall_output_is_one_line_per_note_and_nothing_else():
+    from vice_ai import mcp_server as M
+    out = M.format_recall(_reply(Action.SURFACE, "strong_match", 2))
+    assert out.splitlines() == ["[2023-11-14] Atlas ships April 18.", "[2023-11-14] Atlas ships April 19."]
+    assert M.format_recall(_reply(Action.SUPPRESS, "gate_no")) == M.NO_CONTEXT
+    assert M.format_recall(_reply(Action.SUPPRESS, "gate_unavailable")) == M.UNAVAILABLE
+    assert M.format_latest(None) == M.NOTHING_YET
+    assert M.format_latest(_reply(Action.ATTACH, "relevant_context", 1)).startswith("From mcp at ")
+
+
+async def test_mcp_server_end_to_end(monkeypatch):
+    pytest.importorskip("mcp")
+    from mcp import Client
+    from vice_ai import mcp_server as M
+
+    class FakePipeline:
+        async def handle(self, event):
+            assert event.source == "mcp"
+            return PipelineResult(event, Decision(Action.SURFACE, "strong_match",
+                                  [Chunk("c0", "Atlas ships December 2.", 1_700_000_000.0, 4, "Vault/Atlas.md")]), 0.9, "yes")
+
+    class FakeApp:
+        def __init__(self, _settings):
+            self.pipeline = FakePipeline()
+            self.dispatcher = outputs.Dispatcher((Output("context_file", ("surface", "attach")),))
+        async def start(self): pass
+        async def resync(self): pass
+
+    monkeypatch.setattr(M, "App", FakeApp)
+    monkeypatch.setattr(M.settings_mod, "load", lambda: None)
+    async with Client(M.build_server()) as c:
+        tools = (await c.list_tools()).tools
+        assert [t.name for t in tools] == ["recall"] and "do not retry" in tools[0].description
+        res = await c.call_tool("recall", {"query": "when does Atlas ship?"})
+        assert res.content[0].text == "[2023-11-14] Atlas ships December 2."
+        latest = await c.read_resource("vice://latest-context")
+        assert "Atlas ships December 2." in latest.contents[0].text
+    assert json.loads(paths.decisions_file().read_text().splitlines()[-1])["event"]["source"] == "mcp"

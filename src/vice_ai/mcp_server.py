@@ -1,12 +1,15 @@
 """MCP server: lets an assistant that speaks the Model Context Protocol (Claude Desktop,
 Claude Code, and others) pull from vice.
 
-Two tools:
-  recall(query)      run a query through the same pipeline as any other event and return
-                     the notes vice judges relevant and current
-  latest_context()   the context vice most recently decided was worth having, from the
-                     clipboard, a dropped file, or a command
+Output is kept minimal so lookups cost the assistant as little context as possible: one
+line per note, `[date] text`, or a short fixed sentence when there is
+nothing to return. Source paths, ids and scores stay in the decision log.
 
+  recall(query)               tool: the notes vice judges relevant and current
+  vice://latest-context       resource: the context vice last produced from the user's
+                              clipboard, a dropped file, a question, or a recall
+
+The context is a resource rather than a tool so it costs nothing until a client reads it.
 The server speaks MCP over stdio, so the assistant starts it itself; see docs/integrations.md.
 It writes nothing to stdout except protocol messages.
 """
@@ -18,7 +21,41 @@ import sys
 from . import paths, settings as settings_mod
 from .app import App
 from .listeners import make_event
-from .outputs import as_reply
+
+RECALL_OUTPUTS = ("context_file",)
+
+NO_CONTEXT = "No relevant information."
+UNAVAILABLE = "vice could not check the notes right now (the judging service did not answer)."
+NOTHING_YET = "Nothing surfaced yet."
+
+# Reasons where vice did not get to look, as opposed to looking and finding nothing.
+_UNAVAILABLE_REASONS = {"gate_unavailable", "fanout_unavailable"}
+
+RECALL_DOC = """Look up information from the user's own notes (projects, people, dates, decisions, preferences).
+Pass the user's question as they wrote it; do not add keywords or rephrase.
+One call is enough: vice already searches broadly and drops outdated versions of a fact.
+"No relevant information." is final; do not retry or rephrase."""
+
+
+def _one_line(text: str) -> str:
+    return " ".join(text.split())
+
+
+def format_notes(context: list[dict]) -> str:
+    """One line per note: `[date] text`."""
+    return "\n".join(f"[{c['written']}] {_one_line(c['text'])}" for c in context)
+
+
+def format_recall(reply: dict) -> str:
+    if reply["context"]:
+        return format_notes(reply["context"])
+    return UNAVAILABLE if reply["reason"] in _UNAVAILABLE_REASONS else NO_CONTEXT
+
+
+def format_latest(reply: dict | None) -> str:
+    if not reply or not reply.get("context"):
+        return NOTHING_YET
+    return f"From {reply['event']['source']} at {reply['at']}:\n" + format_notes(reply["context"])
 
 
 def build_server():
@@ -37,28 +74,20 @@ def build_server():
             state["app"] = a
         return state["app"]
 
-    @server.tool()
+    @server.tool(description=RECALL_DOC)
     async def recall(query: str) -> str:
-        """Look up the user's own notes for facts relevant to `query` (projects, people,
-        dates, decisions, preferences). Returns only notes judged relevant, with older
-        versions of a fact removed in favour of the newest. Returns an empty list when
-        nothing relevant is on file; do not guess in that case."""
         a = await app()
         await a.resync()
-        res = await a.pipeline.handle(make_event("palette", query))
-        reply = as_reply(res)
-        return json.dumps({"notes": reply["context"], "matched": reply["action"] != "suppress", "reason": reply["reason"]},
-                          ensure_ascii=False)
+        res = await a.pipeline.handle(make_event("mcp", query))
+        # Log it and keep context.json current, but don't notify or run hooks: the
+        # assistant asked, and it is the one receiving the answer.
+        return format_recall(await a.dispatcher.emit(res, only=RECALL_OUTPUTS))
 
-    @server.tool()
-    async def latest_context() -> str:
-        """The most recent context vice surfaced from the user's ambient activity
-        (something they copied, dropped, or asked). May be stale; check `at`."""
+    @server.resource("vice://latest-context", name="latest-context", mime_type="text/plain",
+                     description="Information vice last surfaced from the user's activity.")
+    def latest_context() -> str:
         p = paths.context_file()
-        if not p.exists():
-            return json.dumps({"context": [], "note": "nothing has been surfaced yet"})
-        d = json.loads(p.read_text())
-        return json.dumps({"at": d.get("at"), "trigger": d.get("event"), "context": d.get("context", [])}, ensure_ascii=False)
+        return format_latest(json.loads(p.read_text()) if p.exists() else None)
 
     return server
 

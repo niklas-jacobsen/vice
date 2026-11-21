@@ -15,6 +15,8 @@ SOURCE_DESCRIPTIONS = {
     "clipboard": "text the user just copied",
     "file_drop": "a file the user just dropped, shown as its name and opening lines",
     "palette": "a command the user just typed",
+    # Same wording as "palette": the shipped calibration was fitted on it.
+    "mcp": "a command the user just typed",
 }
 
 

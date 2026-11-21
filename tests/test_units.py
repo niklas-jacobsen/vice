@@ -171,3 +171,11 @@ def test_metrics_by_hand():
     assert M.context_precision(["a", "b"], {"a"}) == 0.5 and M.context_recall(["a"], {"a", "b"}) == 0.5
     assert M.ece([1, 1, 0, 0], [1.0, 1.0, 0.0, 0.0]) == 0.0
     assert M.ece([1, 0], [0.5, 0.5]) == 0.0 and M.ece([0, 0], [0.95, 0.95]) == pytest.approx(0.95)
+
+
+def test_mcp_source_is_described_to_jev_like_a_typed_question():
+    from vice_ai import questions as Q
+    from vice_ai.types import AmbientEvent
+    mcp = Q.event_state(AmbientEvent("a", "mcp", "x", 0.0))
+    palette = Q.event_state(AmbientEvent("b", "palette", "x", 0.0))
+    assert mcp == palette  # the shipped calibration was fitted on the palette wording

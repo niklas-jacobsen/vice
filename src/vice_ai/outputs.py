@@ -83,12 +83,13 @@ class Dispatcher:
             f.write(json.dumps({**reply, **({"output_errors": errors} if errors else {})}, ensure_ascii=False) + "\n")
         self.log_path.chmod(0o600)
 
-    async def emit(self, res: PipelineResult) -> dict:
+    async def emit(self, res: PipelineResult, only: tuple[str, ...] | None = None) -> dict:
+        """`only` limits which output types may fire (the log is always written)."""
         reply = as_reply(res)
         errors: dict[str, str] = {}
         if res.decision.action != Action.SUPPRESS:
             for out in self.outputs:
-                if res.decision.action.value not in out.on:
+                if res.decision.action.value not in out.on or (only is not None and out.type not in only):
                     continue
                 try:
                     await asyncio.to_thread(HANDLERS[out.type], reply, out.options)

@@ -97,7 +97,7 @@ class PreGate:
         for k in [k for k, ts in self._seen.items() if event.ts - ts > self.cfg.dedupe_window_s]:
             del self._seen[k]
         # A repeated copy is noise; a repeated question is a person asking again.
-        if event.source != "palette":
+        if event.source not in ("palette", "mcp"):
             if digest in self._seen:
                 return PreGateOutcome(False, "duplicate")
             self._seen[digest] = event.ts
