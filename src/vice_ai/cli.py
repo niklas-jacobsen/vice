@@ -1,13 +1,13 @@
 """vice command line.
 
-    vice setup        first-time configuration (key, sources, triggers)
+    vice setup        first-time configuration (key, sources)
     vice sync         index your sources now
-    vice ask "..."    query your sources
+    vice ask "..."    print what an agent receives for this text
     vice run          run in the foreground
     vice start|stop   run in the background (macOS)
     vice status       what is configured and whether it is running
     vice logs         follow the background service's log
-    vice mcp          MCP server for assistants such as Claude Desktop
+    vice mcp          MCP server for agents such as Claude Code
     vice key set|delete
 """
 from __future__ import annotations
@@ -28,11 +28,9 @@ PRIVACY = """\
 Before you start, what vice sends where:
 
   * Your sources are indexed on this machine. Embeddings never leave it.
-  * When an event passes the local checks, its text and the ~20 most similar
-    blocks are sent to TypeSafe's API (api.typesafe.ai) to be judged.
-  * Text that looks like a password, key, token or card number is removed first,
-    and clipboard entries a password manager marks as secret are never read.
-  * Clipboard watching is OFF unless you turn it on.
+  * For each query that passes the local checks, its text and the ~20 most
+    similar blocks are sent to TypeSafe's API (api.typesafe.ai) to be judged.
+  * Text that looks like a password, key, token or card number is removed first.
 """
 
 
@@ -42,11 +40,6 @@ def _ask(prompt: str, default: str = "") -> str:
     except EOFError:
         ans = ""
     return ans or default
-
-
-def _yes(prompt: str, default: bool) -> bool:
-    ans = _ask(f"{prompt} ({'Y/n' if default else 'y/N'})").lower()
-    return default if not ans else ans.startswith("y")
 
 
 def _source_type(path: Path) -> str:
@@ -95,22 +88,17 @@ def cmd_setup(args) -> int:
             print(f"error: source path {n} does not exist", file=sys.stderr)
             return 2
 
-    clipboard = args.clipboard if args.clipboard is not None else (interactive and _yes("Watch the clipboard?", False))
-    drop_folder = args.drop_folder or "~/vice-drop"
-    file_drop = bool(args.drop_folder) or (interactive and _yes(f"Watch a drop folder ({drop_folder})?", False))
-    notification = args.notify if args.notify is not None else (not interactive or _yes("Show a notification on a strong match?", True))
-
     def tilde(p: Path) -> str:
         s, h = str(p.resolve()), str(Path.home())
         return "~" + s[len(h):] if s.startswith(h) else s
 
-    cfg_path.write_text(settings_mod.render_default([(_source_type(n), tilde(n)) for n in sources], clipboard, file_drop, drop_folder, notification))
+    cfg_path.write_text(settings_mod.render_default([(_source_type(n), tilde(n)) for n in sources]))
     cfg_path.chmod(0o600)
     settings_mod.load()  # fail now, not later, if what we wrote is wrong
     print(f"\nWrote {cfg_path}")
     print("Next:  vice sync     (index your sources; the first run downloads a ~90 MB embedding model)")
-    print("       vice ask \"...\"  (try a question)")
-    print("       vice start    (run in the background)")
+    print("       claude mcp add vice -- vice mcp   (connect Claude Code)")
+    print("       vice ask \"...\"  (check what an agent would receive)")
     return 0
 
 
@@ -155,36 +143,23 @@ def cmd_sync(args) -> int:
     return 0
 
 
-def _print_reply(reply: dict, as_json: bool) -> None:
-    if as_json:
-        print(json.dumps(reply, indent=2, ensure_ascii=False))
-        return
-    if not reply["context"]:
-        why = {"gate_no": "this does not look like something that needs your sources",
-               "no_relevant_context": "nothing in your sources answers this",
-               "gate_unavailable": "TypeSafe did not answer in time",
-               "fanout_unavailable": "TypeSafe did not answer in time"}.get(reply["reason"], reply["reason"])
-        print(f"Nothing to show: {why}.")
-        return
-    for c in reply["context"]:
-        print(f"• {c['text']}\n    {c.get('source') or c['id']}  ·  {c['written']}")
-
-
 def cmd_ask(args) -> int:
-    from .listeners import make_event, palette_send
+    from . import ask
+    from .outputs import format_reply
 
     async def go() -> dict:
         if paths.socket_file().exists():
             try:
-                return await palette_send(args.text)
+                return await ask.send(args.text)
             except (ConnectionRefusedError, FileNotFoundError):
                 pass  # stale socket from a stopped service; fall through and answer directly
 
         async def one(app):
-            return await app.handle(make_event("palette", args.text))
+            return await app.handle(ask.make_event("ask", args.text))
         return await _with_app(one)
 
-    _print_reply(asyncio.run(go()), args.json)
+    reply = asyncio.run(go())
+    print(json.dumps(reply, indent=2, ensure_ascii=False) if args.json else format_reply(reply))
     return 0
 
 
@@ -226,10 +201,6 @@ def cmd_status(args) -> int:
     except SettingsError as e:
         print(f"config:  {e}")
         return 1
-    trg = [n for n, on in (("clipboard", s.clipboard), ("file_drop", s.file_drop), ("palette", s.palette)) if on]
-    print(f"triggers: {', '.join(trg) or 'none'}")
-    for f in s.drop_folders if s.file_drop else ():
-        print(f"         drop folder {f}")
     print(f"outputs: {', '.join(f'{o.type}({'+'.join(o.on)})' for o in s.outputs) or 'none (decisions are still logged)'}")
     if not s.sources:
         print("sources: none configured")
@@ -281,9 +252,6 @@ def main(argv: list[str] | None = None) -> None:
 
     p = sub.add_parser("setup", help="first-time configuration")
     p.add_argument("--source", action="append", metavar="PATH", help="Obsidian vault, Markdown folder or .jsonl file (repeatable)")
-    p.add_argument("--clipboard", action=argparse.BooleanOptionalAction, default=None, help="watch the clipboard")
-    p.add_argument("--drop-folder", metavar="PATH", help="watch this folder for dropped files")
-    p.add_argument("--notify", action=argparse.BooleanOptionalAction, default=None, help="notify on a strong match")
     p.add_argument("--yes", action="store_true", help="do not prompt; use flags and defaults")
     p.add_argument("--force", action="store_true", help="overwrite an existing config.toml")
     p.add_argument("--no-key", action="store_true", help="skip the API key step")
@@ -291,7 +259,7 @@ def main(argv: list[str] | None = None) -> None:
     p.set_defaults(fn=cmd_setup)
 
     sub.add_parser("sync", help="index your sources now").set_defaults(fn=cmd_sync)
-    p = sub.add_parser("ask", help="query your sources")
+    p = sub.add_parser("ask", help="print what an agent receives for this text")
     p.add_argument("text")
     p.add_argument("--json", action="store_true", help="print the full decision as JSON")
     p.set_defaults(fn=cmd_ask)

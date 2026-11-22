@@ -1,61 +1,29 @@
-"""MCP server: lets an assistant that speaks the Model Context Protocol (Claude Desktop,
-Claude Code, and others) pull from vice.
+"""MCP server: one `recall` tool for assistants that speak the Model Context Protocol
+(Claude Code, Claude Desktop and other stdio clients).
 
-Output is kept minimal so lookups cost the assistant as little context as possible: one
-line per block, `[date] text`, or a short fixed sentence when there is
-nothing to return. Source paths, ids and scores stay in the decision log.
+Output is kept minimal so a lookup costs the assistant as little context as possible: one
+line per block, `[date] text`, or a short fixed sentence when there is nothing to return.
+Source paths, ids and scores stay in the decision log.
 
-  recall(query)               tool: the blocks vice judges relevant and current
-  vice://latest-context       resource: the context vice last produced from the user's
-                              clipboard, a dropped file, a question, or a recall
-
-The context is a resource rather than a tool so it costs nothing until a client reads it.
 The server speaks MCP over stdio, so the assistant starts it itself; see docs/integrations.md.
 It writes nothing to stdout except protocol messages.
 """
 from __future__ import annotations
 
-import json
 import sys
 
-from . import paths, settings as settings_mod
+from . import settings as settings_mod
 from .app import App
-from .listeners import make_event
+from .ask import make_event
+from .outputs import format_reply
 
+# The assistant asked and receives the answer itself; other outputs would only duplicate it.
 RECALL_OUTPUTS = ("context_file",)
-
-NO_CONTEXT = "No relevant information."
-UNAVAILABLE = "vice could not check its sources right now (the judging service did not answer)."
-NOTHING_YET = "Nothing surfaced yet."
-
-# Reasons where vice did not get to look, as opposed to looking and finding nothing.
-_UNAVAILABLE_REASONS = {"gate_unavailable", "fanout_unavailable"}
 
 RECALL_DOC = """Look up information from the user's own sources (projects, people, dates, decisions, preferences).
 Pass the user's question as they wrote it; do not add keywords or rephrase.
-One call is enough: vice already searches broadly and drops outdated versions of a fact.
+One call is enough: vice already searches broadly and keeps only current, relevant information.
 "No relevant information." is final; do not retry or rephrase."""
-
-
-def _one_line(text: str) -> str:
-    return " ".join(text.split())
-
-
-def format_blocks(context: list[dict]) -> str:
-    """One line per block: `[date] text`."""
-    return "\n".join(f"[{c['written']}] {_one_line(c['text'])}" for c in context)
-
-
-def format_recall(reply: dict) -> str:
-    if reply["context"]:
-        return format_blocks(reply["context"])
-    return UNAVAILABLE if reply["reason"] in _UNAVAILABLE_REASONS else NO_CONTEXT
-
-
-def format_latest(reply: dict | None) -> str:
-    if not reply or not reply.get("context"):
-        return NOTHING_YET
-    return f"From {reply['event']['trigger']} at {reply['at']}:\n" + format_blocks(reply["context"])
 
 
 def build_server():
@@ -79,15 +47,7 @@ def build_server():
         a = await app()
         await a.resync()
         res = await a.pipeline.handle(make_event("mcp", query))
-        # Log it and keep context.json current, but don't notify or run hooks: the
-        # assistant asked, and it is the one receiving the answer.
-        return format_recall(await a.dispatcher.emit(res, only=RECALL_OUTPUTS))
-
-    @server.resource("vice://latest-context", name="latest-context", mime_type="text/plain",
-                     description="Information vice last surfaced from the user's activity.")
-    def latest_context() -> str:
-        p = paths.context_file()
-        return format_latest(json.loads(p.read_text()) if p.exists() else None)
+        return format_reply(await a.dispatcher.emit(res, only=RECALL_OUTPUTS))
 
     return server
 

@@ -2,7 +2,6 @@
 and none of them can change the decision.
 
   context_file   write the latest context as JSON (default ~/.vice/context.json)
-  notification   macOS notification
   command        run a program of your choice with the decision JSON on stdin
   webhook        POST the decision JSON to a URL
 
@@ -36,6 +35,23 @@ def as_reply(res: PipelineResult) -> dict:
     }
 
 
+NO_CONTEXT = "No relevant information."
+UNAVAILABLE = "vice could not check its sources right now (the judging service did not answer)."
+# Reasons where vice did not get to look, as opposed to looking and finding nothing.
+_UNAVAILABLE_REASONS = {"gate_unavailable", "fanout_unavailable"}
+
+
+def format_blocks(context: list[dict]) -> str:
+    """What an agent receives: one line per block, `[date] text`."""
+    return "\n".join(f"[{c['written']}] {' '.join(c['text'].split())}" for c in context)
+
+
+def format_reply(reply: dict) -> str:
+    if reply["context"]:
+        return format_blocks(reply["context"])
+    return UNAVAILABLE if reply["reason"] in _UNAVAILABLE_REASONS else NO_CONTEXT
+
+
 def _context_file(reply: dict, opts: dict) -> None:
     path = paths.expand(opts.get("path") or paths.context_file())
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -43,18 +59,6 @@ def _context_file(reply: dict, opts: dict) -> None:
     tmp.write_text(json.dumps(reply, indent=2, ensure_ascii=False))
     tmp.chmod(0o600)
     tmp.replace(path)
-
-
-def _notification(reply: dict, opts: dict) -> None:
-    if sys.platform != "darwin":
-        return
-    first = reply["context"][0]
-    more = len(reply["context"]) - 1
-    body = first["text"][:240] + (f"  (+{more} more)" if more else "")
-    # Text is passed as an argument, never interpolated into the script.
-    subprocess.run(["osascript", "-e", "on run argv", "-e",
-                    "display notification (item 1 of argv) with title \"vice\" subtitle (item 2 of argv)",
-                    "-e", "end run", body, first.get("source") or ""], check=False, timeout=5, capture_output=True)
 
 
 def _command(reply: dict, opts: dict) -> None:
@@ -69,7 +73,7 @@ def _webhook(reply: dict, opts: dict) -> None:
         r.read()
 
 
-HANDLERS = {"context_file": _context_file, "notification": _notification, "command": _command, "webhook": _webhook}
+HANDLERS = {"context_file": _context_file, "command": _command, "webhook": _webhook}
 
 
 class Dispatcher:

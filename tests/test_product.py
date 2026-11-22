@@ -44,27 +44,25 @@ def vault(tmp_path):
 
 def test_settings_parse_and_validation(tmp_path):
     s = settings.parse({
-        "triggers": {"clipboard": {"enabled": True}, "file_drop": {"enabled": True, "folders": ["~/drop"]}},
         "sources": [{"type": "obsidian", "path": str(tmp_path), "exclude": ["Templates/**"]}],
-        "outputs": {"notification": {"on": ["surface"]}, "command": {"run": ["/bin/cat"], "enabled": False},
+        "outputs": {"context_file": {"on": ["surface"]}, "command": {"run": ["/bin/cat"], "enabled": False},
                     "webhook": {"url": "http://127.0.0.1:1/x"}},
         "pipeline": {"token_budget": 200},
     })
-    assert s.clipboard and s.file_drop and s.palette and s.drop_folders[0].name == "drop"
     assert s.sources[0].name == tmp_path.name and s.sources[0].exclude == ("Templates/**",)
-    assert [o.type for o in s.outputs] == ["notification", "webhook"]  # disabled command dropped
+    assert [o.type for o in s.outputs] == ["context_file", "webhook"]  # disabled command dropped
     assert s.pipeline.token_budget == 200 and s.pipeline.top_k == Config().top_k
 
 
 @pytest.mark.parametrize("bad", [
     {"trigers": {}},
-    {"triggers": {"clipboard": {"enable": True}}},
+    {"outputs": {"context_file": {"pth": "x"}}},
     {"sources": [{"type": "notion", "path": "x"}]},
     {"sources": [{"type": "markdown"}]},
     {"outputs": {"slack": {}}},
     {"outputs": {"command": {}}},
     {"outputs": {"webhook": {"url": "ftp://x"}}},
-    {"outputs": {"notification": {"on": ["suppress"]}}},
+    {"outputs": {"context_file": {"on": ["suppress"]}}},
     {"pipeline": {"tokn_budget": 1}},
 ])
 def test_settings_reject_typos(bad):
@@ -75,15 +73,17 @@ def test_settings_reject_typos(bad):
 @pytest.mark.parametrize("old, hint", [
     ({"notes": [{"type": "markdown", "path": "x"}]}, "[[sources]]"),
     ({"sources": {"clipboard": {"enabled": True}}}, "[triggers.*]"),
+    ({"triggers": {"clipboard": {"enabled": True}}}, "[triggers] has been removed"),
+    ({"outputs": {"notification": {"on": ["surface"]}}}, "[outputs.notification] has been removed"),
 ])
-def test_pre_rename_keys_get_a_pointer_to_the_new_ones(old, hint):
+def test_old_keys_get_a_pointer(old, hint):
     with pytest.raises(SettingsError, match=hint.replace("[", r"\[").replace("]", r"\]").replace("*", r"\*")):
         settings.parse(old)
 
 
 def test_default_is_private():
     s = settings.parse({})
-    assert not s.clipboard and not s.file_drop and [o.type for o in s.outputs] == []
+    assert s.sources == () and [o.type for o in s.outputs] == []
 
 
 # --- notes ---
@@ -182,7 +182,7 @@ def test_missing_notes_folder_is_an_error(tmp_path):
 def result(action, n=1):
     ctx = [Block(f"c{i}", f"Atlas ships April {18 + i}.", 1_700_000_000.0, 6, "Vault/Atlas.md") for i in range(n)]
     reason = "strong_match" if action == Action.SURFACE else "relevant_context" if action == Action.ATTACH else "gate_no"
-    return PipelineResult(AmbientEvent("e", "clipboard", "when does Atlas ship?", 0.0),
+    return PipelineResult(AmbientEvent("e", "ask", "when does Atlas ship?", 0.0),
                           Decision(action, reason, ctx if action != Action.SUPPRESS else []), 0.9, "yes")
 
 
@@ -239,8 +239,8 @@ def test_setup_writes_a_valid_private_config(vault, capsys):
     cfg = paths.config_file()
     assert oct(cfg.stat().st_mode)[-3:] == "600" and oct(paths.home().stat().st_mode)[-3:] == "700"
     s = settings.load()
-    assert not s.clipboard and not s.file_drop and s.sources[0].type == "obsidian"
-    assert {o.type for o in s.outputs} == {"context_file", "notification"}
+    assert s.sources[0].type == "obsidian"
+    assert [o.type for o in s.outputs] == ["context_file"]
     # Re-running never clobbers hand edits.
     cfg.write_text(cfg.read_text() + "\n# my edit\n")
     assert run_cli("setup", "--yes", "--no-key") == 0 and "# my edit" in cfg.read_text()
@@ -263,10 +263,11 @@ async def test_dispatcher_only_limits_outputs_but_always_logs(tmp_path):
     assert [json.loads(l)["action"] for l in paths.decisions_file().read_text().splitlines()] == ["surface", "suppress"]
 
 
-def test_mcp_questions_are_not_deduplicated():
+@pytest.mark.parametrize("trigger", ["ask", "mcp"])
+def test_queries_are_not_deduplicated(trigger):
     from vice_ai.pregate import PreGate
     pg = PreGate(Config())
-    ev = AmbientEvent("m1", "mcp", "when does the Atlas project launch?", 100.0)
+    ev = AmbientEvent("m1", trigger, "when does the Atlas project launch?", 100.0)
     assert pg.check(ev).ok and pg.check(ev).ok
 
 
@@ -279,14 +280,11 @@ def _reply(action, reason, n=0):
                                   for i in range(n)]), 0.9, "yes"))
 
 
-def test_recall_output_is_one_line_per_block_and_nothing_else():
-    from vice_ai import mcp_server as M
-    out = M.format_recall(_reply(Action.SURFACE, "strong_match", 2))
+def test_agent_output_is_one_line_per_block_and_nothing_else():
+    out = outputs.format_reply(_reply(Action.SURFACE, "strong_match", 2))
     assert out.splitlines() == ["[2023-11-14] Atlas ships April 18.", "[2023-11-14] Atlas ships April 19."]
-    assert M.format_recall(_reply(Action.SUPPRESS, "gate_no")) == M.NO_CONTEXT
-    assert M.format_recall(_reply(Action.SUPPRESS, "gate_unavailable")) == M.UNAVAILABLE
-    assert M.format_latest(None) == M.NOTHING_YET
-    assert M.format_latest(_reply(Action.ATTACH, "relevant_context", 1)).startswith("From mcp at ")
+    assert outputs.format_reply(_reply(Action.SUPPRESS, "gate_no")) == outputs.NO_CONTEXT
+    assert outputs.format_reply(_reply(Action.SUPPRESS, "gate_unavailable")) == outputs.UNAVAILABLE
 
 
 async def test_mcp_server_end_to_end(monkeypatch):
@@ -314,6 +312,4 @@ async def test_mcp_server_end_to_end(monkeypatch):
         assert [t.name for t in tools] == ["recall"] and "do not retry" in tools[0].description
         res = await c.call_tool("recall", {"query": "when does Atlas ship?"})
         assert res.content[0].text == "[2023-11-14] Atlas ships December 2."
-        latest = await c.read_resource("vice://latest-context")
-        assert "Atlas ships December 2." in latest.contents[0].text
     assert json.loads(paths.decisions_file().read_text().splitlines()[-1])["event"]["trigger"] == "mcp"

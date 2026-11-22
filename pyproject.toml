@@ -1,13 +1,13 @@
 [project]
 name = "vice-ai"
 version = "0.1.0"
-description = "Zero-UI ambient memory for your notes. Jev makes judgments, code makes decisions."
+description = "Context retrieval engine for AI agents."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{ name = "Niklas Jacobsen" }]
 requires-python = ">=3.12"
-keywords = ["memory", "retrieval", "obsidian", "notes", "mcp", "typesafe", "jev"]
+keywords = ["retrieval", "context", "agents", "mcp", "obsidian", "typesafe", "jev"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
@@ -23,9 +23,7 @@ dependencies = [
     "bm25s",
     "tiktoken",
     "opentelemetry-sdk",
-    "watchdog",
     "keyring",
-    "pyobjc-framework-Cocoa; sys_platform == 'darwin'",
 ]
 
 [project.optional-dependencies]

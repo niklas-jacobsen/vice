@@ -41,7 +41,7 @@ def user_calibration() -> Path: return home() / "calibration.json"
 
 def socket_file() -> Path:
     # AF_UNIX paths are capped near 104 bytes on macOS; allow an override for long homes.
-    return Path(os.environ.get("VICE_SOCKET") or home() / "palette.sock")
+    return Path(os.environ.get("VICE_SOCKET") or home() / "vice.sock")
 
 
 def expand(p: str | Path) -> Path:

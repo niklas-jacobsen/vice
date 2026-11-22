@@ -1,4 +1,4 @@
-"""User settings: which sources vice reads, which triggers it listens to, where results go.
+"""User settings: which sources vice reads and where results go.
 
 Read from ~/.vice/config.toml. Unknown keys are errors.
 """
@@ -12,7 +12,7 @@ from . import paths
 from .config import Config
 
 SOURCE_TYPES = ("obsidian", "markdown", "jsonl")
-OUTPUT_TYPES = ("context_file", "notification", "command", "webhook")
+OUTPUT_TYPES = ("context_file", "command", "webhook")
 ACTIONS = ("surface", "attach")
 
 DEFAULT_CONFIG = '''\
@@ -20,27 +20,11 @@ DEFAULT_CONFIG = '''\
 
 # ---- Sources: where information comes from --------------------------------------------
 # One [[sources]] entry per source. Types: "obsidian", "markdown", "jsonl".
-{sources}
-# ---- Triggers: what vice reacts to ----------------------------------------------------
-[triggers.clipboard]
-enabled = {clipboard}
-
-[triggers.file_drop]
-enabled = {file_drop}
-folders = ["{drop_folder}"]
-
-[triggers.palette]      # `vice ask "..."` via the background service
-enabled = true
-
-# ---- Outputs: where context goes ------------------------------------------------------
+{sources}# ---- Outputs: where context goes ------------------------------------------------------
 # `on` lists the decisions an output reacts to: "surface" (strong match) and/or "attach".
 [outputs.context_file]
 enabled = true
 on = ["surface", "attach"]
-
-[outputs.notification]
-enabled = {notification}
-on = ["surface"]
 
 # Run a program with the decision as JSON on stdin.
 # [outputs.command]
@@ -78,10 +62,6 @@ class Output:
 
 @dataclass(frozen=True)
 class Settings:
-    clipboard: bool = False
-    file_drop: bool = False
-    drop_folders: tuple[Path, ...] = ()
-    palette: bool = True
     sources: tuple[Source, ...] = ()
     outputs: tuple[Output, ...] = (Output("context_file", ACTIONS),)
     pipeline: Config = field(default_factory=Config)
@@ -104,13 +84,10 @@ def parse(data: dict) -> Settings:
         raise SettingsError("[[notes]] has been renamed to [[sources]]")
     if isinstance(data.get("sources"), dict):
         raise SettingsError("[sources.*] has been renamed to [triggers.*]; [[sources]] now lists indexed sources")
-    _only(data, {"sources", "triggers", "outputs", "pipeline", "resync_s", "tracing"}, "config.toml")
-    trg = data.get("triggers", {})
-    _only(trg, {"clipboard", "file_drop", "palette"}, "[triggers]")
-    clip, drop, pal = trg.get("clipboard", {}), trg.get("file_drop", {}), trg.get("palette", {})
-    _only(clip, {"enabled"}, "[triggers.clipboard]")
-    _only(drop, {"enabled", "folders"}, "[triggers.file_drop]")
-    _only(pal, {"enabled"}, "[triggers.palette]")
+    if "triggers" in data:
+        raise SettingsError("[triggers] has been removed: vice no longer watches the clipboard or drop folders; "
+                            "delete the [triggers.*] sections")
+    _only(data, {"sources", "outputs", "pipeline", "resync_s", "tracing"}, "config.toml")
 
     sources = []
     for i, n in enumerate(data.get("sources", [])):
@@ -129,9 +106,11 @@ def parse(data: dict) -> Settings:
     outputs = []
     for typ, o in data.get("outputs", {}).items():
         where = f"[outputs.{typ}]"
+        if typ == "notification":
+            raise SettingsError(f"{where} has been removed; delete the section")
         if typ not in OUTPUT_TYPES:
             raise SettingsError(f"{where}: unknown output; options: {OUTPUT_TYPES}")
-        allowed = {"context_file": {"path"}, "notification": set(), "command": {"run", "timeout_s"}, "webhook": {"url", "timeout_s"}}[typ]
+        allowed = {"context_file": {"path"}, "command": {"run", "timeout_s"}, "webhook": {"url", "timeout_s"}}[typ]
         _only(o, {"enabled", "on"} | allowed, where)
         on = tuple(o.get("on", ACTIONS))
         if not on or any(a not in ACTIONS for a in on):
@@ -149,10 +128,6 @@ def parse(data: dict) -> Settings:
         raise SettingsError(str(e)) from e
 
     return Settings(
-        clipboard=bool(clip.get("enabled", False)),
-        file_drop=bool(drop.get("enabled", False)),
-        drop_folders=tuple(paths.expand(f) for f in drop.get("folders", ())),
-        palette=bool(pal.get("enabled", True)),
         sources=tuple(sources),
         outputs=tuple(outputs),
         pipeline=pipeline,
@@ -171,9 +146,7 @@ def load(path: Path | None = None) -> Settings:
         raise SettingsError(f"{path} is not valid TOML: {e}") from e
 
 
-def render_default(sources: list[tuple[str, str]], clipboard: bool, file_drop: bool, drop_folder: str, notification: bool) -> str:
+def render_default(sources: list[tuple[str, str]]) -> str:
     entries = "".join(f'[[sources]]\ntype = "{t}"\npath = "{p}"\n\n' for t, p in sources) or (
         '# [[sources]]\n# type = "obsidian"\n# path = "~/Documents/MyVault"\n# exclude = ["Templates/**"]\n\n')
-    b = lambda v: "true" if v else "false"
-    return DEFAULT_CONFIG.format(clipboard=b(clipboard), file_drop=b(file_drop), drop_folder=drop_folder,
-                                 sources=entries, notification=b(notification))
+    return DEFAULT_CONFIG.format(sources=entries)

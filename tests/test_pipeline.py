@@ -10,7 +10,7 @@ from vice_ai import questions as Q
 from vice_ai.config import Config
 from vice_ai.conflict import DAY
 from vice_ai.jev import FakeJudge
-from vice_ai.listeners import palette_listener, palette_send, read_dropped_file
+from vice_ai import ask
 from vice_ai.pipeline import Pipeline
 from vice_ai.retrieve import Retriever
 from vice_ai.store import NumpyStore
@@ -137,26 +137,19 @@ def test_other_primitives_map_to_one_probability(variant, answer):
     assert Q.relevance_question(BLOCKS[0], variant).model_dump()["type"] == variant
 
 
-async def test_palette_round_trip():
+async def test_ask_socket_round_trip():
     # AF_UNIX paths are capped near 104 bytes on macOS; pytest's tmp_path is longer than that.
     sock = Path(tempfile.mkdtemp(prefix="amb", dir="/tmp")) / "p.sock"
 
     async def handle(ev):
         return {"action": "attach", "echo": ev.text, "trigger": ev.trigger}
 
-    server = asyncio.create_task(palette_listener(handle, sock))
+    server = asyncio.create_task(ask.serve(handle, sock))
     for _ in range(50):
         if sock.exists():
             break
         await asyncio.sleep(0.01)
-    assert await palette_send("when does Atlas ship?", sock) == {"action": "attach", "echo": "when does Atlas ship?", "trigger": "palette"}
+    assert await ask.send("when does Atlas ship?", sock) == {"action": "attach", "echo": "when does Atlas ship?", "trigger": "ask"}
     assert oct(sock.stat().st_mode)[-3:] == "600"
     server.cancel()
-
-
-def test_dropped_file_reading(tmp_path):
-    (tmp_path / "agenda.md").write_text("1. Confirm Atlas launch date\n")
-    (tmp_path / "scan.pdf").write_bytes(b"%PDF-1.7\x00\xff")
-    assert read_dropped_file(tmp_path / "agenda.md") == "Dropped file: agenda.md\n---\n1. Confirm Atlas launch date"
-    assert read_dropped_file(tmp_path / "scan.pdf") == "Dropped file: scan.pdf"
 

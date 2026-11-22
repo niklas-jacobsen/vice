@@ -4,11 +4,10 @@ from __future__ import annotations
 import asyncio
 import sys
 
-from . import keys, paths, tracing
+from . import ask, keys, paths, tracing
 from .calibrate import Calibration, load_calibration
 from .index import Index, SyncStats
 from .jev import JudgeError, TypeSafeJudge
-from .listeners import clipboard_listener, file_drop_listener, palette_listener
 from .outputs import Dispatcher
 from .pipeline import Pipeline
 from .settings import Settings
@@ -55,19 +54,10 @@ class App:
             await self.judge.aclose()
 
     async def serve(self) -> None:
-        """Run the configured listeners until cancelled."""
+        """Answer `vice ask` over the socket and keep the index current until cancelled."""
         s = self.settings
         if s.tracing:
             tracing.configure()
-        queue: asyncio.Queue = asyncio.Queue(maxsize=100)
-
-        async def worker() -> None:
-            while True:
-                event = await queue.get()
-                try:
-                    await self.handle(event)
-                except Exception as e:  # noqa: BLE001 - one bad event must not stop the service
-                    print(f"vice: event failed: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
 
         async def keep_warm() -> None:
             while True:
@@ -86,18 +76,6 @@ class App:
                 except Exception as e:  # noqa: BLE001
                     print(f"vice: re-index failed: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
 
-        tasks = [worker(), keep_warm(), watch_sources()]
-        active = []
-        if s.palette:
-            tasks.append(palette_listener(self.handle))
-            active.append("palette")
-        if s.clipboard:
-            tasks.append(clipboard_listener(queue))
-            active.append("clipboard")
-        if s.file_drop:
-            for folder in s.drop_folders:
-                tasks.append(file_drop_listener(queue, folder))
-            active.append(f"file_drop({len(s.drop_folders)})")
-        print(f"vice: listening on {', '.join(active) or 'nothing'}; {len(self.pipeline.retriever.blocks)} blocks; "
+        print(f"vice: serving on {paths.socket_file()}; {len(self.pipeline.retriever.blocks)} blocks; "
               f"model {self.cfg.model}", file=sys.stderr, flush=True)
-        await asyncio.gather(*tasks)
+        await asyncio.gather(ask.serve(self.handle), keep_warm(), watch_sources())

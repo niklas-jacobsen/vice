@@ -8,7 +8,7 @@ from typing import Any
 @dataclass(frozen=True)
 class AmbientEvent:
     id: str
-    trigger: str  # "clipboard" | "file_drop" | "palette" | "mcp"
+    trigger: str  # "ask" | "mcp"; the evaluation dataset also uses "clipboard", "file_drop", "palette"
     text: str
     ts: float  # epoch seconds
     meta: dict[str, Any] = field(default_factory=dict)

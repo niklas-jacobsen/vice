@@ -96,8 +96,9 @@ class PreGate:
         digest = hashlib.sha1(text.encode()).hexdigest()
         for k in [k for k, ts in self._seen.items() if event.ts - ts > self.cfg.dedupe_window_s]:
             del self._seen[k]
-        # A repeated copy is noise; a repeated question is a person asking again.
-        if event.trigger not in ("palette", "mcp"):
+        # A repeated query is asked again on purpose; only passive triggers (evaluation
+        # dataset) are deduplicated.
+        if event.trigger not in ("ask", "mcp", "palette"):
             if digest in self._seen:
                 return PreGateOutcome(False, "duplicate")
             self._seen[digest] = event.ts
