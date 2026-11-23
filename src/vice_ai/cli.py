@@ -3,7 +3,9 @@
     vice setup        first-time configuration (key, sources)
     vice sync         index your sources now
     vice ask "..."    print what an agent receives for this text
+    vice connect claude-code   register the hooks and MCP server with Claude Code
     vice hook         Claude Code UserPromptSubmit hook (prompt JSON on stdin)
+    vice guard        Claude Code PreToolUse hook (tool call JSON on stdin)
     vice run          run in the foreground
     vice start|stop   run in the background (macOS)
     vice status       what is configured and whether it is running
@@ -193,6 +195,41 @@ def cmd_hook(args) -> int:
     return 0
 
 
+def cmd_guard(args) -> int:
+    """Never breaks a tool call by failing: on any error it allows the call."""
+    from .guard import decide
+
+    try:
+        reply = decide(json.load(sys.stdin), settings_mod.load().sources)
+    except Exception as e:  # noqa: BLE001
+        print(f"vice guard: {e}", file=sys.stderr)
+        return 0
+    if reply:
+        print(json.dumps(reply))
+    return 0
+
+
+def cmd_connect(args) -> int:
+    from . import claude_code as cc
+
+    s = None if args.remove else _load_settings()
+    command = cc.vice_command()
+    path = args.settings or cc.settings_path()
+    backup = cc.write_settings(path, command, remove=args.remove)
+    print(f"{'Removed vice from' if args.remove else 'Added the prompt hook and read guard to'} {path}"
+          + (f" (previous version: {backup})" if backup else ""))
+    if not args.no_mcp:
+        print(cc.mcp(command, remove=args.remove))
+    if args.remove:
+        return 0
+    guarded = [src for src in s.sources if src.guard]
+    print("Guarded sources: " + (", ".join(f"{src.name} ({src.path})" for src in guarded) or "none"))
+    if not service.is_loaded():
+        print("The prompt hook adds context only while the service runs: vice start")
+    print("Restart Claude Code sessions to load the changes.")
+    return 0
+
+
 def cmd_run(args) -> int:
     paths.ensure_home()
 
@@ -293,7 +330,14 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("text")
     p.add_argument("--json", action="store_true", help="print the full decision as JSON")
     p.set_defaults(fn=cmd_ask)
+    p = sub.add_parser("connect", help="register vice with an agent")
+    p.add_argument("agent", choices=["claude-code"])
+    p.add_argument("--remove", action="store_true", help="remove vice's hooks and MCP server instead")
+    p.add_argument("--settings", type=Path, metavar="PATH", help="settings file (default ~/.claude/settings.json)")
+    p.add_argument("--no-mcp", action="store_true", help="do not add or remove the MCP server")
+    p.set_defaults(fn=cmd_connect)
     sub.add_parser("hook", help="Claude Code UserPromptSubmit hook (reads the prompt JSON on stdin)").set_defaults(fn=cmd_hook)
+    sub.add_parser("guard", help="Claude Code PreToolUse hook (reads the tool call JSON on stdin)").set_defaults(fn=cmd_guard)
     p = sub.add_parser("run", help="run in the foreground")
     p.add_argument("-v", "--verbose", action="store_true", help="print each decision as JSON")
     p.set_defaults(fn=cmd_run)

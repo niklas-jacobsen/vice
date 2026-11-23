@@ -162,19 +162,69 @@ def _excluded(rel: str, patterns: tuple[str, ...]) -> bool:
     return any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(rel, p.rstrip("/*") + "/*") for p in patterns)
 
 
+def _patterns(src: Source) -> tuple[str, ...]:
+    return ALWAYS_EXCLUDE + (OBSIDIAN_EXCLUDE if src.type == "obsidian" else ()) + src.exclude
+
+
+def _dir_excluded(rel_dir: str, patterns: tuple[str, ...]) -> bool:
+    return _excluded(rel_dir.lstrip("./") + "/x", patterns)
+
+
+def _is_doc(rel: str, patterns: tuple[str, ...]) -> bool:
+    return Path(rel).suffix.lower() in (".md", ".markdown") and not _excluded(rel, patterns)
+
+
 def iter_files(src: Source) -> Iterator[Path]:
     if src.type == "jsonl":
         if src.path.is_file():
             yield src.path
         return
-    patterns = ALWAYS_EXCLUDE + (OBSIDIAN_EXCLUDE if src.type == "obsidian" else ()) + src.exclude
+    patterns = _patterns(src)
     for root, dirs, files in os.walk(src.path):
         rel_root = Path(root).relative_to(src.path).as_posix()
-        dirs[:] = sorted(d for d in dirs if not d.startswith(".") and not _excluded(f"{rel_root}/{d}".lstrip("./") + "/x", patterns))
+        dirs[:] = sorted(d for d in dirs if not d.startswith(".") and not _dir_excluded(f"{rel_root}/{d}", patterns))
         for f in sorted(files):
             p = Path(root) / f
-            if p.suffix.lower() in (".md", ".markdown") and not _excluded(p.relative_to(src.path).as_posix(), patterns):
+            if _is_doc(p.relative_to(src.path).as_posix(), patterns):
                 yield p
+
+
+def _rel_parts(src: Source, path: Path) -> tuple[str, ...] | None:
+    """`path` relative to the source root as parts, or None if it is outside it."""
+    try:
+        return path.relative_to(src.path).parts
+    except ValueError:
+        return None
+
+
+def _dirs_included(src: Source, parts: tuple[str, ...]) -> bool:
+    patterns = _patterns(src)
+    for i in range(1, len(parts) + 1):
+        if parts[i - 1].startswith(".") or _dir_excluded("/".join(parts[:i]), patterns):
+            return False
+    return True
+
+
+def indexes_file(src: Source, path: Path) -> bool:
+    """True if `path` (absolute, resolved) is a file this source indexes. Mirrors iter_files
+    without walking the tree."""
+    if src.type == "jsonl":
+        return path == src.path
+    parts = _rel_parts(src, path)
+    if not parts or not _dirs_included(src, parts[:-1]) or not _is_doc("/".join(parts), _patterns(src)):
+        return False
+    try:
+        return path.stat().st_size <= MAX_FILE_BYTES
+    except OSError:
+        return True  # not there (yet): judged by name alone
+
+
+def indexes_dir(src: Source, path: Path) -> bool:
+    """True if `path` is the source root or a directory inside it that is not excluded."""
+    if src.type == "jsonl":
+        return False
+    parts = _rel_parts(src, path)
+    return parts is not None and _dirs_included(src, parts)
 
 
 def fingerprint(sources: tuple[Source, ...]) -> str:

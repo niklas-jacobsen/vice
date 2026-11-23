@@ -51,6 +51,7 @@ class Source:
     path: Path
     name: str
     exclude: tuple[str, ...] = ()
+    guard: bool = True  # connected agents may not read indexed files directly
 
 
 @dataclass(frozen=True)
@@ -92,13 +93,15 @@ def parse(data: dict) -> Settings:
     sources = []
     for i, n in enumerate(data.get("sources", [])):
         where = f"[[sources]] #{i + 1}"
-        _only(n, {"type", "path", "name", "exclude"}, where)
+        _only(n, {"type", "path", "name", "exclude", "guard"}, where)
         if n.get("type") not in SOURCE_TYPES:
             raise SettingsError(f"{where}: type must be one of {SOURCE_TYPES}")
         if "path" not in n:
             raise SettingsError(f"{where}: path is required")
         p = paths.expand(n["path"])
-        sources.append(Source(n["type"], p, n.get("name") or p.name, tuple(n.get("exclude", ()))))
+        if not isinstance(n.get("guard", True), bool):
+            raise SettingsError(f"{where}: guard must be true or false")
+        sources.append(Source(n["type"], p, n.get("name") or p.name, tuple(n.get("exclude", ())), n.get("guard", True)))
     names = [n.name for n in sources]
     if len(set(names)) != len(names):
         raise SettingsError("[[sources]] need distinct names; add name = \"...\" to disambiguate")

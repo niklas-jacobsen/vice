@@ -357,3 +357,91 @@ def test_hook_adds_context_for_claude_code(monkeypatch, capsys):
 def test_hook_never_adds_noise_or_blocks_the_prompt(monkeypatch, capsys, stdin, query):
     code, out = _run_hook(monkeypatch, capsys, stdin, query)
     assert code == 0 and out.out == ""
+
+
+# --- read guard ---
+
+@pytest.fixture
+def guarded(tmp_path):
+    v = tmp_path / "vault"
+    for rel in ["Projects/Atlas.md", "Templates/Meeting.md", "assets/logo.png", ".obsidian/app.md", "Open/Free.md"]:
+        (v / rel).parent.mkdir(parents=True, exist_ok=True)
+        (v / rel).write_text("x")
+    (tmp_path / "elsewhere.md").write_text("x")
+    srcs = (Source("obsidian", v, "vault", ("Templates/**",)),)
+    return v, srcs
+
+
+@pytest.mark.parametrize("tool, tool_input, blocked", [
+    ("Read", {"file_path": "{v}/Projects/Atlas.md"}, True),
+    ("Read", {"file_path": "{v}/Templates/Meeting.md"}, False),   # excluded by the source
+    ("Read", {"file_path": "{v}/assets/logo.png"}, False),        # not indexed (not Markdown)
+    ("Read", {"file_path": "{v}/.obsidian/app.md"}, False),       # hidden directory
+    ("Read", {"file_path": "{v}/../elsewhere.md"}, False),        # outside every source
+    ("Grep", {"pattern": "Atlas", "path": "{v}"}, True),
+    ("Grep", {"pattern": "Atlas", "path": "{v}/Templates"}, False),
+    ("Grep", {"pattern": "Atlas"}, False),                        # cwd is outside the vault
+    ("Glob", {"pattern": "**/*.md", "path": "{v}/Projects"}, True),
+    ("Glob", {"pattern": "{v}/**/*.md"}, True),
+    ("Bash", {"command": "cat '{v}/Projects/Atlas.md'"}, True),
+    ("Bash", {"command": "grep -rn Atlas {v}"}, True),
+    ("Bash", {"command": "ls {v}/Templates && echo done"}, False),
+    ("Bash", {"command": "pytest -q"}, False),
+    ("Edit", {"file_path": "{v}/Projects/Atlas.md"}, False),       # only reads are guarded
+])
+def test_guard_blocks_only_files_vice_indexes(guarded, tmp_path, tool, tool_input, blocked):
+    from vice_ai.guard import decide
+    v, srcs = guarded
+    ti = {k: val.replace("{v}", str(v)) for k, val in tool_input.items()}
+    reply = decide({"tool_name": tool, "tool_input": ti, "cwd": str(tmp_path)}, srcs)
+    assert (reply is not None) == blocked
+    if blocked:
+        assert reply["hookSpecificOutput"]["permissionDecision"] == "deny" and "recall" in reply["hookSpecificOutput"]["permissionDecisionReason"]
+
+
+def test_guard_respects_guard_false(guarded, tmp_path):
+    import dataclasses
+    from vice_ai.guard import decide
+    v, srcs = guarded
+    open_srcs = tuple(dataclasses.replace(s, guard=False) for s in srcs)
+    assert decide({"tool_name": "Read", "tool_input": {"file_path": f"{v}/Projects/Atlas.md"}, "cwd": str(tmp_path)}, open_srcs) is None
+
+
+def test_guard_allows_when_vice_is_misconfigured(monkeypatch, capsys):
+    import io
+    monkeypatch.setattr(sys, "stdin", io.StringIO('{"tool_name": "Read", "tool_input": {"file_path": "/x.md"}}'))
+    assert run_cli("guard") == 0 and capsys.readouterr().out == ""  # no config.toml: allow
+
+
+# --- connect claude-code ---
+
+def test_connect_merges_and_removes_only_vice_entries(tmp_path, vault, capsys, monkeypatch):
+    from vice_ai import claude_code as cc
+    monkeypatch.setattr(cc, "vice_command", lambda: ["/opt/bin/vice"])
+    assert run_cli("setup", "--yes", "--no-key", "--source", str(vault)) == 0
+    path = tmp_path / "settings.json"
+    other = {"type": "command", "command": "~/bin/lint.sh"}
+    path.write_text(json.dumps({"model": "opus", "hooks": {"PreToolUse": [{"matcher": "Bash", "hooks": [other]}]}}))
+
+    for _ in range(2):  # idempotent
+        assert run_cli("connect", "claude-code", "--settings", str(path), "--no-mcp") == 0
+    s = json.loads(path.read_text())
+    assert s["model"] == "opus"
+    assert [h["command"] for g in s["hooks"]["UserPromptSubmit"] for h in g["hooks"]] == ["/opt/bin/vice hook"]
+    pre = s["hooks"]["PreToolUse"]
+    assert pre[0] == {"matcher": "Bash", "hooks": [other]}
+    assert pre[1]["matcher"] == "Read|Grep|Glob|Bash" and pre[1]["hooks"][0]["command"] == "/opt/bin/vice guard"
+    assert len(pre) == 2 and (tmp_path / "settings.json.vice-backup").exists()
+    assert "Guarded sources: " in capsys.readouterr().out
+
+    assert run_cli("connect", "claude-code", "--settings", str(path), "--no-mcp", "--remove") == 0
+    assert json.loads(path.read_text()) == {"model": "opus", "hooks": {"PreToolUse": [{"matcher": "Bash", "hooks": [other]}]}}
+
+
+def test_connect_refuses_to_overwrite_invalid_json(tmp_path, vault):
+    assert run_cli("setup", "--yes", "--no-key", "--source", str(vault)) == 0
+    path = tmp_path / "settings.json"
+    path.write_text("{ not json")
+    with pytest.raises(SystemExit, match="not valid JSON"):
+        cli(["connect", "claude-code", "--settings", str(path), "--no-mcp"])
+    assert path.read_text() == "{ not json"
