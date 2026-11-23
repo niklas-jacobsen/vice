@@ -15,6 +15,7 @@ TRIGGER_DESCRIPTIONS = {
     "ask": "a command the user just typed",
     # Same wording as "ask": the shipped calibration was fitted on it.
     "mcp": "a command the user just typed",
+    "hook": "a command the user just typed",
     # Triggers that occur only in the evaluation dataset, kept so it replays as calibrated.
     "palette": "a command the user just typed",
     "clipboard": "text the user just copied",

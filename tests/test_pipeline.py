@@ -151,5 +151,6 @@ async def test_ask_socket_round_trip():
         await asyncio.sleep(0.01)
     assert await ask.send("when does Atlas ship?", sock) == {"action": "attach", "echo": "when does Atlas ship?", "trigger": "ask"}
     assert oct(sock.stat().st_mode)[-3:] == "600"
+    assert (await ask.send("draft the Atlas announcement", sock, trigger="hook"))["trigger"] == "hook"
     server.cancel()
 

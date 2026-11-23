@@ -35,7 +35,13 @@ def as_reply(res: PipelineResult) -> dict:
     }
 
 
+# Agent-facing triggers: the agent receives the answer itself, so only the context file
+# is written; command and webhook outputs would duplicate it.
+AGENT_TRIGGERS = ("mcp", "hook")
+AGENT_OUTPUTS = ("context_file",)
+
 NO_CONTEXT = "No relevant information."
+HOOK_HEADER = "Relevant information from the user's sources (vice):"
 UNAVAILABLE = "vice could not check its sources right now (the judging service did not answer)."
 # Reasons where vice did not get to look, as opposed to looking and finding nothing.
 _UNAVAILABLE_REASONS = {"gate_unavailable", "fanout_unavailable"}
@@ -50,6 +56,11 @@ def format_reply(reply: dict) -> str:
     if reply["context"]:
         return format_blocks(reply["context"])
     return UNAVAILABLE if reply["reason"] in _UNAVAILABLE_REASONS else NO_CONTEXT
+
+
+def format_hook(reply: dict) -> str:
+    """Context pushed with a prompt: nothing at all when there is nothing relevant."""
+    return f"{HOOK_HEADER}\n{format_blocks(reply['context'])}" if reply["context"] else ""
 
 
 def _context_file(reply: dict, opts: dict) -> None:

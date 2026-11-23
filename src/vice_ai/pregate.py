@@ -98,7 +98,7 @@ class PreGate:
             del self._seen[k]
         # A repeated query is asked again on purpose; only passive triggers (evaluation
         # dataset) are deduplicated.
-        if event.trigger not in ("ask", "mcp", "palette"):
+        if event.trigger not in ("ask", "hook", "mcp", "palette"):
             if digest in self._seen:
                 return PreGateOutcome(False, "duplicate")
             self._seen[digest] = event.ts

@@ -313,3 +313,47 @@ async def test_mcp_server_end_to_end(monkeypatch):
         res = await c.call_tool("recall", {"query": "when does Atlas ship?"})
         assert res.content[0].text == "[2023-11-14] Atlas ships December 2."
     assert json.loads(paths.decisions_file().read_text().splitlines()[-1])["event"]["trigger"] == "mcp"
+
+
+# --- Claude Code hook ---
+
+def test_hook_output_is_empty_without_context():
+    assert outputs.format_hook(_reply(Action.SUPPRESS, "gate_no")) == ""
+    assert outputs.format_hook(_reply(Action.SUPPRESS, "gate_unavailable")) == ""
+    assert outputs.format_hook(_reply(Action.ATTACH, "relevant_context", 1)).splitlines() == [
+        outputs.HOOK_HEADER, "[2023-11-14] Atlas ships April 18."]
+
+
+def _run_hook(monkeypatch, capsys, stdin, query):
+    import io
+    from vice_ai import cli as C
+    monkeypatch.setattr(C, "_query", query)
+    monkeypatch.setattr(sys, "stdin", io.StringIO(stdin))
+    code = run_cli("hook")
+    return code, capsys.readouterr()
+
+
+def test_hook_adds_context_for_claude_code(monkeypatch, capsys):
+    seen = {}
+
+    def query(text, trigger, local=True):
+        seen.update(text=text, trigger=trigger, local=local)
+        return _reply(Action.SURFACE, "strong_match", 1)
+
+    code, out = _run_hook(monkeypatch, capsys, json.dumps({"hook_event_name": "UserPromptSubmit",
+                                                           "prompt": "draft the Atlas launch announcement"}), query)
+    assert code == 0 and seen == {"text": "draft the Atlas launch announcement", "trigger": "hook", "local": False}
+    got = json.loads(out.out)["hookSpecificOutput"]
+    assert got["hookEventName"] == "UserPromptSubmit" and got["additionalContext"].startswith(outputs.HOOK_HEADER)
+
+
+@pytest.mark.parametrize("stdin, query", [
+    ('{"prompt": "fix the failing test"}', lambda t, g, **k: _reply(Action.SUPPRESS, "gate_no")),
+    ('{"prompt": "x"}', lambda t, g, **k: (_ for _ in ()).throw(SystemExit("vice: no TypeSafe API key found"))),
+    ("not json", lambda t, g, **k: None),
+    ('{"prompt": "x"}', lambda t, g, **k: (_ for _ in ()).throw(__import__("vice_ai.cli").cli.ServiceDown("down"))),
+    ('{"prompt": ""}', lambda t, g, **k: None),
+])
+def test_hook_never_adds_noise_or_blocks_the_prompt(monkeypatch, capsys, stdin, query):
+    code, out = _run_hook(monkeypatch, capsys, stdin, query)
+    assert code == 0 and out.out == ""

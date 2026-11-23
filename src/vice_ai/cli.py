@@ -3,6 +3,7 @@
     vice setup        first-time configuration (key, sources)
     vice sync         index your sources now
     vice ask "..."    print what an agent receives for this text
+    vice hook         Claude Code UserPromptSubmit hook (prompt JSON on stdin)
     vice run          run in the foreground
     vice start|stop   run in the background (macOS)
     vice status       what is configured and whether it is running
@@ -143,23 +144,52 @@ def cmd_sync(args) -> int:
     return 0
 
 
-def cmd_ask(args) -> int:
+class ServiceDown(Exception):
+    pass
+
+
+def _query(text: str, trigger: str, local: bool = True) -> dict:
+    """Answer through the running service if there is one, otherwise in-process
+    (unless `local` is false: loading the index takes seconds)."""
     from . import ask
-    from .outputs import format_reply
 
     async def go() -> dict:
         if paths.socket_file().exists():
             try:
-                return await ask.send(args.text)
+                return await ask.send(text, trigger=trigger)
             except (ConnectionRefusedError, FileNotFoundError):
                 pass  # stale socket from a stopped service; fall through and answer directly
+        if not local:
+            raise ServiceDown("the service is not running (`vice start`); no context added")
 
         async def one(app):
-            return await app.handle(ask.make_event("ask", args.text))
+            return await app.handle(ask.make_event(trigger, text))
         return await _with_app(one)
 
-    reply = asyncio.run(go())
+    return asyncio.run(go())
+
+
+def cmd_ask(args) -> int:
+    from .outputs import format_reply
+
+    reply = _query(args.text, "ask")
     print(json.dumps(reply, indent=2, ensure_ascii=False) if args.json else format_reply(reply))
+    return 0
+
+
+def cmd_hook(args) -> int:
+    """Never blocks or fails the prompt: on any error it prints nothing and exits 0.
+    Claude Code does not show the agent stderr from a hook that exits 0."""
+    from .outputs import format_hook
+
+    try:
+        prompt = str(json.load(sys.stdin).get("prompt") or "").strip()
+        context = format_hook(_query(prompt, "hook", local=False)) if prompt else ""
+    except (Exception, SystemExit) as e:  # noqa: BLE001
+        print(f"vice hook: {e}", file=sys.stderr)
+        return 0
+    if context:
+        print(json.dumps({"hookSpecificOutput": {"hookEventName": "UserPromptSubmit", "additionalContext": context}}))
     return 0
 
 
@@ -263,6 +293,7 @@ def main(argv: list[str] | None = None) -> None:
     p.add_argument("text")
     p.add_argument("--json", action="store_true", help="print the full decision as JSON")
     p.set_defaults(fn=cmd_ask)
+    sub.add_parser("hook", help="Claude Code UserPromptSubmit hook (reads the prompt JSON on stdin)").set_defaults(fn=cmd_hook)
     p = sub.add_parser("run", help="run in the foreground")
     p.add_argument("-v", "--verbose", action="store_true", help="print each decision as JSON")
     p.set_defaults(fn=cmd_run)

@@ -15,10 +15,7 @@ import sys
 from . import settings as settings_mod
 from .app import App
 from .ask import make_event
-from .outputs import format_reply
-
-# The assistant asked and receives the answer itself; other outputs would only duplicate it.
-RECALL_OUTPUTS = ("context_file",)
+from .outputs import AGENT_OUTPUTS, format_reply
 
 RECALL_DOC = """Look up information from the user's own sources (projects, people, dates, decisions, preferences).
 Pass the user's question as they wrote it; do not add keywords or rephrase.
@@ -47,7 +44,7 @@ def build_server():
         a = await app()
         await a.resync()
         res = await a.pipeline.handle(make_event("mcp", query))
-        return format_reply(await a.dispatcher.emit(res, only=RECALL_OUTPUTS))
+        return format_reply(await a.dispatcher.emit(res, only=AGENT_OUTPUTS))
 
     return server
 

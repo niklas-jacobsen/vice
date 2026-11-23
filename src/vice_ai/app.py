@@ -8,7 +8,7 @@ from . import ask, keys, paths, tracing
 from .calibrate import Calibration, load_calibration
 from .index import Index, SyncStats
 from .jev import JudgeError, TypeSafeJudge
-from .outputs import Dispatcher
+from .outputs import AGENT_OUTPUTS, AGENT_TRIGGERS, Dispatcher
 from .pipeline import Pipeline
 from .settings import Settings
 from .types import AmbientEvent
@@ -40,7 +40,8 @@ class App:
         return stats
 
     async def handle(self, event: AmbientEvent) -> dict:
-        return await self.dispatcher.emit(await self.pipeline.handle(event))
+        only = AGENT_OUTPUTS if event.trigger in AGENT_TRIGGERS else None
+        return await self.dispatcher.emit(await self.pipeline.handle(event), only=only)
 
     async def resync(self) -> SyncStats | None:
         if not await asyncio.to_thread(self.index.changed):
@@ -54,7 +55,7 @@ class App:
             await self.judge.aclose()
 
     async def serve(self) -> None:
-        """Answer `vice ask` over the socket and keep the index current until cancelled."""
+        """Answer `vice ask` and `vice hook` over the socket and keep the index current until cancelled."""
         s = self.settings
         if s.tracing:
             tracing.configure()

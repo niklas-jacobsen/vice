@@ -1,5 +1,6 @@
-"""The `vice ask` socket: the background service answers queries over a local Unix socket,
-so a caller gets an answer without loading the index and embedding model itself.
+"""The service socket: the background service answers `vice ask` and `vice hook` over a
+local Unix socket, so the caller gets an answer without loading the index and embedding
+model itself. One JSON line in (`{"trigger": ..., "text": ...}`), one JSON reply out.
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ from . import paths
 from .types import AmbientEvent
 
 _ids = itertools.count()
+SOCKET_TRIGGERS = ("ask", "hook")
 
 
 def make_event(trigger: str, text: str, **meta) -> AmbientEvent:
@@ -28,9 +30,10 @@ async def serve(handle: Callable[[AmbientEvent], Awaitable[dict]], path: Path | 
 
     async def on_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter) -> None:
         try:
-            line = (await reader.readline()).decode("utf-8", "replace").strip()
-            if line:
-                reply = await handle(make_event("ask", line))
+            msg = json.loads((await reader.readline()).decode("utf-8", "replace") or "{}")
+            trigger = msg.get("trigger") if msg.get("trigger") in SOCKET_TRIGGERS else "ask"
+            if text := str(msg.get("text") or "").strip():
+                reply = await handle(make_event(trigger, text))
                 writer.write((json.dumps(reply) + "\n").encode())
                 await writer.drain()
         finally:
@@ -42,9 +45,9 @@ async def serve(handle: Callable[[AmbientEvent], Awaitable[dict]], path: Path | 
         await server.serve_forever()
 
 
-async def send(text: str, path: Path | None = None) -> dict:
+async def send(text: str, path: Path | None = None, trigger: str = "ask") -> dict:
     reader, writer = await asyncio.open_unix_connection(str(path or paths.socket_file()))
-    writer.write((text.replace("\n", " ") + "\n").encode())
+    writer.write((json.dumps({"trigger": trigger, "text": text}) + "\n").encode())
     await writer.drain()
     reply = json.loads(await reader.readline())
     writer.close()
