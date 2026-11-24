@@ -19,9 +19,9 @@ from .base import RESERVED_KEYS, SourceAdapter, SourceConfigError
 ENTRY_POINT_GROUP = "vice.sources"
 
 BUILTIN = {
-    "markdown": "vice_ai.adapters.builtin:MarkdownSource",
-    "obsidian": "vice_ai.adapters.builtin:ObsidianSource",
-    "jsonl": "vice_ai.adapters.builtin:JsonlSource",
+    "markdown": "vice_ai.adapters.markdown:MarkdownSource",
+    "obsidian": "vice_ai.adapters.markdown:ObsidianSource",
+    "jsonl": "vice_ai.adapters.jsonl:JsonlSource",
 }
 
 

@@ -1,252 +1,39 @@
-"""Information sources: turn a folder of Markdown, an Obsidian vault, or a JSONL file into
-blocks (`Block`s).
-
-Each Markdown block carries its document title and heading path, so it reads sensibly on its own, both
-to the embedder and to Jev, which sees one block at a time.
-
-Timestamps matter because newer facts supersede older ones. In order of preference:
-frontmatter `date` / `created` / `updated`, a YYYY-MM-DD in the file name (daily notes),
-then the file's modification time.
-"""
+"""Legacy loader entry points over `settings.Source`. Thin shims over `vice_ai.adapters`;
+they will be removed once callers use adapters directly."""
 from __future__ import annotations
 
-import fnmatch
 import hashlib
-import json
-import os
-import re
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterator
 
+from .adapters._common import count_tokens  # noqa: F401
+from .adapters.base import SourceAdapter
+from .adapters.jsonl import JsonlSource
+from .adapters.markdown import (ALWAYS_EXCLUDE, MAX_FILE_BYTES, MAX_TOKENS, OBSIDIAN_EXCLUDE,  # noqa: F401
+                                TARGET_TOKENS, MarkdownSource, ObsidianSource, clean_obsidian,
+                                note_timestamp, split_markdown)
+from .adapters._common import legacy_block_id as _block_id  # noqa: F401
 from .settings import Source
 from .types import Block
 
-TARGET_TOKENS = 120  # merge small paragraphs up to about this size
-MAX_TOKENS = 220  # split anything larger
-MAX_FILE_BYTES = 2_000_000
-ALWAYS_EXCLUDE = (".*/**", ".*", "**/.*/**", "node_modules/**")
-OBSIDIAN_EXCLUDE = (".obsidian/**", ".trash/**")
-
-_FRONTMATTER = re.compile(r"\A---\s*\n(.*?)\n---\s*\n", re.S)
-_HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*#*\s*$")
-_EMBED = re.compile(r"!\[\[[^\]]*\]\]")
-_WIKILINK = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
-_COMMENT = re.compile(r"%%.*?%%", re.S)
-_FILE_DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
-_enc = None
-_unk: int | None = None
+_TYPES = {"markdown": MarkdownSource, "obsidian": ObsidianSource, "jsonl": JsonlSource}
 
 
-def count_tokens(text: str) -> int:
-    """Tokens as the embedding model counts them (MiniLM WordPiece, no special tokens).
-
-    Within about 2% of cl100k on notes, and it keeps chunk limits in the same units as
-    the model's 256-token window. WordPiece turns any word over 100 characters (a long
-    URL, base64, minified code) into one [UNK]; those spans count at 4 characters a
-    token so they cannot slip past a budget.
-    """
-    global _enc, _unk
-    if _enc is None:
-        from tokenizers import Tokenizer
-
-        from .embed import minilm_files
-
-        _enc = Tokenizer.from_file(str(minilm_files(only=("tokenizer.json",)) / "tokenizer.json"))
-        _enc.no_truncation()
-        _enc.no_padding()
-        _unk = _enc.token_to_id("[UNK]")
-    e = _enc.encode(text, add_special_tokens=False)
-    n = len(e.ids)
-    for tid, (start, end) in zip(e.ids, e.offsets):
-        if tid == _unk and end - start > 4:
-            n += -(-(end - start) // 4) - 1
-    return n
-
-
-def _parse_date(value: str) -> float | None:
-    value = value.strip().strip("\"'")
-    for fmt in (None, "%Y-%m-%d %H:%M", "%Y/%m/%d", "%d.%m.%Y"):
-        try:
-            d = datetime.fromisoformat(value) if fmt is None else datetime.strptime(value, fmt)
-            return (d if d.tzinfo else d.replace(tzinfo=timezone.utc)).timestamp()
-        except ValueError:
-            continue
-    return None
-
-
-def _frontmatter(text: str) -> tuple[dict[str, str], str]:
-    m = _FRONTMATTER.match(text)
-    if not m:
-        return {}, text
-    meta = {}
-    for line in m.group(1).splitlines():
-        if ":" in line and not line.startswith((" ", "\t", "-")):
-            k, v = line.split(":", 1)
-            meta[k.strip().lower()] = v.strip()
-    return meta, text[m.end():]
-
-
-def note_timestamp(meta: dict[str, str], path: Path, mtime: float) -> float:
-    for key in ("updated", "modified", "date", "created"):
-        if key in meta and (ts := _parse_date(meta[key])) is not None:
-            return ts
-    if m := _FILE_DATE.search(path.stem):
-        try:
-            return datetime(int(m[1]), int(m[2]), int(m[3]), 12, tzinfo=timezone.utc).timestamp()
-        except ValueError:
-            pass
-    return mtime
-
-
-def clean_obsidian(text: str) -> str:
-    text = _COMMENT.sub("", text)
-    text = _EMBED.sub("", text)
-    return _WIKILINK.sub(lambda m: m.group(2) or m.group(1).split("#")[0], text)
-
-
-def _split_long(text: str) -> list[str]:
-    """Break oversized text at line, then sentence, boundaries."""
-    if count_tokens(text) <= MAX_TOKENS:
-        return [text]
-    units = text.split("\n") if "\n" in text else re.split(r"(?<=[.!?])\s+", text)
-    if len(units) == 1:  # one enormous unbroken run: hard cut by characters
-        step = MAX_TOKENS * 3
-        return [text[i:i + step] for i in range(0, len(text), step)]
-    out, cur = [], ""
-    for u in units:
-        cand = f"{cur}\n{u}" if cur else u
-        if cur and count_tokens(cand) > MAX_TOKENS:
-            out.extend(_split_long(cur))
-            cur = u
-        else:
-            cur = cand
-    if cur:
-        out.extend(_split_long(cur) if count_tokens(cur) > MAX_TOKENS else [cur])
-    return out
-
-
-def split_markdown(text: str, title: str) -> list[tuple[str, str]]:
-    """Return (heading path, body) pieces. Paragraphs under one heading merge up to TARGET_TOKENS."""
-    headings: list[tuple[int, str]] = []
-    pieces: list[tuple[str, str]] = []
-    para_lines: list[str] = []
-    pending: list[str] = []
-    in_code = False
-
-    def path() -> str:
-        return " › ".join([title] + [h for _, h in headings if h != title])
-
-    def flush_pending() -> None:
-        if pending:
-            for part in _split_long("\n\n".join(pending)):
-                pieces.append((path(), part))
-            pending.clear()
-
-    def flush_paragraph() -> None:
-        if not para_lines:
-            return
-        para = "\n".join(para_lines).strip()
-        para_lines.clear()
-        if not para:
-            return
-        if pending and count_tokens("\n\n".join(pending + [para])) > TARGET_TOKENS:
-            flush_pending()
-        pending.append(para)
-
-    for line in text.splitlines():
-        if line.lstrip().startswith("```"):
-            in_code = not in_code
-            para_lines.append(line)
-            continue
-        m = None if in_code else _HEADING.match(line)
-        if m:
-            flush_paragraph()
-            flush_pending()
-            level = len(m.group(1))
-            while headings and headings[-1][0] >= level:
-                headings.pop()
-            headings.append((level, m.group(2).strip()))
-        elif not line.strip() and not in_code:
-            flush_paragraph()
-        else:
-            para_lines.append(line.rstrip())
-    flush_paragraph()
-    flush_pending()
-    return pieces
-
-
-def _excluded(rel: str, patterns: tuple[str, ...]) -> bool:
-    return any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(rel, p.rstrip("/*") + "/*") for p in patterns)
-
-
-def _patterns(src: Source) -> tuple[str, ...]:
-    return ALWAYS_EXCLUDE + (OBSIDIAN_EXCLUDE if src.type == "obsidian" else ()) + src.exclude
-
-
-def _dir_excluded(rel_dir: str, patterns: tuple[str, ...]) -> bool:
-    return _excluded(rel_dir.lstrip("./") + "/x", patterns)
-
-
-def _is_doc(rel: str, patterns: tuple[str, ...]) -> bool:
-    return Path(rel).suffix.lower() in (".md", ".markdown") and not _excluded(rel, patterns)
+def _adapter(src: Source) -> SourceAdapter:
+    opts = {"path": "x"} | ({"exclude": list(src.exclude)} if src.type != "jsonl" else {})
+    a = _TYPES[src.type](src.name, opts, src.guard)
+    a.path = src.path
+    return a
 
 
 def iter_files(src: Source) -> Iterator[Path]:
+    a = _adapter(src)
     if src.type == "jsonl":
-        if src.path.is_file():
-            yield src.path
-        return
-    patterns = _patterns(src)
-    for root, dirs, files in os.walk(src.path):
-        rel_root = Path(root).relative_to(src.path).as_posix()
-        dirs[:] = sorted(d for d in dirs if not d.startswith(".") and not _dir_excluded(f"{rel_root}/{d}", patterns))
-        for f in sorted(files):
-            p = Path(root) / f
-            if _is_doc(p.relative_to(src.path).as_posix(), patterns):
-                yield p
-
-
-def _rel_parts(src: Source, path: Path) -> tuple[str, ...] | None:
-    """`path` relative to the source root as parts, or None if it is outside it."""
-    try:
-        return path.relative_to(src.path).parts
-    except ValueError:
-        return None
-
-
-def _dirs_included(src: Source, parts: tuple[str, ...]) -> bool:
-    patterns = _patterns(src)
-    for i in range(1, len(parts) + 1):
-        if parts[i - 1].startswith(".") or _dir_excluded("/".join(parts[:i]), patterns):
-            return False
-    return True
-
-
-def indexes_file(src: Source, path: Path) -> bool:
-    """True if `path` (absolute, resolved) is a file this source indexes. Mirrors iter_files
-    without walking the tree."""
-    if src.type == "jsonl":
-        return path == src.path
-    parts = _rel_parts(src, path)
-    if not parts or not _dirs_included(src, parts[:-1]) or not _is_doc("/".join(parts), _patterns(src)):
-        return False
-    try:
-        return path.stat().st_size <= MAX_FILE_BYTES
-    except OSError:
-        return True  # not there (yet): judged by name alone
-
-
-def indexes_dir(src: Source, path: Path) -> bool:
-    """True if `path` is the source root or a directory inside it that is not excluded."""
-    if src.type == "jsonl":
-        return False
-    parts = _rel_parts(src, path)
-    return parts is not None and _dirs_included(src, parts)
+        return iter([src.path] if src.path.is_file() else [])
+    return a.iter_files()
 
 
 def fingerprint(sources: tuple[Source, ...]) -> str:
-    """Changes whenever any source file is added, removed or modified. Cheap: stat calls only."""
     h = hashlib.sha1()
     for src in sources:
         for p in iter_files(src):
@@ -258,40 +45,16 @@ def fingerprint(sources: tuple[Source, ...]) -> str:
     return h.hexdigest()
 
 
-def _block_id(source: str, text: str) -> str:
-    return hashlib.sha1(f"{source}\0{text}".encode()).hexdigest()[:16]
+def indexes_file(src: Source, path: Path) -> bool:
+    return _adapter(src).indexes(path, False)
+
+
+def indexes_dir(src: Source, path: Path) -> bool:
+    return _adapter(src).indexes(path, True)
 
 
 def load_source(src: Source) -> list[Block]:
-    blocks: list[Block] = []
-    if src.type == "jsonl":
-        for n, line in enumerate(src.path.read_text(encoding="utf-8").splitlines()):
-            if not line.strip():
-                continue
-            d = json.loads(line)
-            text = str(d["text"])
-            blocks.append(Block(str(d.get("id") or _block_id(src.name, text)), text, float(d["ts"]),
-                                int(d.get("tokens") or count_tokens(text)), d.get("source") or f"{src.name}:{n + 1}"))
-        return blocks
-
-    for p in iter_files(src):
-        try:
-            st = p.stat()
-            if st.st_size > MAX_FILE_BYTES:
-                continue
-            raw = p.read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            continue
-        meta, body = _frontmatter(raw)
-        if src.type == "obsidian":
-            body = clean_obsidian(body)
-        title = meta.get("title", "").strip("\"'") or p.stem
-        ts = note_timestamp(meta, p, st.st_mtime)
-        rel = f"{src.name}/{p.relative_to(src.path).as_posix()}"
-        for heading_path, part in split_markdown(body, title):
-            text = f"[{heading_path}] {part}"
-            blocks.append(Block(_block_id(rel, text), text, ts, count_tokens(text), rel))
-    return blocks
+    return _adapter(src)._load()
 
 
 def load_all(sources: tuple[Source, ...]) -> list[Block]:
