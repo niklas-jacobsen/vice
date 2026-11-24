@@ -34,7 +34,8 @@ questions. Retrieval, thresholds and decisions are deterministic code.
 ## Features
 
 - Source types so far: Obsidian vaults, Markdown folders, and JSONL, which any other
-  system can export blocks to
+  system can export blocks to. Further types install as separate packages
+  ([Sources](docs/sources.md))
 - Claude Code integration in one command: context arrives with the prompt, and the agent
   cannot read indexed files directly
 - MCP server for lookups mid-task, for Claude Code, Claude Desktop and other stdio clients
@@ -61,6 +62,7 @@ Method, ablations and limits: [Evaluation](docs/evaluation.md).
 - [Installation](docs/installation.md)
 - [Usage](docs/usage.md)
 - [Configuration](docs/configuration.md)
+- [Sources](docs/sources.md)
 - [Integrations](docs/integrations.md)
 - [Privacy](docs/privacy.md)
 - [Troubleshooting](docs/troubleshooting.md)

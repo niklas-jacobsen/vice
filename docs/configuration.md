@@ -23,7 +23,7 @@ path = "~/exports/crm-notes.jsonl"
 
 | Key | Required | Meaning |
 |---|---|---|
-| `type` | yes | `obsidian`, `markdown`, or `jsonl`. |
+| `type` | yes | `obsidian`, `markdown`, `jsonl`, or a type added by an installed package. |
 | `path` | yes | Folder (or file, for `jsonl`). `~` is expanded. |
 | `name` | no | Unique label. Defaults to the folder name. |
 | `exclude` | no | Glob patterns relative to `path`. |
@@ -34,6 +34,8 @@ embeds and comments. Hidden directories and files over 2 MB are skipped.
 
 `jsonl`: one object per line with `text` and `ts` (Unix seconds); `id` and `source`
 optional.
+
+Other source types come from installed packages. See [Sources](sources.md).
 
 ## Outputs
 
