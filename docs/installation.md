@@ -14,6 +14,18 @@ From a checkout:
 pip install -e ".[mcp]"
 ```
 
+### Homebrew
+
+```bash
+brew install niklas-jacobsen/tap/vice-ai
+```
+
+Then run `vice setup` as below. Start the service with either `vice start` or
+`brew services start vice-ai`, not both.
+
+Source plugins installed with `vice plugin install` live in `~/.vice/plugins`, outside the
+Homebrew folder, and survive `brew upgrade`. See [Sources](sources.md#installing-a-source-type).
+
 ## Setup
 
 ```bash
@@ -64,6 +76,9 @@ vice stop
 vice key delete
 ```
 
+Plugins live in `~/.vice/plugins`. `vice plugin remove <name>` removes one; the command
+below deletes all of them with the rest of the state.
+
 ```bash
 rm -rf ~/.vice
 ```
@@ -71,3 +86,5 @@ rm -rf ~/.vice
 ```bash
 pip uninstall vice-ai
 ```
+
+For Homebrew, `brew uninstall vice-ai`.

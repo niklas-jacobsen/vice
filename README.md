@@ -34,13 +34,66 @@ questions. Retrieval, thresholds and decisions are deterministic code.
 ## Features
 
 - Source types so far: Obsidian vaults, Markdown folders, and JSONL, which any other
-  system can export blocks to. Further types install as separate packages
+  system can export blocks to. Further types install as plugins with `vice plugin install`
   ([Sources](docs/sources.md))
 - Claude Code integration in one command: context arrives with the prompt, and the agent
   cannot read indexed files directly
 - MCP server for lookups mid-task, for Claude Code, Claude Desktop and other stdio clients
 - `vice ask` for scripts
 - Outputs: context file, command, webhook
+
+## Quickstart
+
+Requires macOS and a [TypeSafe](https://typesafe.ai) API key.
+
+Install:
+
+```bash
+brew install niklas-jacobsen/tap/vice-ai
+```
+
+Store the API key and choose sources:
+
+```bash
+vice setup
+```
+
+Build the index (first run downloads a 90 MB model):
+
+```bash
+vice sync
+```
+
+Run the service in the background and at login:
+
+```bash
+vice start
+```
+
+Connect Claude Code (prompt hook, read guard, MCP server):
+
+```bash
+vice connect claude-code
+```
+
+Full instructions, other install methods and uninstalling: [Installation](docs/installation.md).
+
+## Commands
+
+| Command | |
+|---|---|
+| `vice setup` | Write the configuration and store the API key. |
+| `vice sync` | Index all sources. |
+| `vice start` / `stop` | Run or stop the background service. |
+| `vice status` | Configuration, sources, plugins, index and service state. |
+| `vice connect claude-code` | Register hooks and MCP server. `--remove` undoes it. |
+| `vice sources types` / `add` / `remove` | List source types, add or remove a source. |
+| `vice plugin install` / `list` / `remove` | Manage packages that add source types. |
+| `vice ask "..."` | Print what an agent receives for the text. |
+| `vice logs` | Follow the service log. |
+| `vice key set` / `delete` | Manage the API key in the Keychain. |
+
+All commands and options: [Usage](docs/usage.md#commands).
 
 ## Benchmark
 

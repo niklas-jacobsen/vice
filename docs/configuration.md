@@ -5,6 +5,10 @@ a running service with `vice start`.
 
 ## Sources
 
+`vice sources add` and `vice sources remove` are the normal way to edit `[[sources]]`; see
+[Sources](sources.md#managing-sources). They validate the entry and keep comments. The
+file can still be edited by hand.
+
 ```toml
 [[sources]]
 type = "obsidian"
@@ -35,7 +39,8 @@ embeds and comments. Hidden directories and files over 2 MB are skipped.
 `jsonl`: one object per line with `text` and `ts` (Unix seconds); `id` and `source`
 optional.
 
-Other source types come from installed packages. See [Sources](sources.md).
+Other source types come from installed packages (`vice plugin install`). See
+[Sources](sources.md#installing-a-source-type).
 
 ## Outputs
 

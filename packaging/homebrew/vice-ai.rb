@@ -9,7 +9,7 @@
 class ViceAi < Formula
   include Language::Python::Virtualenv
 
-  desc "Zero-UI ambient memory for your notes"
+  desc "Context retrieval engine for AI agents"
   homepage "https://github.com/niklas-jacobsen/vice"
   url "https://files.pythonhosted.org/packages/source/v/vice-ai/vice_ai-0.1.1.tar.gz"
   sha256 "f10943883d4cbf41b6be8527172eb2cfb57b78aa4f4ac036a00d8b26b5e80eb0"

@@ -14,6 +14,7 @@ import importlib
 from importlib.metadata import entry_points
 from typing import Any, Mapping
 
+from .. import plugins
 from .base import RESERVED_KEYS, SourceAdapter, SourceConfigError
 
 ENTRY_POINT_GROUP = "vice.sources"
@@ -27,6 +28,7 @@ BUILTIN = {
 
 def available() -> dict[str, str]:
     """type -> "module:Class". Built-ins win over a third-party package claiming the same type."""
+    plugins.activate()
     found = {ep.name: ep.value for ep in entry_points(group=ENTRY_POINT_GROUP)}
     return {**found, **BUILTIN}
 
