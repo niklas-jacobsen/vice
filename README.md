@@ -46,29 +46,35 @@ questions. Retrieval, thresholds and decisions are deterministic code.
 
 Requires macOS and a [TypeSafe](https://typesafe.ai) API key.
 
+Install:
+
 ```bash
 brew install niklas-jacobsen/tap/vice-ai
 ```
+
+Store the API key and choose sources:
 
 ```bash
 vice setup
 ```
 
+Build the index (first run downloads a 90 MB model):
+
 ```bash
 vice sync
 ```
+
+Run the service in the background and at login:
 
 ```bash
 vice start
 ```
 
+Connect Claude Code (prompt hook, read guard, MCP server):
+
 ```bash
 vice connect claude-code
 ```
-
-`vice setup` stores the key and asks for sources. `vice sync` builds the index (the first
-run downloads a 90 MB embedding model). `vice start` runs the service in the background
-and at login. `vice connect claude-code` adds the prompt hook, read guard and MCP server.
 
 Full instructions, other install methods and uninstalling: [Installation](docs/installation.md).
 
