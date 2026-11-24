@@ -205,8 +205,9 @@ def remove(path: Path, name: str) -> None:
 # --- commands ------------------------------------------------------------------------
 
 def cmd_types(args) -> int:
+    available = adapters.available()  # activates plugins, so their entry points are visible below
     dists = {ep.name: ep.dist.name if ep.dist else "?" for ep in adapters.registry.entry_points(group=adapters.ENTRY_POINT_GROUP)}
-    for t in sorted(adapters.available()):
+    for t in sorted(available):
         who = "built-in" if t in adapters.registry.BUILTIN else dists.get(t, "?")
         try:
             keys = ", ".join(sorted(adapters.adapter_class(t).option_keys)) or "(no options)"

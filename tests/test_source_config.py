@@ -153,3 +153,16 @@ def test_types_lists_builtin_and_broken_plugin(home, monkeypatch, capsys):
     assert "built-in" in rows["markdown"] and "path" in rows["markdown"]
     assert "vice-ghost" in rows["ghost"] and "unavailable" in rows["ghost"]
     assert {"obsidian", "jsonl"} <= set(rows)
+
+
+def test_types_names_the_package_of_an_installed_plugin(home, monkeypatch, capsys):
+    import sys
+    from vice_ai import plugins
+    monkeypatch.setattr(sys, "path", list(sys.path))
+    d = plugins.plugin_dir() / "vice_source_demo-1.0.dist-info"
+    d.mkdir(parents=True)
+    (d / "METADATA").write_text("Metadata-Version: 2.1\nName: vice-source-demo\nVersion: 1.0\n")
+    (d / "entry_points.txt").write_text("[vice.sources]\ndemo = vice_source_demo:Demo\n")
+    assert run("sources", "types") == 0
+    rows = {l.split()[0]: l for l in capsys.readouterr().out.splitlines()}
+    assert "vice-source-demo" in rows["demo"]
