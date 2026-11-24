@@ -1,7 +1,6 @@
-"""Information sources: turn a folder of Markdown, an Obsidian vault, or a JSONL file into
-blocks (`Block`s).
+"""Markdown folders and Obsidian vaults: turn notes into blocks.
 
-Each Markdown block carries its document title and heading path, so it reads sensibly on its own, both
+Each block carries its document title and heading path, so it reads sensibly on its own, both
 to the embedder and to Jev, which sees one block at a time.
 
 Timestamps matter because newer facts supersede older ones. In order of preference:
@@ -12,15 +11,15 @@ from __future__ import annotations
 
 import fnmatch
 import hashlib
-import json
 import os
 import re
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterator
+from typing import Any, Iterator
 
-from .settings import Source
-from .types import Block
+from ..types import Block
+from ._common import PathSource, count_tokens, legacy_block_id
+from .base import SourceConfigError
 
 TARGET_TOKENS = 120  # merge small paragraphs up to about this size
 MAX_TOKENS = 220  # split anything larger
@@ -34,34 +33,6 @@ _EMBED = re.compile(r"!\[\[[^\]]*\]\]")
 _WIKILINK = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 _COMMENT = re.compile(r"%%.*?%%", re.S)
 _FILE_DATE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
-_enc = None
-_unk: int | None = None
-
-
-def count_tokens(text: str) -> int:
-    """Tokens as the embedding model counts them (MiniLM WordPiece, no special tokens).
-
-    Within about 2% of cl100k on notes, and it keeps chunk limits in the same units as
-    the model's 256-token window. WordPiece turns any word over 100 characters (a long
-    URL, base64, minified code) into one [UNK]; those spans count at 4 characters a
-    token so they cannot slip past a budget.
-    """
-    global _enc, _unk
-    if _enc is None:
-        from tokenizers import Tokenizer
-
-        from .embed import minilm_files
-
-        _enc = Tokenizer.from_file(str(minilm_files(only=("tokenizer.json",)) / "tokenizer.json"))
-        _enc.no_truncation()
-        _enc.no_padding()
-        _unk = _enc.token_to_id("[UNK]")
-    e = _enc.encode(text, add_special_tokens=False)
-    n = len(e.ids)
-    for tid, (start, end) in zip(e.ids, e.offsets):
-        if tid == _unk and end - start > 4:
-            n += -(-(end - start) // 4) - 1
-    return n
 
 
 def _parse_date(value: str) -> float | None:
@@ -180,10 +151,6 @@ def _excluded(rel: str, patterns: tuple[str, ...]) -> bool:
     return any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(rel, p.rstrip("/*") + "/*") for p in patterns)
 
 
-def _patterns(src: Source) -> tuple[str, ...]:
-    return ALWAYS_EXCLUDE + (OBSIDIAN_EXCLUDE if src.type == "obsidian" else ()) + src.exclude
-
-
 def _dir_excluded(rel_dir: str, patterns: tuple[str, ...]) -> bool:
     return _excluded(rel_dir.lstrip("./") + "/x", patterns)
 
@@ -192,113 +159,100 @@ def _is_doc(rel: str, patterns: tuple[str, ...]) -> bool:
     return Path(rel).suffix.lower() in (".md", ".markdown") and not _excluded(rel, patterns)
 
 
-def iter_files(src: Source) -> Iterator[Path]:
-    if src.type == "jsonl":
-        if src.path.is_file():
-            yield src.path
-        return
-    patterns = _patterns(src)
-    for root, dirs, files in os.walk(src.path):
-        rel_root = Path(root).relative_to(src.path).as_posix()
-        dirs[:] = sorted(d for d in dirs if not d.startswith(".") and not _dir_excluded(f"{rel_root}/{d}", patterns))
-        for f in sorted(files):
-            p = Path(root) / f
-            if _is_doc(p.relative_to(src.path).as_posix(), patterns):
-                yield p
-
-
-def _rel_parts(src: Source, path: Path) -> tuple[str, ...] | None:
-    """`path` relative to the source root as parts, or None if it is outside it."""
-    try:
-        return path.relative_to(src.path).parts
-    except ValueError:
-        return None
-
-
-def _dirs_included(src: Source, parts: tuple[str, ...]) -> bool:
-    patterns = _patterns(src)
+def _dirs_included(parts: tuple[str, ...], patterns: tuple[str, ...]) -> bool:
     for i in range(1, len(parts) + 1):
         if parts[i - 1].startswith(".") or _dir_excluded("/".join(parts[:i]), patterns):
             return False
     return True
 
 
-def indexes_file(src: Source, path: Path) -> bool:
-    """True if `path` (absolute, resolved) is a file this source indexes. Mirrors iter_files
-    without walking the tree."""
-    if src.type == "jsonl":
-        return path == src.path
-    parts = _rel_parts(src, path)
-    if not parts or not _dirs_included(src, parts[:-1]) or not _is_doc("/".join(parts), _patterns(src)):
-        return False
-    try:
-        return path.stat().st_size <= MAX_FILE_BYTES
-    except OSError:
-        return True  # not there (yet): judged by name alone
+class MarkdownSource(PathSource):
+    """A folder of Markdown files."""
 
+    type = "markdown"
+    option_keys = frozenset({"path", "exclude"})
+    builtin_exclude: tuple[str, ...] = ()
 
-def indexes_dir(src: Source, path: Path) -> bool:
-    """True if `path` is the source root or a directory inside it that is not excluded."""
-    if src.type == "jsonl":
-        return False
-    parts = _rel_parts(src, path)
-    return parts is not None and _dirs_included(src, parts)
+    def configure(self, options: dict[str, Any]) -> None:
+        super().configure(options)
+        exclude = options.get("exclude", [])
+        if not (isinstance(exclude, list) and all(isinstance(p, str) for p in exclude)):
+            raise SourceConfigError(f"type {self.type!r}: exclude must be a list of glob patterns")
+        self.exclude = tuple(exclude)
 
+    @property
+    def patterns(self) -> tuple[str, ...]:
+        return ALWAYS_EXCLUDE + self.builtin_exclude + self.exclude
 
-def fingerprint(sources: tuple[Source, ...]) -> str:
-    """Changes whenever any source file is added, removed or modified. Cheap: stat calls only."""
-    h = hashlib.sha1()
-    for src in sources:
-        for p in iter_files(src):
+    def clean(self, body: str) -> str:
+        return body
+
+    def iter_files(self) -> Iterator[Path]:
+        patterns = self.patterns
+        for root, dirs, files in os.walk(self.path):
+            rel_root = Path(root).relative_to(self.path).as_posix()
+            dirs[:] = sorted(d for d in dirs if not d.startswith(".") and not _dir_excluded(f"{rel_root}/{d}", patterns))
+            for f in sorted(files):
+                p = Path(root) / f
+                if _is_doc(p.relative_to(self.path).as_posix(), patterns):
+                    yield p
+
+    def _fingerprint(self) -> str:
+        h = hashlib.sha1()
+        for p in self.iter_files():
             try:
                 st = p.stat()
             except OSError:
                 continue
             h.update(f"{p}|{st.st_mtime_ns}|{st.st_size}\n".encode())
-    return h.hexdigest()
+        return h.hexdigest()
 
-
-def _block_id(source: str, text: str) -> str:
-    return hashlib.sha1(f"{source}\0{text}".encode()).hexdigest()[:16]
-
-
-def load_source(src: Source) -> list[Block]:
-    blocks: list[Block] = []
-    if src.type == "jsonl":
-        for n, line in enumerate(src.path.read_text(encoding="utf-8").splitlines()):
-            if not line.strip():
+    def _load(self) -> list[Block]:
+        blocks: list[Block] = []
+        for p in self.iter_files():
+            try:
+                st = p.stat()
+                if st.st_size > MAX_FILE_BYTES:
+                    continue
+                raw = p.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
                 continue
-            d = json.loads(line)
-            text = str(d["text"])
-            blocks.append(Block(str(d.get("id") or _block_id(src.name, text)), text, float(d["ts"]),
-                                int(d.get("tokens") or count_tokens(text)), d.get("source") or f"{src.name}:{n + 1}"))
+            meta, body = _frontmatter(raw)
+            body = self.clean(body)
+            title = meta.get("title", "").strip("\"'") or p.stem
+            ts = note_timestamp(meta, p, st.st_mtime)
+            rel = f"{self.name}/{p.relative_to(self.path).as_posix()}"
+            for heading_path, part in split_markdown(body, title):
+                text = f"[{heading_path}] {part}"
+                blocks.append(Block(legacy_block_id(rel, text), text, ts, count_tokens(text), rel))
         return blocks
 
-    for p in iter_files(src):
+    def _rel_parts(self, path: Path) -> tuple[str, ...] | None:
         try:
-            st = p.stat()
-            if st.st_size > MAX_FILE_BYTES:
-                continue
-            raw = p.read_text(encoding="utf-8")
-        except (OSError, UnicodeDecodeError):
-            continue
-        meta, body = _frontmatter(raw)
-        if src.type == "obsidian":
-            body = clean_obsidian(body)
-        title = meta.get("title", "").strip("\"'") or p.stem
-        ts = note_timestamp(meta, p, st.st_mtime)
-        rel = f"{src.name}/{p.relative_to(src.path).as_posix()}"
-        for heading_path, part in split_markdown(body, title):
-            text = f"[{heading_path}] {part}"
-            blocks.append(Block(_block_id(rel, text), text, ts, count_tokens(text), rel))
-    return blocks
+            return path.relative_to(self.path.resolve()).parts
+        except ValueError:
+            return None
+
+    def indexes(self, path: Path, is_dir: bool) -> bool:
+        parts = self._rel_parts(path)
+        if parts is None:
+            return False
+        patterns = self.patterns
+        if is_dir:
+            return _dirs_included(parts, patterns)
+        if not parts or not _dirs_included(parts[:-1], patterns) or not _is_doc("/".join(parts), patterns):
+            return False
+        try:
+            return path.stat().st_size <= MAX_FILE_BYTES
+        except OSError:
+            return True  # not there (yet): judged by name alone
 
 
-def load_all(sources: tuple[Source, ...]) -> list[Block]:
-    seen: dict[str, Block] = {}
-    for src in sources:
-        if not src.path.exists():
-            raise FileNotFoundError(f"source {src.name!r}: {src.path} does not exist")
-        for c in load_source(src):
-            seen.setdefault(c.id, c)  # identical text in the same file collapses to one block
-    return list(seen.values())
+class ObsidianSource(MarkdownSource):
+    """An Obsidian vault: Markdown plus wikilink, embed and comment cleanup."""
+
+    type = "obsidian"
+    builtin_exclude = OBSIDIAN_EXCLUDE
+
+    def clean(self, body: str) -> str:
+        return clean_obsidian(body)

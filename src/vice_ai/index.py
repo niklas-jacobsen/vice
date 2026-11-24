@@ -3,6 +3,7 @@ text is embedded again. The cache is disposable: delete ~/.vice/index and it is 
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import time
 from dataclasses import dataclass
@@ -11,11 +12,10 @@ from pathlib import Path
 import numpy as np
 
 from . import paths
-from . import sources as loaders
 from .config import Config
 from .embed import Embedder, make_embedder
 from .retrieve import Retriever
-from .settings import Source
+from .adapters.base import SourceAdapter, SourceUnavailable
 from .store import make_store
 
 
@@ -25,10 +25,14 @@ class SyncStats:
     embedded: int
     reused: int
     seconds: float
+    skipped: tuple[tuple[str, str], ...] = ()  # (source name, why it was left out)
+
+    def skipped_lines(self) -> list[str]:
+        return [f"skipped source {n}: {m}" for n, m in self.skipped]
 
 
 class Index:
-    def __init__(self, sources: tuple[Source, ...], cfg: Config, directory: Path | None = None,
+    def __init__(self, sources: tuple[SourceAdapter, ...], cfg: Config, directory: Path | None = None,
                  embedder: Embedder | None = None):
         self.sources, self.cfg = sources, cfg
         self.dir = directory or paths.index_dir()
@@ -61,14 +65,29 @@ class Index:
         tmp.replace(self.dir / "vectors.npy")
         (self.dir / "meta.json").write_text(json.dumps({"embedder": self.cfg.embedder, "ids": ids, "saved": time.time()}))
 
+    def _fingerprint(self) -> str:
+        h = hashlib.sha1()
+        for src in self.sources:
+            try:
+                part = src.fingerprint()
+            except SourceUnavailable:
+                part = "unavailable"  # a source coming back changes the fingerprint, so it is picked up
+            h.update(f"{src.name}\0{part}\n".encode())
+        return h.hexdigest()
+
     def changed(self) -> bool:
-        return loaders.fingerprint(self.sources) != self.fingerprint
+        return self._fingerprint() != self.fingerprint
 
     def build(self) -> tuple[Retriever, SyncStats]:
         """Read every source, embed what is new, and return a ready retriever."""
         t0 = time.perf_counter()
-        fp = loaders.fingerprint(self.sources)
-        blocks = loaders.load_all(self.sources)
+        fp = self._fingerprint()
+        blocks, skipped = [], []
+        for src in self.sources:
+            try:
+                blocks += src.load()
+            except SourceUnavailable as e:
+                skipped.append((src.name, str(e)))
         cache = self._load_cache()
         missing = [c for c in blocks if c.id not in cache]
         if missing:
@@ -85,4 +104,4 @@ class Index:
             rt.blocks, rt.vecs = [], vecs
         self.embedder.embed_query("warm up")
         self.fingerprint = fp
-        return rt, SyncStats(len(blocks), len(missing), len(blocks) - len(missing), time.perf_counter() - t0)
+        return rt, SyncStats(len(blocks), len(missing), len(blocks) - len(missing), time.perf_counter() - t0, tuple(skipped))

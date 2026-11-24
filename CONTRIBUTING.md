@@ -27,7 +27,7 @@ Tests use a scripted Jev stand-in; no API key or network needed.
 
 ## Open work
 
-- Source types for other tools (`sources.py`).
+- Source types for other tools: write an adapter, see [Sources](docs/sources.md).
 - Linux and Windows service management (`service.py`).
 - Fitting `~/.vice/calibration.json` from labelled decisions.
 - Prompt hooks for other agents.
