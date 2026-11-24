@@ -2,7 +2,8 @@
 
 ## Local
 
-- Sources, embeddings and search. The embedding model runs offline after download.
+- Sources, embeddings and search. The embedding model is downloaded once from Hugging Face (a fixed version, into
+  `~/.vice/models`), which sends nothing about you or your sources, then runs offline.
 - `~/.vice/` (configuration, decision log, context file), mode `0700`.
 - The API key, in the Keychain. Never written to a file or the service definition.
 

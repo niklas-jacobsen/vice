@@ -12,7 +12,7 @@ import time
 import numpy as np
 
 from ..config import ROOT
-from ..embed import FASTEMBED_MODELS, STATIC_MODELS, make_embedder
+from ..embed import EMBEDDERS, make_embedder
 from ..retrieve import Retriever
 from ..store import STORES, make_store
 from .dataset import load
@@ -29,7 +29,7 @@ def run() -> dict:
     out: dict = {"n_blocks": len(blocks), "n_events": len(pos), "embedders": [], "stores": []}
 
     best_vecs = {}
-    for name in [*FASTEMBED_MODELS, *STATIC_MODELS]:
+    for name in EMBEDDERS:
         t0 = time.perf_counter()
         emb = make_embedder(name)
         load_s = time.perf_counter() - t0

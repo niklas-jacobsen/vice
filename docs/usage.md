@@ -63,6 +63,7 @@ Every event is logged to `~/.vice/decisions.jsonl` with its outcome and reason.
 | `context.json` | Latest non-empty decision. |
 | `decisions.jsonl` | One line per event. |
 | `index/` | Embeddings. Rebuilt by `vice sync`. |
+| `models/` | The embedding model (about 90 MB), pinned to one version. Downloaded again if deleted. |
 | `logs/` | Service output. |
 
 ## Sources
