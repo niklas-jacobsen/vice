@@ -34,7 +34,7 @@ questions. Retrieval, thresholds and decisions are deterministic code.
 ## Features
 
 - Source types so far: Obsidian vaults, Markdown folders, and JSONL, which any other
-  system can export blocks to. Further types install as separate packages
+  system can export blocks to. Further types install as plugins with `vice plugin install`
   ([Sources](docs/sources.md))
 - Claude Code integration in one command: context arrives with the prompt, and the agent
   cannot read indexed files directly

@@ -4,7 +4,7 @@
 
 | Term | Meaning |
 |---|---|
-| Source | An Obsidian vault, Markdown folder or JSONL file that vice indexes. |
+| Source | An Obsidian vault, Markdown folder, JSONL file or other system that vice indexes. |
 | Block | A passage from a source, with its date. The unit vice indexes and returns. |
 | Trigger | What starts an event: the prompt hook, MCP `recall` or `vice ask`. |
 
@@ -19,7 +19,9 @@
 | `vice hook` / `vice guard` | Claude Code hooks, run by Claude Code. See [Integrations](integrations.md#claude-code). |
 | `vice run` | Run the service in the foreground. `-v` prints each decision. |
 | `vice start` / `vice stop` | Install or remove the launchd service. |
-| `vice status` | Configuration, key, index size, service state. |
+| `vice sources types` / `add` / `remove` | List source types, add or remove a source. See [Sources](sources.md#managing-sources). |
+| `vice plugin install` / `list` / `remove` | Manage source type packages. See [Sources](sources.md#installing-a-source-type). |
+| `vice status` | Configuration, key, index size, service state, plugins. |
 | `vice logs` | Follow the service log. |
 | `vice mcp` | MCP server. See [Integrations](integrations.md). |
 | `vice key set` / `vice key delete` | Manage the Keychain entry. |

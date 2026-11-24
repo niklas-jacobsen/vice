@@ -16,6 +16,28 @@ Run `vice setup`.
 
 The message lists the allowed keys. See [Configuration](configuration.md).
 
+## "unknown source type"
+
+The type is provided by a plugin that is not installed, or the service started before it
+was. Install it, then restart the service:
+
+```bash
+vice plugin install <package>
+vice stop && vice start
+```
+
+`vice sources types` lists the types available. `vice plugin list` shows load errors.
+
+## Plugins stopped working after a Python upgrade
+
+Plugins are installed per Python version in `~/.vice/plugins/py<major>.<minor>/`. Rebuild
+them from `plugins.toml`, then restart the service:
+
+```bash
+vice plugin install --reinstall
+vice stop && vice start
+```
+
 ## "no TypeSafe API key found"
 
 Run `vice key set`. The launchd service does not see `TYPESAFE_API_KEY` from your shell.
