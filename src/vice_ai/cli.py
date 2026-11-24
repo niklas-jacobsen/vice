@@ -141,8 +141,10 @@ def cmd_sync(args) -> int:
         _, stats = Index(s.sources, s.pipeline).build()
     except FileNotFoundError as e:
         raise SystemExit(f"vice: {e}")
-    print(f"Indexed {stats.blocks} blocks from {len(s.sources)} source(s) in {stats.seconds:.1f}s "
+    print(f"Indexed {stats.blocks} blocks from {len(s.sources) - len(stats.skipped)} source(s) in {stats.seconds:.1f}s "
           f"({stats.embedded} embedded, {stats.reused} reused).")
+    for line in stats.skipped_lines():
+        print(f"  {line}", file=sys.stderr)
     return 0
 
 
@@ -223,7 +225,7 @@ def cmd_connect(args) -> int:
     if args.remove:
         return 0
     guarded = [src for src in s.sources if src.guard]
-    print("Guarded sources: " + (", ".join(f"{src.name} ({src.path})" for src in guarded) or "none"))
+    print("Guarded sources: " + (", ".join(f"{src.name} ({src.describe()})" for src in guarded) or "none"))
     if not service.is_loaded():
         print("The prompt hook adds context only while the service runs: vice start")
     print("Restart Claude Code sessions to load the changes.")
@@ -272,7 +274,7 @@ def cmd_status(args) -> int:
     if not s.sources:
         print("sources: none configured")
     for n in s.sources:
-        print(f"sources: {n.name} ({n.type}) {n.path}{'' if n.path.exists() else '  <-- MISSING'}")
+        print(f"sources: {n.name}  {n.describe()}")
     meta = paths.index_dir() / "meta.json"
     if meta.exists():
         print(f"index:   {len(json.loads(meta.read_text())['ids'])} blocks")

@@ -11,13 +11,11 @@ from inside the vault) is not caught.
 """
 from __future__ import annotations
 
-import dataclasses
 import os
 import shlex
 from pathlib import Path
 
-from . import sources as S
-from .settings import Source
+from .adapters.base import SourceAdapter
 
 READ_TOOLS = ("Read", "Grep", "Glob", "Bash")
 REASON = ("{path} is indexed by vice. Its relevant content is added to each prompt; to look up "
@@ -69,9 +67,9 @@ def _candidates(tool: str, tool_input: dict, cwd: str) -> list[tuple[str, bool]]
     return []
 
 
-def blocked_path(tool: str, tool_input: dict, cwd: str, sources: tuple[Source, ...]) -> str | None:
+def blocked_path(tool: str, tool_input: dict, cwd: str, sources: tuple[SourceAdapter, ...]) -> str | None:
     """The first path this call would read that vice indexes, or None to allow it."""
-    guarded = [dataclasses.replace(s, path=s.path.resolve()) for s in sources if s.guard]
+    guarded = [s for s in sources if s.guard]
     if not guarded:
         return None
     for raw, may_be_dir in _candidates(tool, tool_input, cwd):
@@ -80,12 +78,12 @@ def blocked_path(tool: str, tool_input: dict, cwd: str, sources: tuple[Source, .
         path = _resolve(raw, cwd)
         is_dir = may_be_dir and path.is_dir()
         for src in guarded:
-            if (S.indexes_dir(src, path) if is_dir else S.indexes_file(src, path)):
+            if src.indexes(path, is_dir):
                 return raw
     return None
 
 
-def decide(event: dict, sources: tuple[Source, ...]) -> dict | None:
+def decide(event: dict, sources: tuple[SourceAdapter, ...]) -> dict | None:
     """The PreToolUse reply denying the call, or None to let it through."""
     tool = event.get("tool_name") or ""
     if tool not in READ_TOOLS:

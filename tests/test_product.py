@@ -9,11 +9,11 @@ from datetime import datetime, timezone
 import numpy as np
 import pytest
 
-from vice_ai import outputs, sources, paths, service, settings
+from vice_ai import adapters, outputs, sources, paths, service, settings
 from vice_ai.cli import main as cli
 from vice_ai.config import Config
 from vice_ai.index import Index
-from vice_ai.settings import Source, Output, SettingsError
+from vice_ai.settings import Output, SettingsError
 from vice_ai.types import Action, AmbientEvent, Block, Decision, PipelineResult
 
 
@@ -49,7 +49,7 @@ def test_settings_parse_and_validation(tmp_path):
                     "webhook": {"url": "http://127.0.0.1:1/x"}},
         "pipeline": {"token_budget": 200},
     })
-    assert s.sources[0].name == tmp_path.name and s.sources[0].exclude == ("Templates/**",)
+    assert s.sources[0].name == tmp_path.name and s.sources[0].exclude == ("Templates/**",) and s.sources[0].type == "obsidian"
     assert [o.type for o in s.outputs] == ["context_file", "webhook"]  # disabled command dropped
     assert s.pipeline.token_budget == 200 and s.pipeline.top_k == Config().top_k
 
@@ -89,8 +89,8 @@ def test_default_is_private():
 # --- notes ---
 
 def test_obsidian_vault_import(vault):
-    src = Source("obsidian", vault, "Vault", ("Templates/**",))
-    blocks = sources.load_source(src)
+    src = adapters.build({"type": "obsidian", "path": str(vault), "name": "Vault", "exclude": ["Templates/**"]})
+    blocks = src.load()
     text = "\n".join(c.text for c in blocks)
     assert {c.source for c in blocks} == {"Vault/Projects/Atlas.md", "Vault/2026-10-05.md"}  # template, dotdir, png skipped
     launch = next(c for c in blocks if "April 18" in c.text)
@@ -122,7 +122,7 @@ def test_code_fence_headings_are_not_headings():
 def test_jsonl_source(tmp_path):
     f = tmp_path / "n.jsonl"
     f.write_text(json.dumps({"id": "a", "text": "Atlas ships April 18.", "ts": 100}) + "\n")
-    (c,) = sources.load_source(Source("jsonl", f, "n"))
+    (c,) = adapters.build({"type": "jsonl", "path": str(f), "name": "n"}).load()
     assert (c.id, c.ts, c.source) == ("a", 100.0, "n:1") and c.tokens > 0
 
 
@@ -145,7 +145,7 @@ class CountingEmbedder:
 
 
 def test_index_only_embeds_what_changed(vault, tmp_path):
-    src = (Source("obsidian", vault, "Vault", ("Templates/**",)),)
+    src = (adapters.build({"type": "obsidian", "path": str(vault), "name": "Vault", "exclude": ["Templates/**"]}),)
     emb = CountingEmbedder()
     idx = Index(src, Config(), tmp_path / "idx", emb)
     rt, stats = idx.build()
@@ -172,9 +172,99 @@ def test_empty_index_is_usable(tmp_path):
     assert stats.blocks == 0 and rt.search("anything", 5) == []
 
 
-def test_missing_notes_folder_is_an_error(tmp_path):
-    with pytest.raises(FileNotFoundError):
-        Index((Source("markdown", tmp_path / "nope", "nope"),), Config(), tmp_path / "idx", CountingEmbedder()).build()
+def test_unavailable_source_is_skipped_and_reported(vault, tmp_path):
+    good = adapters.build({"type": "obsidian", "path": str(vault), "name": "Vault", "exclude": ["Templates/**"]})
+    gone = adapters.build({"type": "markdown", "path": str(tmp_path / "nope"), "name": "nope"})
+    idx = Index((gone, good), Config(), tmp_path / "idx", CountingEmbedder())
+    rt, stats = idx.build()
+    assert stats.blocks == len(rt.blocks) > 0 and {b.source.split("/")[0] for b in rt.blocks} == {"Vault"}
+    assert [n for n, _ in stats.skipped] == ["nope"] and "nope" in stats.skipped[0][1]
+    assert any("skipped source nope" in line for line in stats.skipped_lines())
+    assert not idx.changed()
+    (tmp_path / "nope").mkdir()  # the source comes back: resync notices
+    (tmp_path / "nope" / "A.md").write_text("Back again.\n")
+    assert idx.changed()
+    _, again = idx.build()
+    assert again.skipped == () and again.blocks > stats.blocks
+
+
+def test_sync_and_status_show_skipped_sources(vault, tmp_path, capsys, monkeypatch):
+    from vice_ai.cli import cmd_sync
+    import argparse
+    monkeypatch.setattr("vice_ai.index.make_embedder", lambda name: CountingEmbedder())
+    paths.ensure_home()
+    paths.config_file().write_text(
+        f'[[sources]]\ntype = "obsidian"\npath = "{vault}"\nname = "vault"\n\n'
+        f'[[sources]]\ntype = "markdown"\npath = "{tmp_path / "nope"}"\nname = "nope"\n')
+    assert cmd_sync(argparse.Namespace()) == 0
+    cap = capsys.readouterr()
+    assert "1 source(s)" in cap.out and "skipped source nope" in cap.err
+    assert run_cli("status") == 0
+    out = capsys.readouterr().out
+    assert "sources: vault" in out and "sources: nope" in out
+
+
+@pytest.mark.parametrize("entry, needle", [
+    ({"type": "notion", "path": "x"}, "unknown source type"),
+    ({"type": "markdown"}, "path is required"),
+    ({"type": "markdown", "path": "x", "bogus": 1}, "bogus"),
+    ({"type": "markdown", "path": "x", "guard": "yes"}, "guard"),
+])
+def test_source_errors_name_the_entry(entry, needle):
+    good = {"type": "markdown", "path": "ok", "name": "ok"}
+    with pytest.raises(SettingsError, match=r"\[\[sources\]\] #2: .*" + needle):
+        settings.parse({"sources": [good, entry]})
+
+
+def test_duplicate_source_names_rejected():
+    with pytest.raises(SettingsError, match="distinct names"):
+        settings.parse({"sources": [{"type": "markdown", "path": "a/x"}, {"type": "markdown", "path": "b/x"}]})
+
+
+class MemorySource(adapters.SourceAdapter):
+    """A third-party adapter that nothing in vice knows about."""
+    type = "memory"
+    option_keys = frozenset({"items"})
+    available = True
+
+    def configure(self, options):
+        if not isinstance(options.get("items"), list):
+            raise adapters.SourceConfigError("items must be a list")
+        self.items = options["items"]
+
+    def default_name(self):
+        return "memory"
+
+    def describe(self):
+        return f"memory ({len(self.items)} items)"
+
+    def fingerprint(self):
+        if not type(self).available:
+            raise adapters.SourceUnavailable("backend is down")
+        return str(self.items)
+
+    def load(self):
+        if not type(self).available:
+            raise adapters.SourceUnavailable("backend is down")
+        return [Block(adapters.block_id(self.name, str(i), t), t, 1.0, 5, f"{self.name}:{i}") for i, t in enumerate(self.items)]
+
+
+def test_third_party_adapter_works_end_to_end(monkeypatch, tmp_path, capsys):
+    monkeypatch.setattr(adapters.registry, "available", lambda: {**adapters.registry.BUILTIN, "memory": f"{__name__}:MemorySource"})
+    monkeypatch.setattr(MemorySource, "available", True)
+    s = settings.parse({"sources": [{"type": "memory", "items": ["Atlas ships April 18.", "Gym locker is 42."]}]})
+    (src,) = s.sources
+    assert isinstance(src, MemorySource) and src.name == "memory" and src.guard
+    with pytest.raises(SettingsError, match=r"\[\[sources\]\] #1: items must be a list"):
+        settings.parse({"sources": [{"type": "memory", "items": "nope"}]})
+    idx = Index(s.sources, Config(), tmp_path / "idx", CountingEmbedder())
+    rt, stats = idx.build()
+    assert stats.blocks == 2 and {b.source for b in rt.blocks} == {"memory:0", "memory:1"}
+    from vice_ai.guard import decide  # a non-file source never blocks reads
+    assert decide({"tool_name": "Read", "tool_input": {"file_path": "/x.md"}, "cwd": "/"}, s.sources) is None
+    monkeypatch.setattr(MemorySource, "available", False)
+    _, down = idx.build()
+    assert down.blocks == 0 and down.skipped == (("memory", "backend is down"),)
 
 
 # --- outputs ---
@@ -368,7 +458,7 @@ def guarded(tmp_path):
         (v / rel).parent.mkdir(parents=True, exist_ok=True)
         (v / rel).write_text("x")
     (tmp_path / "elsewhere.md").write_text("x")
-    srcs = (Source("obsidian", v, "vault", ("Templates/**",)),)
+    srcs = (adapters.build({"type": "obsidian", "path": str(v), "name": "vault", "exclude": ["Templates/**"]}),)
     return v, srcs
 
 
@@ -400,10 +490,9 @@ def test_guard_blocks_only_files_vice_indexes(guarded, tmp_path, tool, tool_inpu
 
 
 def test_guard_respects_guard_false(guarded, tmp_path):
-    import dataclasses
     from vice_ai.guard import decide
-    v, srcs = guarded
-    open_srcs = tuple(dataclasses.replace(s, guard=False) for s in srcs)
+    v, _ = guarded
+    open_srcs = (adapters.build({"type": "obsidian", "path": str(v), "name": "vault", "guard": False}),)
     assert decide({"tool_name": "Read", "tool_input": {"file_path": f"{v}/Projects/Atlas.md"}, "cwd": str(tmp_path)}, open_srcs) is None
 
 

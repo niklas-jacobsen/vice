@@ -29,12 +29,14 @@ class App:
         self.index = Index(settings.sources, self.cfg)
         self.judge: TypeSafeJudge | None = None
         self.pipeline: Pipeline | None = None
+        self.startup_skipped: list[str] = []
         self.dispatcher = Dispatcher(settings.outputs, echo=echo)
 
     async def start(self) -> SyncStats:
         key = keys.get()  # raises MissingKey with instructions
         self.judge = TypeSafeJudge(self.settings.pipeline, api_key=key)
         retriever, stats = await asyncio.to_thread(self.index.build)
+        self.startup_skipped = stats.skipped_lines()
         self.pipeline = Pipeline(self.settings.pipeline, self.judge, retriever, self.cal)
         await self.judge.warm()
         return stats
@@ -74,9 +76,13 @@ class App:
                 try:
                     if stats := await self.resync():
                         print(f"vice: sources changed; {stats.blocks} blocks ({stats.embedded} embedded)", file=sys.stderr, flush=True)
+                        for line in stats.skipped_lines():
+                            print(f"vice: {line}", file=sys.stderr, flush=True)
                 except Exception as e:  # noqa: BLE001
                     print(f"vice: re-index failed: {type(e).__name__}: {e}", file=sys.stderr, flush=True)
 
         print(f"vice: serving on {paths.socket_file()}; {len(self.pipeline.retriever.blocks)} blocks; "
               f"model {self.cfg.model}", file=sys.stderr, flush=True)
+        for line in self.startup_skipped:
+            print(f"vice: {line}", file=sys.stderr, flush=True)
         await asyncio.gather(ask.serve(self.handle), keep_warm(), watch_sources())

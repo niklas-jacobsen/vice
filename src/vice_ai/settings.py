@@ -8,10 +8,10 @@ import tomllib
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from . import paths
+from . import adapters, paths
+from .adapters.base import SourceAdapter, SourceConfigError
 from .config import Config
 
-SOURCE_TYPES = ("obsidian", "markdown", "jsonl")
 OUTPUT_TYPES = ("context_file", "command", "webhook")
 ACTIONS = ("surface", "attach")
 
@@ -19,7 +19,7 @@ DEFAULT_CONFIG = '''\
 # vice configuration. Edit freely; run `vice status` to check it.
 
 # ---- Sources: where information comes from --------------------------------------------
-# One [[sources]] entry per source. Types: "obsidian", "markdown", "jsonl".
+# One [[sources]] entry per source. Built-in types: "obsidian", "markdown", "jsonl".
 {sources}# ---- Outputs: where context goes ------------------------------------------------------
 # `on` lists the decisions an output reacts to: "surface" (strong match) and/or "attach".
 [outputs.context_file]
@@ -63,7 +63,7 @@ class Output:
 
 @dataclass(frozen=True)
 class Settings:
-    sources: tuple[Source, ...] = ()
+    sources: tuple[SourceAdapter, ...] = ()
     outputs: tuple[Output, ...] = (Output("context_file", ACTIONS),)
     pipeline: Config = field(default_factory=Config)
     resync_s: float = 120.0
@@ -92,16 +92,10 @@ def parse(data: dict) -> Settings:
 
     sources = []
     for i, n in enumerate(data.get("sources", [])):
-        where = f"[[sources]] #{i + 1}"
-        _only(n, {"type", "path", "name", "exclude", "guard"}, where)
-        if n.get("type") not in SOURCE_TYPES:
-            raise SettingsError(f"{where}: type must be one of {SOURCE_TYPES}")
-        if "path" not in n:
-            raise SettingsError(f"{where}: path is required")
-        p = paths.expand(n["path"])
-        if not isinstance(n.get("guard", True), bool):
-            raise SettingsError(f"{where}: guard must be true or false")
-        sources.append(Source(n["type"], p, n.get("name") or p.name, tuple(n.get("exclude", ())), n.get("guard", True)))
+        try:
+            sources.append(adapters.build(n))
+        except SourceConfigError as e:
+            raise SettingsError(f"[[sources]] #{i + 1}: {e}") from e
     names = [n.name for n in sources]
     if len(set(names)) != len(names):
         raise SettingsError("[[sources]] need distinct names; add name = \"...\" to disambiguate")
