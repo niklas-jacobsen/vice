@@ -1,0 +1,16 @@
+[project]
+name = "vice-source-text"
+version = "0.1.0"
+description = "Example vice source type: a folder of .txt files."
+requires-python = ">=3.12"
+dependencies = ["vice-ai"]
+
+[project.entry-points."vice.sources"]
+text = "vice_source_text:TextSource"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
