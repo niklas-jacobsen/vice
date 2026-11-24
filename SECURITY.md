@@ -1,30 +1,22 @@
 # Security
 
-vice handles private notes, clipboard contents and an API key. Reports are taken seriously.
+## Reporting
 
-## Reporting a vulnerability
+Use GitHub private vulnerability reporting (**Security** → **Report a vulnerability**),
+not public issues. Include preconditions, impact and reproduction steps.
 
-Please use GitHub's private vulnerability reporting: on the repository page, open the
-**Security** tab and choose **Report a vulnerability**. Do not open a public issue for
-anything that could expose a user's data.
+## Scope
 
-Useful to include: what an attacker needs, what they gain, and steps to reproduce.
+- Data sent off the machine that [Privacy](docs/privacy.md) says is not sent.
+- Secrets the redaction should catch and does not.
+- Another local user or process reading `~/.vice/` or using the service socket.
+- Source or query content causing vice to execute or write anything.
 
-## In scope
+## Design
 
-- Anything that sends data off the machine that [docs/privacy.md](docs/privacy.md) says
-  is not sent.
-- Secrets that the local redaction should catch and does not.
-- Ways for another local user or process to read `~/.vice/` or send commands to the
-  service socket.
-- Ways for the content of a note, a clipboard entry or a dropped file to cause vice to
-  run something or write somewhere it should not.
-
-## Design notes relevant to security
-
-- Text from events and notes is only ever passed to Jev as data to be judged. Jev returns
-  probabilities, not text or instructions, and code alone decides what happens.
-- The `command` output runs a fixed program from your configuration with JSON on stdin.
-  No shell is invoked and nothing from a note or event becomes part of the command line.
-- The service socket and `~/.vice/` are restricted to the owning user.
-- The API key is stored in the system keychain.
+- Query and source text reaches Jev only as data. Jev returns probabilities; code
+  decides.
+- The `command` output runs a configured argv with JSON on stdin. No shell, and no event
+  or source text on the command line.
+- `~/.vice/` and the service socket are owner-only.
+- The API key is stored in the Keychain.

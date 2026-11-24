@@ -1,13 +1,8 @@
 # Troubleshooting
 
-Start with:
-
 ```bash
 vice status
 ```
-
-It shows the key, the configured sources and notes, the index size, and whether the
-service is running. Then look at the last few decisions:
 
 ```bash
 tail -n 5 ~/.vice/decisions.jsonl
@@ -15,80 +10,54 @@ tail -n 5 ~/.vice/decisions.jsonl
 
 ## "no configuration … Run `vice setup` first"
 
-There is no `~/.vice/config.toml`. Run `vice setup`.
+Run `vice setup`.
 
 ## "unknown key(s) … in [section]"
 
-A key in `config.toml` is misspelled or in the wrong section. The message lists what is
-allowed there. See [Configuration](configuration.md).
+The message lists the allowed keys. See [Configuration](configuration.md).
 
 ## "no TypeSafe API key found"
 
-Run `vice key set`. If you rely on `TYPESAFE_API_KEY` in your shell, note that the
-background service does not inherit it; store the key in the Keychain instead.
-
-## macOS asks whether Python may access the Keychain
-
-Expected the first time the background service or an assistant starts vice. Choose
-"Always Allow" so it does not ask again.
+Run `vice key set`. The launchd service does not see `TYPESAFE_API_KEY` from your shell.
 
 ## "cannot reach TypeSafe"
 
-Check your network, and that the key is valid. vice pins a specific Jev model; if that
-model has been retired, upgrade vice.
+Check the network and key. If the pinned Jev model has been retired, upgrade vice.
 
-## `vice ask` says "Nothing to show"
+## No relevant information
 
-It also says why:
+`vice ask --json "..."` shows the `reason`:
 
-- **"this does not look like something that needs your notes"**: the text was judged
-  complete as written. Phrase it as a question about something specific.
-- **"nothing in your notes answers this"**: no indexed note states the detail. Check the
-  note is under a configured source and not excluded, then run `vice sync`.
-- **"TypeSafe did not answer in time"**: a slow response. Try again. If it happens often
-  on your network, raise `gate_timeout_ms` under `[pipeline]`.
+| Reason | Fix |
+|---|---|
+| `gate_no` | The text names nothing specific; expected for general prompts. |
+| `no_relevant_context` | Check the file is in a source and not excluded, then `vice sync`. |
+| `gate_unavailable`, `fanout_unavailable` | TypeSafe did not answer in time. Retry, or raise `gate_timeout_ms`. |
 
-## It shows an outdated fact
+## An outdated fact is returned
 
-vice decides which note is newer from the note's date. If an old note was edited
-recently and has no date in its frontmatter or file name, its modification time makes it
-look new. Add `date: YYYY-MM-DD` to the frontmatter of notes where this matters.
+Recency comes from the document date. A recently edited old file without a frontmatter
+or file-name date takes its mtime; add `date: YYYY-MM-DD`. Contradictions worded very
+differently can also go undetected (6.8% on the test set).
 
-It can also happen when two notes word the same fact very differently and are not
-recognised as conflicting. Measured on test data, a superseded fact slipped through in
-about 7% of cases.
+## A new file is not found
 
-## A note I just wrote is not found
+The service re-reads sources every `resync_s` seconds. `vice sync` indexes immediately.
 
-The running service re-reads notes every two minutes. To index immediately:
-
-```bash
-vice sync
-```
-
-## Nothing happens when I copy text
-
-- Clipboard watching is off by default. Check `sources:` in `vice status`.
-- The service must be running: `vice start`.
-- Most copies are meant to produce nothing. Check `decisions.jsonl` for the reason.
-
-## The service will not start, or keeps stopping
+## The service does not start
 
 ```bash
 vice logs
 ```
 
-The usual causes are a missing key, an invalid `config.toml`, or a notes folder that no
-longer exists. Fix the cause, then run `vice start` again.
+Usually a missing key, invalid `config.toml` or missing source folder.
 
-## The first sync is slow
+## The agent cannot read or edit a note
 
-It downloads a 90 MB model and embeds every note. Later syncs only embed changed text.
-A vault of a few thousand notes takes a minute or two the first time.
+The read guard refuses files vice indexes. Set `guard = false` on that source, or
+exclude the path. See [Integrations](integrations.md#read-guard).
 
-## Starting over
-
-Delete the index and rebuild it:
+## Rebuild the index
 
 ```bash
 rm -rf ~/.vice/index
@@ -100,6 +69,5 @@ vice sync
 
 ## Reporting a problem
 
-Open an issue with the output of `vice status` and the relevant line from
-`decisions.jsonl`. That line contains the text of the event and of the matched notes;
-remove anything private before posting.
+Include `vice status` and the relevant `decisions.jsonl` line. That line contains event
+and block text; redact before posting.

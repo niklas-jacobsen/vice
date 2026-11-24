@@ -1,33 +1,81 @@
 # Integrations
 
-vice has no interface of its own. These are the ways to get its context into the tools
-you already use.
-
-## Assistants, through MCP
-
-`vice mcp` is a [Model Context Protocol](https://modelcontextprotocol.io) server. An
-assistant that supports MCP can call it to look things up in your notes. It offers two
-tools:
-
-| Tool | What the assistant gets |
-|---|---|
-| `recall(query)` | Notes vice judges relevant to the query, with superseded versions removed. Empty when nothing on file answers it. |
-| `latest_context()` | The context vice most recently produced from your clipboard, a dropped file, or a question. |
-
-The server needs the `mcp` extra, which `pipx install "vice-ai[mcp]"` and the Homebrew
-formula both include. Run `vice setup` and `vice sync` first. The background service does
-not need to be running for `recall` to work.
-
-Find the full path to vice, which the configurations below need:
+## Claude Code
 
 ```bash
-which vice
+vice connect claude-code
+```
+
+Adds to `~/.claude/settings.json` (previous version kept as `settings.json.vice-backup`)
+and registers the MCP server at user scope:
+
+| Entry | Command | Effect |
+|---|---|---|
+| `UserPromptSubmit` hook | `vice hook` | Relevant blocks are added to the prompt. |
+| `PreToolUse` hook, `Read\|Grep\|Glob\|Bash` | `vice guard` | Reads of files vice indexes are refused. |
+| MCP server | `vice mcp` | `recall` for lookups mid-task. |
+
+Re-running replaces vice's entries; `vice connect claude-code --remove` deletes them.
+Other hooks are not touched. Restart Claude Code sessions afterwards.
+
+### Prompt hook
+
+Adds relevant blocks to the agent's context before it processes the prompt. Answers come
+from the service (`vice start`), about 0.3 s per prompt. Without the service, or when
+nothing is relevant or vice fails, it adds nothing and never blocks the prompt. The agent
+receives:
+
+```text
+Relevant information from the user's sources (vice):
+[2026-10-20] Atlas launches December 2.
+```
+
+Hook events have trigger `hook`, are logged to `decisions.jsonl` and update
+`context.json`. Other outputs do not fire.
+
+### Read guard
+
+Refuses `Read`, `Grep`, `Glob` and `Bash` calls on files vice indexes, and tells the agent
+to use `recall` instead. Everything else stays readable: paths outside the sources,
+excluded paths, non-Markdown files, and sources with `guard = false`
+([Configuration](configuration.md#sources)).
+
+- `Grep` and `Glob` are refused when they search a directory inside a source; searching a
+  parent of a source is allowed.
+- `Bash` is refused when an argument names an indexed file or a directory inside a source.
+  A command that reads a source without naming it is not caught.
+- Claude Code requires a `Read` before an `Edit`, so guarded notes cannot be edited by the
+  agent. Set `guard = false` on sources the agent should edit.
+- On any error the guard allows the call. It adds about 70 ms per guarded tool call.
+
+## MCP
+
+For lookups mid-task, and for clients without prompt hooks.
+
+`vice mcp` is a stdio [MCP](https://modelcontextprotocol.io) server. Requires the `mcp`
+extra and an index (`vice sync`). The background service is not required.
+
+One tool, `recall(query)`. It returns one line per block, `[YYYY-MM-DD] text`, or
+`No relevant information.`:
+
+```text
+[2026-10-20] Atlas launches December 2.
+[2026-11-03] Atlas messaging: lead with offline sync; pricing is unchanged.
+```
+
+`recall` events have trigger `mcp`, are logged to `decisions.jsonl` and update
+`context.json`. Other outputs do not fire.
+
+### Claude Code
+
+```bash
+claude mcp add vice -- vice mcp
 ```
 
 ### Claude Desktop
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` and add vice under
-`mcpServers`, using the path from `which vice`:
+`~/Library/Application Support/Claude/claude_desktop_config.json`, with the path from
+`which vice`:
 
 ```json
 {
@@ -40,36 +88,19 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` and add v
 }
 ```
 
-Restart Claude Desktop. The first call may show a macOS prompt asking to let Python read
-the `vice-ai` Keychain item; allow it.
+macOS may prompt once for Keychain access.
 
-### Claude Code
+### Other clients
 
-```bash
-claude mcp add vice -- vice mcp
-```
+Command `vice`, argument `mcp`. Local stdio clients only.
 
-### Other MCP clients
+Tested with the `mcp` 1.x and 2.x reference clients. Not yet tested in Claude Desktop or
+Claude Code.
 
-Any client that can launch a local stdio server works the same way: command `vice`,
-argument `mcp`.
+## Command output
 
-### What has been tested
-
-The server has been exercised end to end with the reference MCP client library, against
-both the 1.x and 2.x lines of the `mcp` package. It has **not** yet been tried inside
-Claude Desktop or Claude Code themselves. If the configuration above needs adjusting for
-your version, please open an issue.
-
-### ChatGPT and web apps
-
-vice only offers a local server. Assistants that accept only remote, hosted MCP servers,
-and any assistant used in a browser tab, cannot reach it. For those, the practical route
-today is the command output below: have vice put the context somewhere you can paste from.
-
-## Your own scripts: the command output
-
-vice runs a program of your choice on each match, with the decision as JSON on stdin.
+Runs a program per matching event with the decision JSON on stdin. Schema:
+[Configuration](configuration.md#outputs).
 
 ```toml
 [outputs.command]
@@ -78,33 +109,9 @@ on = ["surface", "attach"]
 run = ["/Users/you/bin/vice-hook"]
 ```
 
-Example: append every match to a running Markdown file.
+## Webhook output
 
-```bash
-#!/bin/sh
-# /Users/you/bin/vice-hook
-python3 -c '
-import json, sys
-d = json.load(sys.stdin)
-with open("/Users/you/vice-inbox.md", "a") as f:
-    f.write("\n## " + d["event"]["text"][:80] + "\n")
-    for c in d["context"]:
-        f.write("- " + c["text"] + "  (" + c["source"] + ")\n")
-'
-```
-
-Example: put the context on the clipboard so it can be pasted into any chat window.
-
-```bash
-#!/bin/sh
-python3 -c 'import json,sys; print("\n".join(c["text"] for c in json.load(sys.stdin)["context"]))' | pbcopy
-```
-
-If you use that one with clipboard watching on, vice will see its own output as a new
-copy and judge it like any other. Statements of fact are normally judged as not needing
-your notes, so nothing further happens, but it costs one extra request each time.
-
-## Local services: the webhook output
+POSTs the decision JSON.
 
 ```toml
 [outputs.webhook]
@@ -113,20 +120,8 @@ on = ["surface"]
 url = "http://127.0.0.1:8787/vice"
 ```
 
-vice POSTs the same JSON. Use this to feed a menu-bar app, a launcher extension, or a
-home-automation flow.
+## Scripts
 
-## Polling: the context file
-
-`~/.vice/context.json` always holds the latest context. Anything that can read a file can
-use it; nothing needs to be running besides vice.
-
-## Launchers
-
-Bind a hotkey in Raycast, Alfred, or Shortcuts to:
-
-```bash
-vice ask "{query}"
-```
-
-Add `--json` if the launcher wants structured output.
+`vice ask "..."` prints the same blocks as `recall`; `vice ask --json` prints the full
+decision. With the service running (`vice start`), answers come from the already loaded
+index.
