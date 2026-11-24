@@ -24,7 +24,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from . import __version__, keys, paths, plugins, service, settings as settings_mod
+from . import __version__, keys, paths, plugins, service, settings as settings_mod, source_config
 from .adapters import SourceUnavailable
 from .settings import SettingsError
 
@@ -338,6 +338,7 @@ def main(argv: list[str] | None = None) -> None:
     p.set_defaults(fn=cmd_setup)
 
     sub.add_parser("sync", help="index your sources now").set_defaults(fn=cmd_sync)
+    source_config.register(sub)
     p = sub.add_parser("ask", help="print what an agent receives for this text")
     p.add_argument("text")
     p.add_argument("--json", action="store_true", help="print the full decision as JSON")
