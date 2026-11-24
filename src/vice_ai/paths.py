@@ -7,6 +7,8 @@
     ~/.vice/logs/              output of the background service
     ~/.vice/traces/            OpenTelemetry spans, if tracing is on
     ~/.vice/calibration.json   optional: your own fitted thresholds
+    ~/.vice/plugins/           third-party source packages (see `vice plugin`)
+    ~/.vice/plugins.toml       the packages to rebuild that folder from
 
 Set VICE_HOME to use a different folder.
 """
@@ -36,6 +38,7 @@ def context_file() -> Path: return home() / "context.json"
 def decisions_file() -> Path: return home() / "decisions.jsonl"
 def logs_dir() -> Path: return home() / "logs"
 def traces_dir() -> Path: return home() / "traces"
+def plugins_dir() -> Path: return home() / "plugins"
 def user_calibration() -> Path: return home() / "calibration.json"
 
 

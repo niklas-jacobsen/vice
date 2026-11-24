@@ -24,7 +24,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from . import __version__, keys, paths, service, settings as settings_mod
+from . import __version__, keys, paths, plugins, service, settings as settings_mod
 from .adapters import SourceUnavailable
 from .settings import SettingsError
 
@@ -283,6 +283,8 @@ def cmd_status(args) -> int:
         except Exception as e:  # a third-party adapter bug should not break status
             state = f"  ERROR: {type(e).__name__}: {e}"
         print(f"sources: {n.name}  {n.describe()}{state}")
+    for line in plugins.status_lines():
+        print(line)
     meta = paths.index_dir() / "meta.json"
     if meta.exists():
         print(f"index:   {len(json.loads(meta.read_text())['ids'])} blocks")
@@ -354,6 +356,7 @@ def main(argv: list[str] | None = None) -> None:
     sub.add_parser("start", help="run in the background and at login (macOS)").set_defaults(fn=cmd_start)
     sub.add_parser("stop", help="stop the background service").set_defaults(fn=cmd_stop)
     sub.add_parser("status", help="show configuration and service state").set_defaults(fn=cmd_status)
+    plugins.add_parser(sub)
     sub.add_parser("logs", help="follow the background service's log").set_defaults(fn=cmd_logs)
     sub.add_parser("mcp", help="run the MCP server (stdio)").set_defaults(fn=cmd_mcp)
     p = sub.add_parser("key", help="store or remove the TypeSafe API key")
