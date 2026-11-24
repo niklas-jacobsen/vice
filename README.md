@@ -42,6 +42,53 @@ questions. Retrieval, thresholds and decisions are deterministic code.
 - `vice ask` for scripts
 - Outputs: context file, command, webhook
 
+## Quickstart
+
+Requires macOS and a [TypeSafe](https://typesafe.ai) API key.
+
+```bash
+brew install niklas-jacobsen/tap/vice-ai
+```
+
+```bash
+vice setup
+```
+
+```bash
+vice sync
+```
+
+```bash
+vice start
+```
+
+```bash
+vice connect claude-code
+```
+
+`vice setup` stores the key and asks for sources. `vice sync` builds the index (the first
+run downloads a 90 MB embedding model). `vice start` runs the service in the background
+and at login. `vice connect claude-code` adds the prompt hook, read guard and MCP server.
+
+Full instructions, other install methods and uninstalling: [Installation](docs/installation.md).
+
+## Commands
+
+| Command | |
+|---|---|
+| `vice setup` | Write the configuration and store the API key. |
+| `vice sync` | Index all sources. |
+| `vice start` / `stop` | Run or stop the background service. |
+| `vice status` | Configuration, sources, plugins, index and service state. |
+| `vice connect claude-code` | Register hooks and MCP server. `--remove` undoes it. |
+| `vice sources types` / `add` / `remove` | List source types, add or remove a source. |
+| `vice plugin install` / `list` / `remove` | Manage packages that add source types. |
+| `vice ask "..."` | Print what an agent receives for the text. |
+| `vice logs` | Follow the service log. |
+| `vice key set` / `delete` | Manage the API key in the Keychain. |
+
+All commands and options: [Usage](docs/usage.md#commands).
+
 ## Benchmark
 
 Synthetic dataset, held-out test split: 150 events over 1,500 blocks, `jev-1.14.0`.
