@@ -23,13 +23,72 @@ Hidden directories and files over 2 MB are skipped.
 
 `text` and `ts` (Unix seconds) are required. `id` and `source` are optional.
 
+## Managing sources
+
+Edit `[[sources]]` with the commands below, or by hand in
+[`config.toml`](configuration.md#sources).
+
+```bash
+vice sources types
+```
+
+Lists the available types, where each comes from (`built-in` or the package that provides
+it) and the options each accepts.
+
+```bash
+vice sources add obsidian path=~/Notes 'exclude=["Templates/**"]' --name notes
+```
+
+`vice sources add <type> [key=value ...] [--name NAME] [--no-guard]`. Each value is parsed
+as TOML when it parses (`exclude=["Templates/**"]`), otherwise taken as a string
+(`path=~/Notes`). The entry is validated before anything is written, and comments in
+`config.toml` are kept. `vice sync`, or the service's next resync, indexes the new source.
+
+```bash
+vice sources remove notes
+```
+
+Removes the source by name. Its blocks leave the index on the next sync.
+
+### Installing a source type
+
+Types beyond the built-in ones come from Python packages (plugins).
+
+```bash
+vice plugin install vice-source-slack
+vice sources types
+```
+
+`vice plugin install <spec> [<spec>...]` takes pip requirement specs: a PyPI name,
+`name==1.2`, a local path or a git URL. It installs into `~/.vice/plugins/py<major>.<minor>/`
+and records the specs in `~/.vice/plugins.toml`. This works the same for Homebrew, pip,
+pipx and uv installs and survives `brew upgrade`. It prints the source types the package
+added; a package that adds none is rejected. Packages vice already provides are not
+duplicated. A plugin that needs a different version of one of vice's dependencies is
+refused, with the dependency's name.
+
+| Command | |
+|---|---|
+| `vice plugin list` | Installed packages, versions, the types each adds, and load errors. |
+| `vice plugin remove <name>` | Uninstall a package. |
+| `vice plugin install --reinstall` | Rebuild everything in `plugins.toml`. Needed after a Python version change. |
+
+After installing or removing a plugin, restart a running service:
+
+```bash
+vice stop && vice start
+```
+
+Nothing is installed implicitly. Plugin code runs with your privileges inside the service,
+which holds the API key and indexes your sources. Install only packages you trust.
+
 ## Any other system
 
 For a one-off export, write a JSONL file and add a `jsonl` source. No code, no package.
 Re-export when the data changes; vice reindexes on the next resync.
 
 For a source that should stay in sync by itself, or that is more than a file, write an
-adapter.
+adapter and [install it as a plugin](#installing-a-source-type).
 
 ## Writing a source adapter
 
@@ -75,14 +134,18 @@ text = "vice_source_text:TextSource"
 ```
 
 The entry name is the `type`. vice imports the module only when a configured source uses
-it. A built-in type wins over a package claiming the same name. Install the package into
-the environment vice runs in, then use it:
+it. A built-in type wins over a package claiming the same name. Install the package with
+`vice plugin install <path-or-name>`, restart the service if it runs, then use the type:
 
 ```toml
 [[sources]]
 type = "text"
 path = "~/notes"
 ```
+
+Declare `vice-ai` as a dependency of the package. Do not pin vice's own dependencies
+tightly: `vice plugin install` refuses a plugin that needs a different version of one of
+them.
 
 ### Blocks
 
@@ -129,8 +192,9 @@ local files keep the default.
 Test the class directly: construct it with options, call `configure` through the
 constructor, then `load`, `fingerprint` and `indexes`. Check that ids are stable across
 two `load()` calls, that `fingerprint()` changes when the data does, and that bad options
-raise `SourceConfigError`. To check registration, install the package and call
-`vice_ai.adapters.build({"type": "...", ...})`.
+raise `SourceConfigError`. To check registration, install the package with
+`vice plugin install ./examples/vice-source-text`, then run `vice sources types` and
+`vice plugin list`, or call `vice_ai.adapters.build({"type": "...", ...})`.
 
 The example's tests do all of this:
 
