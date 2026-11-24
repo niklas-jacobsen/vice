@@ -151,10 +151,6 @@ def _excluded(rel: str, patterns: tuple[str, ...]) -> bool:
     return any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(rel, p.rstrip("/*") + "/*") for p in patterns)
 
 
-def _excluded(rel: str, patterns: tuple[str, ...]) -> bool:
-    return any(fnmatch.fnmatch(rel, p) or fnmatch.fnmatch(rel, p.rstrip("/*") + "/*") for p in patterns)
-
-
 def _dir_excluded(rel_dir: str, patterns: tuple[str, ...]) -> bool:
     return _excluded(rel_dir.lstrip("./") + "/x", patterns)
 

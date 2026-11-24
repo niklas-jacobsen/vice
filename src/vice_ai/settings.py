@@ -46,15 +46,6 @@ on = ["surface", "attach"]
 
 
 @dataclass(frozen=True)
-class Source:
-    type: str
-    path: Path
-    name: str
-    exclude: tuple[str, ...] = ()
-    guard: bool = True  # connected agents may not read indexed files directly
-
-
-@dataclass(frozen=True)
 class Output:
     type: str
     on: tuple[str, ...]

@@ -9,7 +9,9 @@ from datetime import datetime, timezone
 import numpy as np
 import pytest
 
-from vice_ai import adapters, outputs, sources, paths, service, settings
+from vice_ai import adapters, outputs, paths, service, settings
+from vice_ai.adapters import markdown
+from vice_ai.adapters._common import count_tokens
 from vice_ai.cli import main as cli
 from vice_ai.config import Config
 from vice_ai.index import Index
@@ -105,17 +107,17 @@ def test_obsidian_vault_import(vault):
 
 
 def test_long_blocks_split_and_short_ones_merge():
-    short = sources.split_markdown("One.\n\nTwo.\n\nThree.", "T")
+    short = markdown.split_markdown("One.\n\nTwo.\n\nThree.", "T")
     assert short == [("T", "One.\n\nTwo.\n\nThree.")]
     long = "\n\n".join(f"Paragraph {i} " + "word " * 80 for i in range(6))
-    pieces = sources.split_markdown(long, "T")
-    assert len(pieces) >= 4 and all(sources.count_tokens(b) <= sources.MAX_TOKENS for _, b in pieces)
-    giant = sources.split_markdown("x" * 5000, "T")
+    pieces = markdown.split_markdown(long, "T")
+    assert len(pieces) >= 4 and all(count_tokens(b) <= markdown.MAX_TOKENS for _, b in pieces)
+    giant = markdown.split_markdown("x" * 5000, "T")
     assert len(giant) > 1
 
 
 def test_code_fence_headings_are_not_headings():
-    pieces = sources.split_markdown("# Real\n\n```\n# not a heading\n```\n", "T")
+    pieces = markdown.split_markdown("# Real\n\n```\n# not a heading\n```\n", "T")
     assert pieces == [("T › Real", "```\n# not a heading\n```")]
 
 
@@ -201,7 +203,8 @@ def test_sync_and_status_show_skipped_sources(vault, tmp_path, capsys, monkeypat
     assert "1 source(s)" in cap.out and "skipped source nope" in cap.err
     assert run_cli("status") == 0
     out = capsys.readouterr().out
-    assert "sources: vault" in out and "sources: nope" in out
+    lines = {l.split()[1]: l for l in out.splitlines() if l.startswith("sources:")}
+    assert "UNAVAILABLE" not in lines["vault"] and "UNAVAILABLE" in lines["nope"]
 
 
 @pytest.mark.parametrize("entry, needle", [

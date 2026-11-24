@@ -1,15 +1,13 @@
-"""Built-in source adapters: same blocks, ids and guard decisions as the legacy loaders."""
+"""Built-in source adapters: blocks, ids and guard decisions."""
 import hashlib
 import json
 import os
 
 import pytest
 
-from vice_ai import sources
 from vice_ai.adapters import SourceConfigError, SourceUnavailable, adapter_class, build
 from vice_ai.adapters.jsonl import JsonlSource
-from vice_ai.adapters.markdown import MarkdownSource, ObsidianSource
-from vice_ai.settings import Source
+from vice_ai.adapters.markdown import MAX_FILE_BYTES, MarkdownSource, ObsidianSource
 
 
 @pytest.fixture
@@ -44,14 +42,13 @@ def _entry(type_, path, **kw):
 
 
 @pytest.mark.parametrize("type_,exclude", [("obsidian", ["Templates/**"]), ("markdown", [])])
-def test_markdown_load_matches_legacy(vault, type_, exclude):
+def test_markdown_load(vault, type_, exclude):
     a = build(_entry(type_, vault, exclude=exclude))
     blocks = a.load()
-    legacy = sources.load_source(Source(type_, vault, "nm", tuple(exclude)))
-    assert blocks == legacy and blocks
+    assert blocks
     assert {b.source for b in blocks} >= {"nm/Projects/Atlas.md", "nm/2026-10-05.md", "nm/notes.markdown"}
     assert not any(b.source.startswith("nm/.obsidian") for b in blocks)
-    for b in blocks:  # same id scheme as the legacy loader: sha1(source NUL text)[:16]
+    for b in blocks:  # id is sha1(source NUL text)[:16]; changing it re-embeds every block
         assert b.id == hashlib.sha1(f"{b.source}\0{b.text}".encode()).hexdigest()[:16]
     texts = "\n".join(b.text for b in blocks)
     if type_ == "obsidian":
@@ -60,10 +57,9 @@ def test_markdown_load_matches_legacy(vault, type_, exclude):
         assert "[[Link]]" in texts and "Template body" in texts
 
 
-def test_jsonl_load_matches_legacy(jsonl):
+def test_jsonl_load(jsonl):
     a = build(_entry("jsonl", jsonl))
     blocks = a.load()
-    assert blocks == sources.load_source(Source("jsonl", jsonl, "nm"))
     assert [(b.id, b.ts, b.tokens, b.source) for b in blocks][:2] == [("a", 100.0, blocks[0].tokens, "nm:1"),
                                                                        (blocks[1].id, 200.0, 9, "elsewhere")]
     assert blocks[2].source == "nm:4" and blocks[2].id == hashlib.sha1("nm\0Third".encode()).hexdigest()[:16]
@@ -137,7 +133,7 @@ def test_indexes(vault, tmp_path, jsonl):
     assert not a.indexes(rv / "Templates", True) and not a.indexes(rv / ".hidden", True)
     assert not a.indexes(tmp_path.resolve(), True)
     big = rv / "big.md"
-    big.write_text("x" * (sources.MAX_FILE_BYTES + 1))
+    big.write_text("x" * (MAX_FILE_BYTES + 1))
     assert not a.indexes(big, False)
     # the guard compares resolved paths, so a symlinked source path still matches
     link = tmp_path / "link"

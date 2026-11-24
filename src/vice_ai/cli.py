@@ -25,6 +25,7 @@ import sys
 from pathlib import Path
 
 from . import __version__, keys, paths, service, settings as settings_mod
+from .adapters import SourceUnavailable
 from .settings import SettingsError
 
 PRIVACY = """\
@@ -274,7 +275,14 @@ def cmd_status(args) -> int:
     if not s.sources:
         print("sources: none configured")
     for n in s.sources:
-        print(f"sources: {n.name}  {n.describe()}")
+        try:
+            n.fingerprint()
+            state = ""
+        except SourceUnavailable as e:
+            state = f"  UNAVAILABLE: {e}"
+        except Exception as e:  # a third-party adapter bug should not break status
+            state = f"  ERROR: {type(e).__name__}: {e}"
+        print(f"sources: {n.name}  {n.describe()}{state}")
     meta = paths.index_dir() / "meta.json"
     if meta.exists():
         print(f"index:   {len(json.loads(meta.read_text())['ids'])} blocks")
